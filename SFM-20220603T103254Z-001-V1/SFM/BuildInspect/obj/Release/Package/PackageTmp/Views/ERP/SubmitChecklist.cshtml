@@ -1,0 +1,587 @@
+﻿@model BuildInspect.Models.ViewModel.CheckListTransMasterViewModel
+@using BuildInspect.Models.ViewModel
+
+@{
+    Layout = null;
+    var companyID = BuildInspect.Models.Utility.AppSession.GetCompanyId();
+}
+
+<style>
+    .table-condensed tbody > tr > td > a {
+        color: #4eb1ba !important;
+    }
+
+    .required::after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+
+    .myCustomErr {
+        background-color: #fc3030;
+    }
+</style>
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <h4 class="card-title">@ViewBag.Title</h4>
+
+                                    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "checklist_Form", @class = "form-horizontal", enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        @Html.HiddenFor(model => model.Frequency)
+                                        @Html.HiddenFor(model => model.CLType)
+                                        @Html.HiddenFor(model => model.CLTMID)
+                                        @Html.HiddenFor(model => model.PrjMasID)
+                                        @Html.HiddenFor(model => model.UserID)
+                                        @Html.HiddenFor(model => model.SchoolID)
+                                        @*@Html.HiddenFor(model => model.clTrnDetail)*@
+
+                                        <div class="checklist-container">
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Project Name</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <input type="text" class="form-control" id="school-id" name="school-id" value="@ViewBag.SchoolName" disabled="disabled" />
+
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Address</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <input type="text" class="form-control" id="school-address" name="school-address" value="@ViewBag.Address" disabled="disabled" />
+                                                    @*<textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 35px;" id="school-address" disabled="disabled">
+                                                        @ViewBag.Address
+                                                        </textarea>*@
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Date/Time</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <input type="text" class="form-control" id="checklist-datetime" />
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title right">Tel</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <input type="text" class="form-control" id="checklist-tel" name="checklist-tel" disabled="disabled" value="@ViewBag.Tel" />
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Contact Person</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <input type="text" class="form-control" id="contact-person" name="contact-person" disabled="disabled" value="@ViewBag.OPMngr" />
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title right">Email</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <input type="text" class="form-control" id="checklist-email" name="checklist-email" disabled="disabled" value="@ViewBag.Email" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-table-container">
+                                            <div class="row table-head">
+                                                <div class="col-sm-12 col-md-6 col-xl-1 d-none d-sm-block">
+                                                    <div class="table-title">S/N</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4 d-none d-sm-block">
+                                                    <div class="table-title">Items</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-3 d-none d-sm-block">
+                                                    <div class="table-title">Done?</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2 d-none d-sm-block">
+                                                    <div class="table-title">Date Done</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2 d-none d-sm-block">
+                                                    <div class="table-title">Remarks</div>
+                                                </div>
+                                            </div>
+                                            <!--Start: 1st portion -->
+                                            @{
+                                                var loop = 0;
+                                                List<CheckListItemMasterViewModel> header = ViewBag.CheckListItems;
+                                                header = header.Where(a => a.ParentID == null).OrderBy(a => a.OrderBy).ToList();
+                                                int headCnt = 1;
+
+                                                foreach (var h in header)
+                                                {
+                                                    <div class="row table-title-head">
+                                                        <div class="col-sm-12 col-md-6 col-xl-1">
+                                                            <div class="table-title">@*@headCnt*@</div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-6 col-xl-11">
+                                                            <div class="table-title">@h.Title</div>
+                                                        </div>
+                                                    </div>
+
+                                                    List<CheckListItemMasterViewModel> detail = ViewBag.CheckListItems;
+                                                    detail = detail.Where(a => a.ParentID == h.ChkListID).ToList();
+                                                    int detailCnt = 1;
+                                                    foreach (var d in detail)
+                                                    {
+                                                        if (d.IsSubTitle == "Yes")
+                                                        {
+                                                            <div class="row table-title-head">
+                                                                <div class="col-sm-12 col-md-6 col-xl-1" style="background:aliceblue !important">
+                                                                    <div class="table-title"></div>
+                                                                </div>
+                                                                <div class="col-sm-12 col-md-6 col-xl-11" style="background:aliceblue !important">
+                                                                    <div class="table-title">@d.Title</div>
+                                                                </div>
+                                                            </div>
+                                                            detailCnt--;
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="row table-body-content">
+                                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                                    <div class="txt">@detailCnt</div>
+                                                                </div>
+                                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                                    <div class="txt">@d.Title</div>
+                                                                </div>
+                                                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                                                    @if (d.ServiceType == "SP-HVLSFMPIS" || d.ServiceType == "SP-LIFTSYS" || d.ServiceType == "SP-CHILLERSYS")
+                                                                    {
+                                                                        if (d.ServiceType == "SP-HVLSFMPIS")
+                                                                        {
+                                                                            loop = ViewBag.HVLSFan_count;
+                                                                        }
+                                                                        else if (d.ServiceType == "SP-CHILLERSYS")
+                                                                        {
+                                                                            loop = ViewBag.CHILLER_count;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            loop = ViewBag.LIFT_count;
+                                                                        }
+
+                                                                        for (var j = 1; j <= loop; j++)
+                                                                        {
+                                                                            string strid = j.ToString() + "_" + d.ChkListID;
+
+                                                                            <fieldset class="form-group">
+
+                                                                                @if (d.ServiceType == "SP-HVLSFMPIS")
+                                                                                {
+                                                                                    <div class="category-title">Fan @j: &nbsp;</div>
+                                                                                }
+                                                                                else if (d.ServiceType == "SP-CHILLERSYS")
+                                                                                {
+                                                                                    <div class="category-title">CHIL @j: &nbsp;</div>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <div class="category-title">PL @j: &nbsp;</div>
+                                                                                }
+                                                                                <div class="form-check">
+                                                                                    <label class="checkbox-container">
+                                                                                        Yes
+                                                                                        <input name="yes_@d.ChkListID" id="Fyes_@strid" type="checkbox" class="form-check-input spdone-check">
+                                                                                        <span class="checkmark"></span>
+                                                                                    </label>
+                                                                                    <label class="checkbox-container">
+                                                                                        No
+                                                                                        @if (companyID == 3)
+                                                                                        {
+
+                                                                                            <input name="no_@d.ChkListID" id="Fno_@strid" type="checkbox" class="form-check-input spdone-check">
+
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <input name="no_@d.ChkListID" id="Fno_@strid" type="checkbox" disabled class="form-check-input spdone-check">
+                                                                                        }
+                                                                                        <span class="checkmark"></span>
+                                                                                    </label>
+                                                                                    <label class="checkbox-container">
+                                                                                        N/A
+                                                                                        <input name="na_@d.ChkListID" id="Fna_@strid" type="checkbox" class="form-check-input spdone-check">
+                                                                                        <span class="checkmark"></span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </fieldset>
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <fieldset class="form-group">
+                                                                            <div class="form-check">
+                                                                                <label class="checkbox-container">
+                                                                                    Yes
+                                                                                    <input name="yes_@d.ChkListID" id="yes_@d.ChkListID" type="checkbox" class="form-check-input done-check">
+                                                                                    <span class="checkmark"></span>
+                                                                                </label>
+                                                                                <label class="checkbox-container">
+                                                                                    No
+                                                                                    @if (companyID == 3)
+                                                                                    {
+                                                                                        <input name="no_@d.ChkListID" id="no_@d.ChkListID" type="checkbox" class="form-check-input done-check">
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <input name="no_@d.ChkListID" id="no_@d.ChkListID" type="checkbox" disabled class="form-check-input done-check">
+                                                                                    }
+
+                                                                                    <span class="checkmark"></span>
+                                                                                </label>
+                                                                                <label class="checkbox-container">
+                                                                                    N/A
+                                                                                    <input name="na_@d.ChkListID" id="na_@d.ChkListID" type="checkbox" class="form-check-input done-check">
+                                                                                    <span class="checkmark"></span>
+                                                                                </label>
+                                                                            </div>
+                                                                        </fieldset>
+
+                                                                    }
+
+                                                                </div>
+                                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                                    <input type="text" class="datedone form-control" id="checklist-duedate_@d.ChkListID" />
+                                                                </div>
+                                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                                    <textarea rows="1" class="form-control autosize-input"
+                                                                              style="height: 35px;" id="checkist-remarks_@d.ChkListID"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        detailCnt++;
+                                                    }
+
+
+                                                    headCnt++;
+
+                                                }
+
+                                            }
+
+
+                                            <!--End: 1st portion -->
+
+                                        </div>
+
+                                        <div class="service-container">
+                                            <div class="position-relative form-group">
+                                                <label for="companylogo" class="">Attachements</label>
+                                                @*<input name="companylogo" id="companylogo" type="file" class="form-control-file">*@
+                                                @Html.TextBoxFor(model => model.files, "", new { @type = "file", @multiple = "multiple", @accept = "image/x-png,image/gif,image/jpeg" })
+                                                <small class="form-text text-muted">
+                                                    Upload with file extension - JPG, PNG with size of 70px X 70px resolution.
+                                                </small>
+                                            </div>
+
+                                        </div>
+
+
+
+
+                                        <div class="checklist-signature-container">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-6 col-xl-4 sign-container">
+                                                    <div class="title bold">Checked by</div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-md-6 col-xl-6 sign-btn">
+                                                            <a href="javascript:void(0);" class="btn checkby-unlock-button unlock">
+                                                                <i class="fas fa-lock-open"></i>
+                                                            </a>
+                                                            <a href="javascript:void(0);" class="btn checkby-lock-button lock">
+                                                                <i class="fas fa-lock"></i>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-6 col-xl-6 sign-btn">
+                                                            <a href="javascript:void(0);" class="btn checkby-clear-button delete">
+                                                                <i class="fas fa-redo"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="checkby-signature--wrapper">
+                                                        <div class="checkby-signature--overlay">
+                                                            <div class="tap-text">
+                                                                Tap to Unlock
+                                                            </div>
+                                                        </div>
+                                                        <div id="checkby-signature" class="signature"></div>
+                                                        <textarea id="CheckedBy_Signature" name="CheckedBy_Signature" class="d-none"></textarea>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-6 col-xl-12">
+                                                            <div class="txt bold">The Contractor</div>
+                                                            <div class="txt bold">Technician Name: &nbsp; <input type="text" class="form-control" id="CheckedBy_Name" name="CheckedBy_Name" /></div>
+                                                            @*<div class="txt bold">NAME: @ViewBag.Technician_Name</div>*@
+                                                            <textarea rows="1" class="form-control autosize-input" name="CheckedBy_Remarks"
+                                                                      style="height: 50px;" id="CheckedBy_Remarks" placeholder="Remarks"></textarea>
+                                                            @*<div class="input-group date" id="contractor-datetime">
+                                                                    <input type="text" class="form-control" id="CheckedBy_DateTime" name="CheckedBy_DateTime"/>
+                                                                    <span class="input-group-addon">
+                                                                        <i class="fas fa-calendar"></i>
+                                                                    </span>
+                                                                </div>*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                @*<div class="col-sm-12 col-md-6 col-xl-4 sign-container">
+                                                        <div class="title bold">Verified by</div>
+                                                        <div id="verified-signature" class="signature"></div>
+                                                        <textarea id="VerifiedBy_Signature" name="VerifiedBy_Signature" class="d-none"></textarea>
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-6 col-xl-2">
+                                                                <a href="javascript:void(0);" class="btn verified-clear-button delete"><i class="fas fa-redo"></i></a>
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-6 col-xl-10">
+                                                                <div class="txt bold">Managing Agent</div>
+                                                                <textarea rows="1" class="form-control autosize-input" name="VerifiedBy_Remarks"
+                                                                          style="height: 50px;" id="VerifiedBy_Remarks" placeholder="Remarks"></textarea>
+                                                                <div class="input-group date" id="agent-datetime">
+                                                                    <input type="text" class="form-control" id="VerifiedBy_DateTime" name="VerifiedBy_DateTime"/>
+                                                                    <span class="input-group-addon">
+                                                                        <i class="fas fa-calendar"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-xl-4 sign-container">
+                                                        <div class="title bold">Endorsed by</div>
+                                                        <div id="endorsed-signature" class="signature"></div>
+                                                        <textarea id="EndoresBy_Signature" name="EndoresBy_Signature" class="d-none"></textarea>
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-6 col-xl-2">
+                                                                <a href="javascript:void(0);" class="btn endorsed-clear-button delete"><i class="fas fa-redo"></i></a>
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-6 col-xl-10">
+                                                                <div class="txt bold">User</div>
+                                                                <textarea rows="1" class="form-control autosize-input" name="EndoresBy_Remarks"
+                                                                          style="height: 50px;" id="EndoresBy_Remarks" placeholder="Remarks"></textarea>
+                                                                <div class="input-group date"  id="user-datetime">
+                                                                    <input type="text" class="form-control" id="EndoresBy_DateTime" name="EndoresBy_DateTime"/>
+                                                                    <span class="input-group-addon">
+                                                                        <i class="fas fa-calendar"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>*@
+                                            </div>
+                                        </div>
+
+
+                                                }
+                                    <div class="box-footer with-border">
+                                        <input type="button" value="Back" id="edit_chklst_submission-back" class="btn btn-primary pull-left ChecklistIndex" />
+                                        <button type="button" id="save_chklst_submission" class="btn btn-success btn-wide btn-lg pull-right" name="save"><i class="fa fa-check-square-o"></i> Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/Scripts/assets/plugins/jSignature.min.js"></script>
+<script src="~/Scripts/assets/plugins/select2.min.js"></script>
+<script src="~/Scripts/assets/plugins/moment.min.js"></script>
+<script src="~/Scripts/assets/plugins/datepicker.min.js"></script>
+<script src="~/Scripts/assets/plugins/bootstrap-datetimepicker.min.js"></script>
+
+<script>
+
+    debugger;
+
+    $(document).ready(function () {
+
+        $('#contractor-datetime').datetimepicker({
+            format: "DD/MM/YYYY HH:mm"
+
+        });
+
+        $('#agent-datetime').datetimepicker({
+            format: "DD/MM/YYYY HH:mm",
+            endDate: new Date()
+        });
+
+        $('#user-datetime').datetimepicker({
+            format: "DD/MM/YYYY HH:mm",
+            endDate: new Date()
+        });
+
+        $('.datedone').datepicker({
+            format: 'dd/mm/yyyy',
+            autoHide: true,
+            endDate: new Date()
+        });
+
+        $('#checklist-datetime').datepicker({
+            format: 'dd/mm/yyyy',
+            autoHide: true,
+            endDate: new Date()
+        });
+        //$('#Receiveing_time').datetimepicker({ format: 'DD/MM/YYYY HH:mm' });
+
+
+        $.each($("input:checkbox[id^=yes_]"), function (i, v) {
+            $(v).prop('checked', true);
+
+        });
+
+        $.each($("input:checkbox[id^=Fyes_]"), function (i, v) {
+            $(v).prop('checked', true);
+
+        });
+
+        $('#checklist-datetime').on('change', function (e) {
+
+            $.each($("input[id^='checklist-duedate_']"), function (i, v) {
+                var dt = $('#checklist-datetime').val()
+                $(v).val(dt)
+
+            });
+
+        });
+
+
+
+        /* Checkby Signature */
+
+        $('.checkby-signature--wrapper').on('click', function () {
+            $('.checkby-signature--overlay').hide();
+            $('.checkby-lock-button').hide();
+            $('.checkby-unlock-button').show();
+            $('.checkby-clear-button').show();
+        });
+
+        $('.checkby-lock-button').on('click', function () {
+            $(this).hide();
+            $('.checkby-signature--overlay').hide();
+            $('.checkby-unlock-button').show();
+            $('.checkby-clear-button').show();
+        });
+
+        $('.checkby-unlock-button').on('click', function () {
+            $(this).hide();
+            $('.checkby-signature--overlay').show();
+            $('.checkby-lock-button').show();
+            $('.checkby-clear-button').hide();
+        });
+
+        var $checkbySig = $('#checkby-signature');
+        var $checkbySigCapture = $('#CheckedBy_Signature');
+        var $checkbyData = $checkbySig.jSignature('getData', 'svgbase64');
+        $checkbySig.jSignature({
+            'background-color': 'transparent',
+            'decor-color': 'transparent',
+            color: "#00f",
+            lineWidth: 3
+        });
+        $checkbySig.bind('change', function (e) {
+            var $checkdata = $checkbySig.jSignature('getData');
+            $checkbySigCapture.val($checkdata);
+        });
+
+        $('.checkby-clear-button').on('click', function (e) {
+            e.preventDefault();
+            $checkbySig.jSignature('reset');
+            $checkbySigCapture.val('');
+        });
+
+        $('.done-check').click(function () {
+           // debugger;
+            var getchkid = $(this).attr('id');
+            var tid = getchkid.split('_')[1];
+            var yesid = "yes_" + tid;
+            var noid = "no_" + tid;
+            var naid = "na_" + tid;
+
+            if (getchkid == yesid) {
+                var isChecked = $('#' + getchkid).is(':checked');
+                if ($('#' + getchkid).is(':checked') == true) {
+                    $('#' + noid).prop('checked', false);
+                    $('#' + naid).prop('checked', false);
+                }
+            }
+            if (getchkid == noid) {
+                var isChecked = $('#' + getchkid).is(':checked');
+                if ($('#' + getchkid).is(':checked') == true) {
+                    $('#' + yesid).prop('checked', false);
+                    $('#' + naid).prop('checked', false);
+                }
+            }
+            if (getchkid == naid) {
+                var isChecked = $('#' + getchkid).is(':checked');
+                if ($('#' + getchkid).is(':checked') == true) {
+                    $('#' + yesid).prop('checked', false);
+                    $('#' + noid).prop('checked', false);
+                }
+            }
+
+        });
+
+
+        $('.spdone-check').click(function () {
+            // debugger;
+            var getchkid = $(this).attr('id');
+            var tid = getchkid.split('_')[1];
+            var nid = getchkid.split('_')[2];
+            var yesid = "Fyes_" + tid + "_" + nid;
+            var noid = "Fno_" + tid + "_" + nid;
+            var naid = "Fna_" + tid + "_" + nid;
+
+            if (getchkid == yesid) {
+                var isChecked = $('#' + getchkid).is(':checked');
+                if ($('#' + getchkid).is(':checked') == true) {
+                    $('#' + noid).prop('checked', false);
+                    $('#' + naid).prop('checked', false);
+                }
+            }
+            if (getchkid == noid) {
+                var isChecked = $('#' + getchkid).is(':checked');
+                if ($('#' + getchkid).is(':checked') == true) {
+                    $('#' + yesid).prop('checked', false);
+                    $('#' + naid).prop('checked', false);
+                }
+            }
+            if (getchkid == naid) {
+                var isChecked = $('#' + getchkid).is(':checked');
+                if ($('#' + getchkid).is(':checked') == true) {
+                    $('#' + yesid).prop('checked', false);
+                    $('#' + noid).prop('checked', false);
+                }
+            }
+
+        });
+
+    });
+
+    //$("form").removeData("validator");
+    //$("form").removeData("unobtrusiveValidation");
+    //$.validator.unobtrusive.parse("form");
+
+
+
+
+
+</script>

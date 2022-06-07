@@ -1,0 +1,48 @@
+2021-09-28 10:44:23.4513|DEBUG|BuildInspect.Models.Repository.Interface.UserRepository|ValidateLoginWeb:
+2021-09-28 10:44:23.4832|ERROR|BuildInspect.Models.Repository.Interface.UserRepository|Unable to load the specified metadata resource.
+2021-09-28 10:44:23.5472|ERROR|BuildInspect.Models.Repository.Interface.UserRepository|   at System.Data.Entity.Core.Metadata.Edm.MetadataArtifactLoaderCompositeResource.LoadResources(String assemblyName, String resourceName, ICollection`1 uriRegistry, MetadataArtifactAssemblyResolver resolver)
+   at System.Data.Entity.Core.Metadata.Edm.MetadataArtifactLoaderCompositeResource.CreateResourceLoader(String path, ExtensionCheck extensionCheck, String validExtension, ICollection`1 uriRegistry, MetadataArtifactAssemblyResolver resolver)
+   at System.Data.Entity.Core.Metadata.Edm.MetadataArtifactLoader.Create(String path, ExtensionCheck extensionCheck, String validExtension, ICollection`1 uriRegistry, MetadataArtifactAssemblyResolver resolver)
+   at System.Data.Entity.Core.Metadata.Edm.MetadataCache.SplitPaths(String paths)
+   at System.Data.Entity.Core.Common.Utils.Memoizer`2.<>c__DisplayClass2.<Evaluate>b__0()
+   at System.Data.Entity.Core.Common.Utils.Memoizer`2.Result.GetValue()
+   at System.Data.Entity.Core.Common.Utils.Memoizer`2.Evaluate(TArg arg)
+   at System.Data.Entity.Core.Metadata.Edm.MetadataCache.GetArtifactLoader(DbConnectionOptions effectiveConnectionOptions)
+   at System.Data.Entity.Core.Metadata.Edm.MetadataCache.GetMetadataWorkspace(DbConnectionOptions effectiveConnectionOptions)
+   at System.Data.Entity.Core.EntityClient.EntityConnection.GetMetadataWorkspace()
+   at System.Data.Entity.Core.Objects.ObjectContext.RetrieveMetadataWorkspaceFromConnection()
+   at System.Data.Entity.Core.Objects.ObjectContext..ctor(EntityConnection connection, Boolean isConnectionConstructor, ObjectQueryExecutionPlanFactory objectQueryExecutionPlanFactory, Translator translator, ColumnMapFactory columnMapFactory)
+   at System.Data.Entity.Internal.InternalConnection.CreateObjectContextFromConnectionModel()
+   at System.Data.Entity.Internal.LazyInternalConnection.CreateObjectContextFromConnectionModel()
+   at System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
+   at System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   at System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   at System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   at System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   at System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
+   at BuildInspect.Models.Repository.Interface.UserRepository.ValidateUserLoginWeb(String username, String password) in D:\BuildInspect_UAT\BuildInspect\Models\Repository\Imp\UserRepository.cs:line 67
+2021-09-28 10:44:23.5482|INFO|BuildInspect.Models.Repository.Interface.UserRepository|admin:2yNUSwzbGmo982sqfst+4w==;
+2021-09-28 10:46:42.4921|DEBUG|BuildInspect.Models.Repository.Interface.UserRepository|ValidateLoginWeb:
+2021-09-28 10:46:42.5251|ERROR|BuildInspect.Models.Repository.Interface.UserRepository|Unable to load the specified metadata resource.
+2021-09-28 10:46:42.5251|ERROR|BuildInspect.Models.Repository.Interface.UserRepository|   at System.Data.Entity.Core.Metadata.Edm.MetadataArtifactLoaderCompositeResource.LoadResources(String assemblyName, String resourceName, ICollection`1 uriRegistry, MetadataArtifactAssemblyResolver resolver)
+   at System.Data.Entity.Core.Metadata.Edm.MetadataArtifactLoaderCompositeResource.CreateResourceLoader(String path, ExtensionCheck extensionCheck, String validExtension, ICollection`1 uriRegistry, MetadataArtifactAssemblyResolver resolver)
+   at System.Data.Entity.Core.Metadata.Edm.MetadataArtifactLoader.Create(String path, ExtensionCheck extensionCheck, String validExtension, ICollection`1 uriRegistry, MetadataArtifactAssemblyResolver resolver)
+   at System.Data.Entity.Core.Metadata.Edm.MetadataCache.SplitPaths(String paths)
+   at System.Data.Entity.Core.Common.Utils.Memoizer`2.<>c__DisplayClass2.<Evaluate>b__0()
+   at System.Data.Entity.Core.Common.Utils.Memoizer`2.Result.GetValue()
+   at System.Data.Entity.Core.Common.Utils.Memoizer`2.Evaluate(TArg arg)
+   at System.Data.Entity.Core.Metadata.Edm.MetadataCache.GetArtifactLoader(DbConnectionOptions effectiveConnectionOptions)
+   at System.Data.Entity.Core.Metadata.Edm.MetadataCache.GetMetadataWorkspace(DbConnectionOptions effectiveConnectionOptions)
+   at System.Data.Entity.Core.EntityClient.EntityConnection.GetMetadataWorkspace()
+   at System.Data.Entity.Core.Objects.ObjectContext.RetrieveMetadataWorkspaceFromConnection()
+   at System.Data.Entity.Core.Objects.ObjectContext..ctor(EntityConnection connection, Boolean isConnectionConstructor, ObjectQueryExecutionPlanFactory objectQueryExecutionPlanFactory, Translator translator, ColumnMapFactory columnMapFactory)
+   at System.Data.Entity.Internal.InternalConnection.CreateObjectContextFromConnectionModel()
+   at System.Data.Entity.Internal.LazyInternalConnection.CreateObjectContextFromConnectionModel()
+   at System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
+   at System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   at System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   at System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   at System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   at System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
+   at BuildInspect.Models.Repository.Interface.UserRepository.ValidateUserLoginWeb(String username, String password) in D:\BuildInspect_UAT\BuildInspect\Models\Repository\Imp\UserRepository.cs:line 67
+2021-09-28 10:46:42.5330|INFO|BuildInspect.Models.Repository.Interface.UserRepository|admin:2yNUSwzbGmo982sqfst+4w==;

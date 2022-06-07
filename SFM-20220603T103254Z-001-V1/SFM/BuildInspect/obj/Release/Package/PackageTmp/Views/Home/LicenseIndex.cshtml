@@ -1,0 +1,187 @@
+﻿@model IEnumerable<BuildInspect.Models.ViewModel.LicenseViewModel>
+
+@{
+    Layout = null;
+}
+
+  
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+            
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <section class="content-header">
+                        <h4>
+                            License
+                        </h4>
+                        @*<ol class="breadcrumb">
+                            <li><a href="#"><i class="fa fa-dashboard"></i> BuildInspect</a></li>
+                            <li>User</li>
+                            <li class="active">Config</li>
+                        </ol>*@
+                    </section>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+                                    
+                                        <div class="box-header with-border">
+                                            <a href="" onclick="CreateLicense()" data-toggle="modal" class="btn-icon btn btn-primary"><i class="fas fa-plus-square btn-icon-wrapper"></i> Add License</a>
+                                        </div>
+                                        <div class="box-body">
+                                            <table id="userTable" class="table table-hover table-striped table-bordered">
+                                                <thead style="background-color: #575555; color: white">
+                                                    <tr>
+                                                        <th>S.No</th>
+
+                                                        <th>Company Name</th>
+                                                        <th>License Start Date</th>
+                                                        <th>License End Date</th>
+                                                        <th>No_of_Days</th>
+                                                        <th>Days to Expire</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{
+                                                        var i = 0;
+
+                                                        foreach (var item in Model)
+                                                        {
+                                                            i = i + 1;
+                                                    <tr>
+                                                        <td>@i</td>
+
+                                                        <td>@item.CompanyName</td>
+                                                        <td>
+                                                            @Convert.ToDateTime(item.License_Start_Date).ToString("dd/MM/yyyy")
+                                                        </td>
+                                                        <td>
+                                                            @Convert.ToDateTime(item.License_End_Date).ToString("dd/MM/yyyy")
+
+                                                        </td>
+
+                                                        <td>@item.No_of_Days</td>
+
+                                                        <td>
+                                                            @{ 
+                                                                DateTime curdt = DateTime.Now;
+                                                                
+                                                                var no_days = Math.Round((Convert.ToDateTime(item.License_End_Date) - curdt).TotalDays);
+
+                                                                if(no_days < 0)
+                                                                {
+                                                                    no_days = 0;
+
+                                                                }
+                                                                
+                                                              //  string diff2 = Math.Round((Convert.ToDateTime(item.License_End_Date) - curdt).TotalDays).ToString();
+
+
+                                                            }
+                                                           @no_days
+
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+                                                                var status = "";
+                                                                if (item.IsActive == 0)
+                                                                {
+                                                                    status = "Not activated";
+                                                                }
+                                                                else if (item.IsActive == 1)
+                                                                {
+                                                                    status = "Activated - In live";
+                                                                }
+                                                                else if (item.IsActive == 2)
+                                                                {
+                                                                    status = "Expired";
+                                                                }
+
+
+                                                            }
+
+                                                            @status
+
+                                                        </td>
+
+                                                        <td>
+                                                            <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-gradient-secondary" onclick="ShowLicense(@item.LicenseID)"><i class="fas fa-id-badge"></i></button>
+                                                            <!-- <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-danger" onclick="DeleteUser('')"><i class="fas fa-trash-alt"></i></button>   -->
+                                                        </td>
+                                                    </tr>
+
+                                                        }
+                                                    }
+
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                   
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    
+   
+
+    function DeleteUser(id,un) {
+
+        Lobibox.confirm({
+            iconClass: false,
+            msg: 'Are you sure to delete the user ' + un + '?',
+            callback: function (lobibox, type) {
+                var btnType;
+                if (type === 'no') {
+                    btnType = 'warning';
+                } else if (type === 'yes') {
+                    btnType = 'success';
+                    DeleteUserConfirmed(id);
+
+                } 
+                //Lobibox.notify(btnType, {
+                //    size: 'mini',
+                //    msg: 'This is ' + btnType + ' message'
+                //});
+            }
+        });
+
+    }
+
+ 
+
+$(document).ready(function () {
+
+    $('#userTable').DataTable({
+        //"autoWidth": true,
+        //"scrollX": true,
+        //dom: 'Bfrtipl',
+        responsive: true,
+       // "scrollY": true,
+        buttons: [
+            //'excelHtml5',
+            //'csvHtml5',
+            //'pdfHtml5',
+
+        ]
+    });
+});
+$('.dt-button').addClass('btn btn-primary').removeClass('dt-button').css('margin-right', '5px')
+
+</script>

@@ -1,0 +1,126 @@
+﻿@model IEnumerable<BuildInspect.Models.ViewModel.ClientMasterViewModel>
+
+@{
+    Layout = null;
+}
+
+<p>
+    &nbsp;
+</p>
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Client List
+        </h1>
+        @*<ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> ERP</a></li>
+            <li>Client</li>
+            <li class="active">Client List</li>
+        </ol>*@
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box" style="background-color: #c1e0fa; overflow-y:scroll;height:500px">
+                    <div class="box-header with-border">
+                        <a href="" data-toggle="modal" onclick="CreateClient()" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Add</a>
+                    </div>
+                    <div class="box-body">
+                        <table id="clientTable" class="table table-bordered hover">
+                            <thead style="background-color: cadetblue">
+                            <tr>
+                            <th>Client Ref#</th>  
+                            <th>Zone</th>                          
+                            <th>Project Name</th>
+                            <th>Address</th>
+                            <th>Phone</th>                            
+                            <th>Email</th>
+                            <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                               @foreach (var item in Model)
+                               {
+                                   IHtmlString tx = null;
+
+                                   tx = Html.Raw(Html.Encode(item.Address).Replace(Environment.NewLine, "<br />"));
+                                   tx = Html.Raw(Html.Encode(tx).Replace("\n", "<br />"));
+                                   tx = Html.Raw(Html.Encode(tx).Replace("\r", "<br />"));
+
+                                <tr>
+                                    <td>@item.ClientNum</td>
+                                    <td>@item.Zone</td>
+                                    <td>@item.CompanyName</td>
+                                    <td>@tx<br />
+                                    @item.Country-@item.Pincode
+                                    </td>
+                                    <td>@item.Phone</td>
+                                    
+                                    <td>@item.Email</td>
+                                    <td>
+                                        <a class="btn" title="Show Contact" style="padding: 0px 0px;" onclick="ShowClientContact(@item.ClientID)"> <i class="fa fa-eye" aria-hidden="true" style="color: darkviolet;font-size:32px"></i>   </a>
+                                        @*<a class="btn" title="Add Contact" style="padding: 0px 0px;" onclick="AddClientContact('@item.ClientID','0')"> <i class="fa fa-user-plus" aria-hidden="true" style="color: blue;font-size:32px"></i>   </a>*@
+                                        <button class="btn btn-success btn-sm edit btn-flat" onclick="EditClient(@item.ClientID)"><i class="fa fa-edit"></i> Edit</button>
+                                        <button class="btn btn-danger btn-sm delete btn-flat" onclick="DeleteClient('@item.ClientID','@item.CompanyName')"><i class="fa fa-trash"></i> Delete</button>
+                                    </td>
+                                </tr>
+                               
+                                }
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<script>
+    
+
+    
+
+    function DeleteClient(id,un) {
+
+        Lobibox.confirm({
+            iconClass: false,
+            msg: 'Are you sure to delete the Client ' + un + '?',
+            callback: function (lobibox, type) {
+                var btnType;
+                if (type === 'no') {
+                    btnType = 'warning';
+                } else if (type === 'yes') {
+                    btnType = 'success';
+                    DeleteClientConfirmed(id);
+
+                } 
+               
+            }
+        });
+
+    }
+
+   
+
+    function ShowClientContact(id) {
+
+        var url = "ERP/ClientContactShow/" + id;
+        $.get(url, function (data) {
+            $('#client_module_dialog').html(data);
+            $('#client_module_dialog').modal('show');
+        });
+    }
+
+
+$(document).ready(function () {
+
+    $('#clientTable').DataTable({
+        dom: 'Bfrtipl',
+        responsive: true
+    });
+});
+$('.dt-button').addClass('btn btn-primary').removeClass('dt-button').css('margin-right', '5px')
+
+</script>

@@ -1,0 +1,120 @@
+﻿@model BuildInspect.Models.ViewModel.CheckListTypeMasterViewModel
+@{
+    Layout = null;
+}
+
+@{
+    var groupID = BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup();
+    var companyID = BuildInspect.Models.Utility.AppSession.GetCompanyId();
+}
+
+<style>
+    .required::after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <section class="content-header">
+                        <h4>.000000
+                            Edit CheckList Type
+                        </h4>
+
+                    </section>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+
+                                    <div class="box-header with-border">
+                                        <input type="button" value="Back" id="edit_checklisttype-back" class="btn btn-primary pull-right CheckListType" /><span class="pull-right">&nbsp;</span>
+                                        <button type="submit" id="save_edit_checklisttype" class="btn btn-success btn-flat pull-right" name="save"><i class="fa fa-check-square-o"></i> Save</button>
+                                    </div>
+
+                                    <div class="box-body">
+
+                                        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "editchecklisttype_Form", @class = "form-horizontal" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            @Html.HiddenFor(model => model.Id)
+                                            @Html.HiddenFor(model => model.IsActive)
+                                            @Html.HiddenFor(model => model.CreatedBy)
+                                            @Html.HiddenFor(model => model.CreatedDate)
+                                            @Html.HiddenFor(model => model.UpdatedBy)
+                                            @Html.HiddenFor(model => model.UpdatedDate)
+
+
+
+
+
+
+                                            <div class="row">
+                                                <div class="col-xl-12">
+                                                    <div class="form-group">
+                                                        <label for="servicetype" class="col-sm-4 control-label required">Service Type</label>
+                                                        <div class="col-sm-8">
+                                                            @Html.EditorFor(model => model.ServiceType, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.ServiceType, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="form-group">
+                                                        <label for="servicedescription" class="col-sm-4 control-label">Service Description</label>
+                                                        <div class="col-sm-8">
+
+                                                            @Html.EditorFor(model => model.ServiceDescription, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.ServiceDescription, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+                                        }
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $("form").removeData("validator");
+    $("form").removeData("unobtrusiveValidation");
+    $.validator.unobtrusive.parse("form");
+
+    //$('#GroupID').on('change', function () {
+    //    //alert(this.value);
+    //    if (this.value == 5) {
+    //        $("#company").css("display", "none");
+    //    }
+    //    else
+    //    {
+    //        $("#company").css("display", "block");
+    //    }
+
+    //});
+
+
+</script>

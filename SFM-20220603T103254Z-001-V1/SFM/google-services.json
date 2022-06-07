@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "313140453551",
+    "firebase_url": "https://mkvmobapp.firebaseio.com",
+    "project_id": "mkvmobapp",
+    "storage_bucket": "mkvmobapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:313140453551:android:eb94f8ff42b7bf80",
+        "android_client_info": {
+          "package_name": "com.app.sbi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "313140453551-qmr7hur5jus040cqn1qk73akhebrb5h4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQZRLNIXcGNKrG5TXYycgfM40wQdUIexQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "313140453551-qmr7hur5jus040cqn1qk73akhebrb5h4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

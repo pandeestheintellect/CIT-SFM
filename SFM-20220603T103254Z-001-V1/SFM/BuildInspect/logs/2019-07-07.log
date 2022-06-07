@@ -1,0 +1,5 @@
+2019-07-07 19:03:40.9018|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|Raw Http Message: 
+2019-07-07 19:03:40.9965|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|isAuthenticated : False
+2019-07-07 19:03:40.9965|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|return 401
+2019-07-07 19:05:26.4241|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|Raw Http Message: 
+2019-07-07 19:05:26.4551|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|isAuthenticated : True

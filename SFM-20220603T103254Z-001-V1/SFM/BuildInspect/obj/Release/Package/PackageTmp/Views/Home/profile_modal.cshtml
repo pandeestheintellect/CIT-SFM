@@ -1,0 +1,118 @@
+﻿@model BuildInspect.Models.ViewModel.UserViewModel
+@{
+    Layout = null;
+}
+
+<style>
+    .required::after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+
+
+   
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+                                   
+                                        <div class="box-header with-border">
+                                            <button id="save_profile_update" class="btn btn-success btn-wide btn-lg pull-right" name="save"><i class="fa fa-check-square-o"></i> Save</button>
+                                        </div>
+                                        <div class="box-body">
+
+                                            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "profile_update_Form", enctype = "multipart/form-data", @class = "form-horizontal" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                @Html.HiddenFor(model => model.GroupID)
+                                                @Html.HiddenFor(model => model.UserID)
+                                                @Html.HiddenFor(model => model.Email)
+                                                <div class="row">
+                                                    
+                                                    <div class="col-xl-12">
+                                                        <div class="form-group">
+                                                            <label for="firstname" class="col-sm-4 control-label">Display Name</label>
+                                                            <div class="col-sm-8">
+                                                                @Html.EditorFor(model => model.DisplayName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="username" class="col-sm-4 control-label">Username</label>
+                                                            <div class="col-sm-8">
+                                                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="password" class="col-sm-4 control-label">New Password</label>
+                                                            <div class="col-sm-8 new-password">
+                                                                <span toggle="#Password" class="fa fa-fw field-icon toggle-new-password fa-eye"></span>
+                                                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="curr_password" class="col-sm-4 control-label required">Current Password:</label>
+                                                            <div class="col-sm-8 current-password">
+                                                                <span toggle="#Curr_Password" class="fa fa-fw field-icon toggle-current-password fa-eye"></span>
+                                                                @Html.PasswordFor(model => model.Curr_Password, new { @class = "form-control", @placeholder = "input current password to save changes", })
+                                                                @Html.ValidationMessageFor(model => model.Curr_Password, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+
+                                                    
+
+                                                </div>
+
+                                            }
+
+                                        </div>
+                                   
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+   
+
+<script>
+    $("form").removeData("validator");
+    $("form").removeData("unobtrusiveValidation");
+    $.validator.unobtrusive.parse("form");
+    $(".toggle-current-password").click(function () {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+    $(".toggle-new-password").click(function () {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+
+</script>

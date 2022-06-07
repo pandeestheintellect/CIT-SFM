@@ -1,0 +1,243 @@
+﻿@model IEnumerable<BuildInspect.Models.ViewModel.CheckListIndexViewModel>
+@using BuildInspect.Models.ViewModel
+
+@{
+    Layout = null;
+    var groupID = BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup();
+}
+
+  
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+            
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <section class="content-header">
+                        <h4>
+                            Check List
+                        </h4>
+                        @*<ol class="breadcrumb">
+                            <li><a href="#"><i class="fa fa-dashboard"></i> BuildInspect</a></li>
+                            <li>Checklist</li>
+                            <li class="active">Index</li>
+                        </ol>*@
+                    </section>
+
+
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { role = "form", id = "chklstAdminSearchForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <section class="content-header">
+                            <h4>
+                                Download Checklists
+                            </h4>
+                            <div class="summaryreport-container">
+                                <div class="row form-group">
+                                    <div class="col-sm-12 col-md-6 col-xl-2">
+                                        <div class="title">Project Name</div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-xl-10">
+                                        <select class="school-dropdown form-control" id="SchoolID" name="SchoolID">
+                                            <optgroup label="Select">
+                                                <option value=0>-Select Project-</option>
+                                            </optgroup>
+
+                                            @foreach (var grp in ViewBag.SchoolGroup)
+                                            {
+                                                List<SchoolMasterViewModel> sch = ViewBag.School;
+                                                var ctGrp = sch.Where(a => a.School_Type == grp).ToList();
+                                                <optgroup label="@grp">
+                                                    @foreach (var sname in ctGrp)
+                                                    {
+                                                        <option value="@sname.SchoolID">@sname.Zone-@sname.School_Name</option>
+                                                    }
+                                                </optgroup>
+                                            }
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-sm-12 col-md-6 col-xl-2">
+                                        <div class="title">Checklist Type</div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-xl-8">
+                                        <select class="priority-dropdown form-control" id="CLType" name="CLType">
+                                            <option value="Select">-Select Type-</option>
+                                            <option value="Electrical">ELECTRICAL & DOMESTIC</option>
+                                            <option value="Mechanical">MECHANICAL</option>
+                                            <option value="SP-LIFTSYS">LIFTS SYSTEM (PASSENGER, FIREMAN & PLATFORM, HOIST) </option>
+                                            <option value="SP-SECUTYSYS">SECURITY SYSTEMS (INCLUDING DECAMS) </option>
+                                            <option value="SP-FIREALMSYS">ALL TYPES OF FIRE ALARM SYSTEMS (INCLUDING DECAMS)</option>
+                                            <option value="SP-PLCWDWL">PROGRAMMABLE LOGIC CONTROLLER (WIRED & WIRELESS)</option>
+                                            <option value="SP-HYDPUMP">HYDRANT PUMPING SYSTEM</option>
+                                            <option value="SP-PASISCM">PUBLIC ADDRESS SYSTEM, ISCM and SOUND REINFORCEMENT SYSTEM  </option>
+                                            <option value="SP-BASBMSSYS">BAS, BMS & MMS</option>
+                                            <option value="SP-CHILLERSYS"> CHILLER SYSTEMS (WATER OR AIR-COOLED TYPES)</option>
+                                            <option value="SP-FUMECESYS">FUME CUPBOARD EXHAUST SYSTEMS (DUCT OR DUCTLESS)</option>
+                                            <option value="SP-FIRESPNKLR">FIRE SPRINKLER SYSTEMS</option>
+                                            <option value="SP-WETCHSUSYS">WET CHEMICAL SUPRESSION SYSTEMS</option>
+                                            <option value="SP-HVLSFMPIS">HIGH VOLUME LOW SPEED FAN (MPH & ISH)</option>
+                                            <option value="SP-SMKCTLSYS">SMOKE CONTROL SYSTEMS</option>
+                                            <option value="SP-OTHLIFTS">OTHER TYPES OF LIFT (CHAIRLIFT & DUMBWAITER)</option>
+                                            <option value="SP-GENSET">GENERATOR SET (EXCLUDING LIFT,SMOKE AND FIRE FIGHTING SYSTEMS)</option>
+                                            <option value="SP-SIOCDSYS"> SERVICING & INSPECTION OF CIVIL DEFENCE SHELTERS</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-6 col-xl-2">
+                                        <button type="button" id="cldownlaod-search" class="mb-2 mr-2 btn-icon btn btn-success maintenance-generate">
+                                            <i class="fas fa-table"></i>
+                                            Search
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </section>
+
+                    }
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    
+                                        <div class="box-header with-border">
+                                            @*<a href="" onclick="MonthlyCL()" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Monthly</a>
+                                            <a href="" onclick="QuarterlyCL()" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Quarterly</a>
+                                            <a href="" onclick="HalfYearlyCL()" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Half Yearly</a>
+                                            <a href="" onclick="YearlyCL()" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Yearly</a>
+                                            <a href="" onclick="BiYearlyCL()" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Bi-Yearly</a>*@
+                                           
+                                        </div>
+                                        <div class="box-body">
+                                            <table id="chklistAdminIndexTable" style="width: 100%;" class="table table-hover table-striped table-bordered">
+                                         
+                                            
+                                            </table>
+                                        </div>
+                                   
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+    $(document).ready(function () {
+        var grpid = @BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup();
+        data = [];
+        var stat = "";
+        var table = $('#chklistAdminIndexTable').DataTable(
+
+          {
+              "columns": [
+              { title: "Zone", "data": "Zone" },
+                  { title: "Project Name", "data": "SchoolName" },
+                  { title: "Frequecny", "data": "Frequency" },
+                  { title: "Month", "data": "Month_Name" },
+                  { title: "Type", "data": "CLType" },
+                  { title: "Status", "data": "Status" },
+                  { title: "Action", "data": "CLTMID" }
+              ],
+              //dom: 'Bfrtipl',
+              columnDefs: [
+                  {
+                      targets: 5,
+                      render: function (data, type, row, meta) {
+                          stat = data;
+                          return data; //render link in cell
+                      }
+                  },
+
+
+       {
+       targets: 6,
+       render: function (data, type, row, meta) {
+           if (stat != "New Submit" && stat != "Completed")
+           {
+               if(grpid == 5)
+               {
+                   return ' <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-success" onclick="EditCheckList(' + data + ')"><i class="fas fa-edit" title="Edit"></i></button>'; //render link in cell
+               }
+               else{
+                   return ' <button onclick="PrintCheckList(' + data + ')" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary" style="background-color: greenyellow !important"><i class="fas fa-file-pdf" title="View"></i> </button>'; //render link in cell
+               }
+
+           }
+           if (stat == "Completed")
+           {
+               return '<button onclick="PrintCheckList(' + data + ')" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary"><i class="fas fa-file-pdf" title="View"></i> </button>'; //render link in cell
+           }
+           if (stat == "New Submit")
+           {
+               return '';
+           }
+           //return"<btn btn-danger btn-sm delete btn-flat' onclick='DeletePatientDetails("+data+")'><i class='fa fa-edit'></i> Delete</button>";
+       }
+   }
+              ],
+
+              createdRow: function (row, data, index) {
+                 // $(row).addClass('blue');   //add class to row
+                  //$('td', row).eq(0).css('text-align', 'center');  //add style to cell in third column
+                  //$('td', row).eq(3).css('nowrap', 'nowrap');
+                  //$('td', row).eq(5).css('text-align', 'right');
+                  //$('td', row).eq(6).css('text-align', 'right');
+                  //$('td', row).eq(7).css('text-align', 'center');
+                  //$('th', row).eq(8).css('text-align', 'center');
+              },
+              responsive: true,
+              "info": true,
+              scrollCollapse: true,
+              "pageLength": 100,
+              //"bSort": false,
+              "scrollY": 'calc(101vh - 263px)'
+          });
+        debugger;
+        $.ajax({
+            "url": "/ERP/GetAdminCheckList",
+            "type": "POST",
+            "data": data,
+            success: function (json) {
+
+                table.rows.add(json.data).draw();
+            }
+        })
+        $('.dataTables_paginate').addClass('pull-right').css('width', '70%')
+        $('#chklistAdminIndexTable').DataTable().buttons('.buttons-excel').remove();
+        $('#chklistAdminIndexTable').DataTable().buttons('.buttons-copy').remove();
+        $('#chklistAdminIndexTable').DataTable().buttons('.buttons-pdf').remove();
+        $('#chklistAdminIndexTable').DataTable().buttons('.buttons-print').remove();
+        $('#chklistAdminIndexTable').DataTable().buttons('.buttons-csv').remove();
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
+    });
+
+});
+$('.dt-button').addClass('btn btn-primary').removeClass('dt-button').css('margin-right', '5px')
+
+function PrintCheckList(id) {
+    debugger;
+    //location.href = "/ERP/PrintCheckList/" + id;
+    window.open('/ERP/PrintCheckList/' + id, '_blank');
+
+
+}
+
+</script>

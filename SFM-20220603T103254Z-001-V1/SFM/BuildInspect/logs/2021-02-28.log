@@ -1,0 +1,11 @@
+2021-02-28 12:31:41.4256|ERROR|BuildInspect.Models.Utility.AppSettings|Error occured in SendMail():
+2021-02-28 12:31:42.1065|ERROR|BuildInspect.Models.Utility.AppSettings|The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.7.57 Client not authenticated to send mail. [MA1PR0101CA0058.INDPRD01.PROD.OUTLOOK.COM]
+2021-02-28 12:31:42.1431|ERROR|BuildInspect.Models.Utility.AppSettings|   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, MailAddress from, Boolean allowUnicode)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, Boolean allowUnicode, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at BuildInspect.Models.Utility.AppSettings.sendEmail(String subject, String body, String toEmailAddress, String ccEmailAddress, String attachments, Int32 companyid) in F:\Proj-Pandees\EBI\BuildInspect_Prod\BuildInspect\Models\Utility\AppSettings.cs:line 139
+2021-02-28 12:31:42.2151|DEBUG|BuildInspect.Controllers.PdfCreationController|Mail Reminder error from Scheduler:
+2021-02-28 12:31:42.2151|DEBUG|BuildInspect.Controllers.PdfCreationController|The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.7.57 Client not authenticated to send mail. [MA1PR0101CA0058.INDPRD01.PROD.OUTLOOK.COM]
+2021-02-28 12:31:42.2151|DEBUG|BuildInspect.Controllers.PdfCreationController|   at BuildInspect.Models.Utility.AppSettings.sendEmail(String subject, String body, String toEmailAddress, String ccEmailAddress, String attachments, Int32 companyid) in F:\Proj-Pandees\EBI\BuildInspect_Prod\BuildInspect\Models\Utility\AppSettings.cs:line 148
+   at BuildInspect.Controllers.PdfCreationController.SendMailReminder(Int32 id, String key, Int32 mailflag) in F:\Proj-Pandees\EBI\BuildInspect_Prod\BuildInspect\Controllers\PdfCreationController.cs:line 589

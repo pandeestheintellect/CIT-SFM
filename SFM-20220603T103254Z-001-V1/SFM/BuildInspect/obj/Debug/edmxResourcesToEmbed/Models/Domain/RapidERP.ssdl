@@ -1,0 +1,505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RapidERPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="client_contact">
+    <Key>
+      <PropertyRef Name="ClientContactID" />
+    </Key>
+    <Property Name="ClientContactID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="Title" Type="nvarchar" MaxLength="6" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Department" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" MaxLength="80" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="client_master">
+    <Key>
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientNum" Type="nvarchar" MaxLength="20" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="150" />
+    <Property Name="Industry" Type="nvarchar" MaxLength="100" />
+    <Property Name="Functionality" Type="nvarchar" MaxLength="100" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Country" Type="nvarchar" MaxLength="80" />
+    <Property Name="Pincode" Type="nvarchar" MaxLength="6" />
+    <Property Name="Email" Type="nvarchar" MaxLength="80" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="20" />
+    <Property Name="Website" Type="nvarchar" MaxLength="80" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="300" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="date" />
+    <Property Name="IsActive" Type="int" />
+  </EntityType>
+  <EntityType Name="company_master">
+    <Key>
+      <PropertyRef Name="CompanyID" />
+    </Key>
+    <Property Name="CompanyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Country" Type="nvarchar" MaxLength="80" />
+    <Property Name="Pincode" Type="nvarchar" MaxLength="10" />
+    <Property Name="Tel" Type="nvarchar" MaxLength="50" />
+    <Property Name="Fax" Type="nvarchar" MaxLength="20" />
+    <Property Name="Mob" Type="nvarchar" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" MaxLength="80" />
+    <Property Name="RegNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="GstRegNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="LogoPath" Type="nvarchar" MaxLength="250" />
+    <Property Name="GST" Type="decimal" Precision="5" Scale="2" />
+  </EntityType>
+  <EntityType Name="invoice_detail">
+    <Key>
+      <PropertyRef Name="IDID" />
+    </Key>
+    <Property Name="IDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceID" Type="int" />
+    <Property Name="Quantity" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="UnitOfMeasure" Type="nvarchar" MaxLength="10" />
+    <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="DescOrder" Type="int" />
+    <Property Name="PartNo" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="invoice_master">
+    <Key>
+      <PropertyRef Name="InvoiceID" />
+    </Key>
+    <Property Name="InvoiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceNum" Type="nvarchar" MaxLength="50" />
+    <Property Name="InvoiceDate" Type="date" />
+    <Property Name="QuoteID" Type="int" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="DoNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="DoDate" Type="date" />
+    <Property Name="Attention_To" Type="nvarchar" MaxLength="80" />
+    <Property Name="GTAX" Type="nvarchar" MaxLength="1" />
+    <Property Name="Currency" Type="nvarchar" MaxLength="5" />
+    <Property Name="TotalInvoiceAmount" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="TermsAndCond" Type="nvarchar" MaxLength="500" />
+    <Property Name="ServicesFor" Type="nvarchar" MaxLength="500" />
+    <Property Name="InvoiceCategory" Type="nvarchar" MaxLength="8" />
+    <Property Name="GSTValue" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="IsFullyPaid" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="date" />
+  </EntityType>
+  <EntityType Name="po_detail">
+    <Key>
+      <PropertyRef Name="PDID" />
+    </Key>
+    <Property Name="PDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PoID" Type="int" />
+    <Property Name="Quantity" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="UnitOfMeasure" Type="nvarchar" MaxLength="10" />
+    <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="DescOrder" Type="int" />
+    <Property Name="PartNo" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="po_master">
+    <Key>
+      <PropertyRef Name="PoID" />
+    </Key>
+    <Property Name="PoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PoRefNum" Type="nvarchar" MaxLength="50" />
+    <Property Name="PoDate" Type="date" />
+    <Property Name="SupplierID" Type="int" />
+    <Property Name="Attention" Type="nvarchar" MaxLength="100" />
+    <Property Name="PoTitle" Type="nvarchar" MaxLength="250" />
+    <Property Name="PaymentTerms" Type="nvarchar" MaxLength="250" />
+    <Property Name="DeliveryAddress" Type="nvarchar" MaxLength="250" />
+    <Property Name="GTAX" Type="nvarchar" MaxLength="3" />
+    <Property Name="OrderStatus" Type="nvarchar" MaxLength="16" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="UpdatedDate" Type="date" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="FinalAmount" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="isFullyPaid" Type="int" />
+    <Property Name="GSTValue" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="Currency" Type="nvarchar" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="quote_detail">
+    <Key>
+      <PropertyRef Name="QDID" />
+    </Key>
+    <Property Name="QDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuoteID" Type="int" />
+    <Property Name="Quantity" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="UnitOfMeasure" Type="nvarchar" MaxLength="10" />
+    <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="DescOrder" Type="int" />
+    <Property Name="PartNo" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="quote_master">
+    <Key>
+      <PropertyRef Name="QuoteID" />
+    </Key>
+    <Property Name="QuoteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuoteNum" Type="nvarchar" MaxLength="50" />
+    <Property Name="QuoteDate" Type="date" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="Attention_To" Type="nvarchar" MaxLength="80" />
+    <Property Name="ValidTill" Type="nvarchar" MaxLength="30" />
+    <Property Name="YourRef" Type="nvarchar" MaxLength="250" />
+    <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="TermsAndCond" Type="nvarchar(max)" />
+    <Property Name="GTAX" Type="nvarchar" MaxLength="1" />
+    <Property Name="Currency" Type="nvarchar" MaxLength="5" />
+    <Property Name="QuoteStatus" Type="nvarchar" MaxLength="16" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="UpdatedDate" Type="date" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="QuoteTitle" Type="nvarchar(max)" />
+    <Property Name="RvFlag" Type="int" />
+    <Property Name="ProjectTitle" Type="nvarchar(max)" />
+    <Property Name="Discount" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="isFullyPaid" Type="int" />
+    <Property Name="FinalAmount" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="GSTValue" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="Approval_Source" Type="nvarchar" MaxLength="25" />
+    <Property Name="Status_Remarks" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="rapid_employee">
+    <Key>
+      <PropertyRef Name="EmpID" />
+    </Key>
+    <Property Name="EmpID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Employee_Id" Type="nvarchar" MaxLength="20" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="DoB" Type="date" />
+    <Property Name="PhotoPath" Type="nvarchar" MaxLength="300" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="ScheduleID" Type="int" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+    <Property Name="DoJ" Type="date" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="DoR" Type="date" />
+    <Property Name="IsActive" Type="int" />
+  </EntityType>
+  <EntityType Name="rapid_module">
+    <Key>
+      <PropertyRef Name="ModuleID" />
+    </Key>
+    <Property Name="ModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AccessType" Type="int" Nullable="false" />
+    <Property Name="ModuleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Order_By" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="rapid_permission">
+    <Key>
+      <PropertyRef Name="PermissionID" />
+    </Key>
+    <Property Name="PermissionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupID" Type="int" />
+    <Property Name="ModuleID" Type="int" />
+    <Property Name="Access" Type="int" />
+  </EntityType>
+  <EntityType Name="rapid_screens">
+    <Key>
+      <PropertyRef Name="SCREEN_ID" />
+    </Key>
+    <Property Name="SCREEN_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MODULEID" Type="int" Nullable="false" />
+    <Property Name="SCREEN_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SCREEN_CLASS_NAME" Type="nvarchar" MaxLength="50" />
+    <Property Name="SCREEN_URL" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="ORDER_BY" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="rapid_usergroup">
+    <Key>
+      <PropertyRef Name="GroupID" />
+    </Key>
+    <Property Name="GroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="rapid_users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="80" />
+    <Property Name="Password" Type="nvarchar" MaxLength="255" />
+    <Property Name="EmpID" Type="int" />
+    <Property Name="GroupID" Type="int" />
+    <Property Name="DisplayName" Type="nvarchar" MaxLength="80" />
+    <Property Name="LastLogin" Type="smalldatetime" />
+    <Property Name="UID" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="date" />
+  </EntityType>
+  <EntityType Name="supplier_contact">
+    <Key>
+      <PropertyRef Name="SupplierContactID" />
+    </Key>
+    <Property Name="SupplierContactID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupplierID" Type="int" />
+    <Property Name="Title" Type="nvarchar" MaxLength="6" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Department" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" MaxLength="80" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="supplier_master">
+    <Key>
+      <PropertyRef Name="SupplierID" />
+    </Key>
+    <Property Name="SupplierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupplierNum" Type="nvarchar" MaxLength="20" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="150" />
+    <Property Name="Industry" Type="nvarchar" MaxLength="100" />
+    <Property Name="Functionality" Type="nvarchar" MaxLength="100" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Country" Type="nvarchar" MaxLength="80" />
+    <Property Name="Pincode" Type="nvarchar" MaxLength="6" />
+    <Property Name="Email" Type="nvarchar" MaxLength="80" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="20" />
+    <Property Name="Website" Type="nvarchar" MaxLength="80" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="300" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="date" />
+    <Property Name="IsActive" Type="int" />
+  </EntityType>
+  <Association Name="FK_client_contact_client_master">
+    <End Role="client_master" Type="Self.client_master" Multiplicity="0..1" />
+    <End Role="client_contact" Type="Self.client_contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client_master">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="client_contact">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_invoice_detail_invoice_master">
+    <End Role="invoice_master" Type="Self.invoice_master" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="invoice_detail" Type="Self.invoice_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="invoice_master">
+        <PropertyRef Name="InvoiceID" />
+      </Principal>
+      <Dependent Role="invoice_detail">
+        <PropertyRef Name="InvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_invoice_master_client_master">
+    <End Role="client_master" Type="Self.client_master" Multiplicity="0..1" />
+    <End Role="invoice_master" Type="Self.invoice_master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client_master">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="invoice_master">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_po_detail_po_master">
+    <End Role="po_master" Type="Self.po_master" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="po_detail" Type="Self.po_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="po_master">
+        <PropertyRef Name="PoID" />
+      </Principal>
+      <Dependent Role="po_detail">
+        <PropertyRef Name="PoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_po_master_supplier_master">
+    <End Role="supplier_master" Type="Self.supplier_master" Multiplicity="0..1" />
+    <End Role="po_master" Type="Self.po_master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="supplier_master">
+        <PropertyRef Name="SupplierID" />
+      </Principal>
+      <Dependent Role="po_master">
+        <PropertyRef Name="SupplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_quote_detail_quote_master">
+    <End Role="quote_master" Type="Self.quote_master" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="quote_detail" Type="Self.quote_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="quote_master">
+        <PropertyRef Name="QuoteID" />
+      </Principal>
+      <Dependent Role="quote_detail">
+        <PropertyRef Name="QuoteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_quote_master_client_master">
+    <End Role="client_master" Type="Self.client_master" Multiplicity="0..1" />
+    <End Role="quote_master" Type="Self.quote_master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client_master">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="quote_master">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rapid_permission_rapid_module">
+    <End Role="rapid_module" Type="Self.rapid_module" Multiplicity="0..1" />
+    <End Role="rapid_permission" Type="Self.rapid_permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rapid_module">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="rapid_permission">
+        <PropertyRef Name="ModuleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rapid_permission_rapid_usergroup">
+    <End Role="rapid_usergroup" Type="Self.rapid_usergroup" Multiplicity="0..1" />
+    <End Role="rapid_permission" Type="Self.rapid_permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rapid_usergroup">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="rapid_permission">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rapid_screens_rapid_module">
+    <End Role="rapid_module" Type="Self.rapid_module" Multiplicity="1" />
+    <End Role="rapid_screens" Type="Self.rapid_screens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rapid_module">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="rapid_screens">
+        <PropertyRef Name="MODULEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rapid_users_rapid_usergroup">
+    <End Role="rapid_usergroup" Type="Self.rapid_usergroup" Multiplicity="0..1" />
+    <End Role="rapid_users" Type="Self.rapid_users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rapid_usergroup">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="rapid_users">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_supplier_contact_supplier_master">
+    <End Role="supplier_master" Type="Self.supplier_master" Multiplicity="0..1" />
+    <End Role="supplier_contact" Type="Self.supplier_contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="supplier_master">
+        <PropertyRef Name="SupplierID" />
+      </Principal>
+      <Dependent Role="supplier_contact">
+        <PropertyRef Name="SupplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RapidERPModelStoreContainer">
+    <EntitySet Name="client_contact" EntityType="Self.client_contact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="client_master" EntityType="Self.client_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="company_master" EntityType="Self.company_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="invoice_detail" EntityType="Self.invoice_detail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="invoice_master" EntityType="Self.invoice_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="po_detail" EntityType="Self.po_detail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="po_master" EntityType="Self.po_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="quote_detail" EntityType="Self.quote_detail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="quote_master" EntityType="Self.quote_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="rapid_employee" EntityType="Self.rapid_employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="rapid_module" EntityType="Self.rapid_module" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="rapid_permission" EntityType="Self.rapid_permission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="rapid_screens" EntityType="Self.rapid_screens" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="rapid_usergroup" EntityType="Self.rapid_usergroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="rapid_users" EntityType="Self.rapid_users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="supplier_contact" EntityType="Self.supplier_contact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="supplier_master" EntityType="Self.supplier_master" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_client_contact_client_master" Association="Self.FK_client_contact_client_master">
+      <End Role="client_master" EntitySet="client_master" />
+      <End Role="client_contact" EntitySet="client_contact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_invoice_detail_invoice_master" Association="Self.FK_invoice_detail_invoice_master">
+      <End Role="invoice_master" EntitySet="invoice_master" />
+      <End Role="invoice_detail" EntitySet="invoice_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_invoice_master_client_master" Association="Self.FK_invoice_master_client_master">
+      <End Role="client_master" EntitySet="client_master" />
+      <End Role="invoice_master" EntitySet="invoice_master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_po_detail_po_master" Association="Self.FK_po_detail_po_master">
+      <End Role="po_master" EntitySet="po_master" />
+      <End Role="po_detail" EntitySet="po_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_po_master_supplier_master" Association="Self.FK_po_master_supplier_master">
+      <End Role="supplier_master" EntitySet="supplier_master" />
+      <End Role="po_master" EntitySet="po_master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_quote_detail_quote_master" Association="Self.FK_quote_detail_quote_master">
+      <End Role="quote_master" EntitySet="quote_master" />
+      <End Role="quote_detail" EntitySet="quote_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_quote_master_client_master" Association="Self.FK_quote_master_client_master">
+      <End Role="client_master" EntitySet="client_master" />
+      <End Role="quote_master" EntitySet="quote_master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rapid_permission_rapid_module" Association="Self.FK_rapid_permission_rapid_module">
+      <End Role="rapid_module" EntitySet="rapid_module" />
+      <End Role="rapid_permission" EntitySet="rapid_permission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rapid_permission_rapid_usergroup" Association="Self.FK_rapid_permission_rapid_usergroup">
+      <End Role="rapid_usergroup" EntitySet="rapid_usergroup" />
+      <End Role="rapid_permission" EntitySet="rapid_permission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rapid_screens_rapid_module" Association="Self.FK_rapid_screens_rapid_module">
+      <End Role="rapid_module" EntitySet="rapid_module" />
+      <End Role="rapid_screens" EntitySet="rapid_screens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rapid_users_rapid_usergroup" Association="Self.FK_rapid_users_rapid_usergroup">
+      <End Role="rapid_usergroup" EntitySet="rapid_usergroup" />
+      <End Role="rapid_users" EntitySet="rapid_users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_supplier_contact_supplier_master" Association="Self.FK_supplier_contact_supplier_master">
+      <End Role="supplier_master" EntitySet="supplier_master" />
+      <End Role="supplier_contact" EntitySet="supplier_contact" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

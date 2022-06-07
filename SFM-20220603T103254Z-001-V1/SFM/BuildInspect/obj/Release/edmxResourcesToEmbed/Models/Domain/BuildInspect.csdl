@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BuildInspectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="BuildInspectEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="checklist_files" EntityType="BuildInspectModel.checklist_files" />
+    <EntitySet Name="chklst_item_master" EntityType="BuildInspectModel.chklst_item_master" />
+    <EntitySet Name="chklst_trn_detail" EntityType="BuildInspectModel.chklst_trn_detail" />
+    <EntitySet Name="chklst_trn_files" EntityType="BuildInspectModel.chklst_trn_files" />
+    <EntitySet Name="chklst_trn_master" EntityType="BuildInspectModel.chklst_trn_master" />
+    <EntitySet Name="company_master" EntityType="BuildInspectModel.company_master" />
+    <EntitySet Name="deployments" EntityType="BuildInspectModel.deployment" />
+    <EntitySet Name="employees" EntityType="BuildInspectModel.employee" />
+    <EntitySet Name="License_Master" EntityType="BuildInspectModel.License_Master" />
+    <EntitySet Name="modules" EntityType="BuildInspectModel.module" />
+    <EntitySet Name="permissions" EntityType="BuildInspectModel.permission" />
+    <EntitySet Name="project_master" EntityType="BuildInspectModel.project_master" />
+    <EntitySet Name="school_master" EntityType="BuildInspectModel.school_master" />
+    <EntitySet Name="school_user_mapping" EntityType="BuildInspectModel.school_user_mapping" />
+    <EntitySet Name="screens" EntityType="BuildInspectModel.screen" />
+    <EntitySet Name="service_form" EntityType="BuildInspectModel.service_form" />
+    <EntitySet Name="service_form_files" EntityType="BuildInspectModel.service_form_files" />
+    <EntitySet Name="servicetype_master" EntityType="BuildInspectModel.servicetype_master" />
+    <EntitySet Name="sys_freqTable" EntityType="BuildInspectModel.sys_freqTable" />
+    <EntitySet Name="usergroups" EntityType="BuildInspectModel.usergroup" />
+    <EntitySet Name="users" EntityType="BuildInspectModel.user" />
+    <EntitySet Name="Scool_lift" EntityType="BuildInspectModel.Scool_lift" />
+    <AssociationSet Name="FK_chklst_trn_detail_chklst_trn_master" Association="BuildInspectModel.FK_chklst_trn_detail_chklst_trn_master">
+      <End Role="chklst_trn_master" EntitySet="chklst_trn_master" />
+      <End Role="chklst_trn_detail" EntitySet="chklst_trn_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chklst_trn_files_chklrn_trn_master" Association="BuildInspectModel.FK_chklst_trn_files_chklrn_trn_master">
+      <End Role="chklst_trn_master" EntitySet="chklst_trn_master" />
+      <End Role="chklst_trn_files" EntitySet="chklst_trn_files" />
+    </AssociationSet>
+    <AssociationSet Name="FK_users_company_master" Association="BuildInspectModel.FK_users_company_master">
+      <End Role="company_master" EntitySet="company_master" />
+      <End Role="user" EntitySet="users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rapid_permission_rapid_module" Association="BuildInspectModel.FK_rapid_permission_rapid_module">
+      <End Role="module" EntitySet="modules" />
+      <End Role="permission" EntitySet="permissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rapid_screens_rapid_module" Association="BuildInspectModel.FK_rapid_screens_rapid_module">
+      <End Role="module" EntitySet="modules" />
+      <End Role="screen" EntitySet="screens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rapid_permission_rapid_usergroup" Association="BuildInspectModel.FK_rapid_permission_rapid_usergroup">
+      <End Role="usergroup" EntitySet="usergroups" />
+      <End Role="permission" EntitySet="permissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_service_form_files_service_form" Association="BuildInspectModel.FK_service_form_files_service_form">
+      <End Role="service_form" EntitySet="service_form" />
+      <End Role="service_form_files" EntitySet="service_form_files" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rapid_users_rapid_usergroup" Association="BuildInspectModel.FK_rapid_users_rapid_usergroup">
+      <End Role="usergroup" EntitySet="usergroups" />
+      <End Role="user" EntitySet="users" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="checklist_files">
+    <Key>
+      <PropertyRef Name="ReportID" />
+    </Key>
+    <Property Name="ReportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SchoolID" Type="Int32" />
+    <Property Name="Month_Start_Date" Type="DateTime" Precision="0" />
+    <Property Name="Frequency" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CLType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="FilePath" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="chklst_item_master">
+    <Key>
+      <PropertyRef Name="ChkListID" />
+    </Key>
+    <Property Name="ChkListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FormName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ParentID" Type="Int32" />
+    <Property Name="IsSubTitle" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="OrderBy" Type="Int32" />
+    <Property Name="PageNum" Type="Int32" />
+    <Property Name="CF_Flag" Type="Int32" />
+    <Property Name="ServiceType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Frequency" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="chklst_trn_detail">
+    <Key>
+      <PropertyRef Name="CLTDID" />
+    </Key>
+    <Property Name="CLTDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CLTMID" Type="Int32" />
+    <Property Name="ChkListID" Type="Int32" />
+    <Property Name="IsDone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateDone" Type="DateTime" Precision="0" />
+    <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="chklst_trn_master" Relationship="BuildInspectModel.FK_chklst_trn_detail_chklst_trn_master" FromRole="chklst_trn_detail" ToRole="chklst_trn_master" />
+  </EntityType>
+  <EntityType Name="chklst_trn_files">
+    <Key>
+      <PropertyRef Name="CLFileID" />
+    </Key>
+    <Property Name="CLFileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CLTMID" Type="Int32" />
+    <Property Name="FileCaption" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="FileName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+    <Property Name="FilePath" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="chklst_trn_master" Relationship="BuildInspectModel.FK_chklst_trn_files_chklrn_trn_master" FromRole="chklst_trn_files" ToRole="chklst_trn_master" />
+  </EntityType>
+  <EntityType Name="chklst_trn_master">
+    <Key>
+      <PropertyRef Name="CLTMID" />
+    </Key>
+    <Property Name="CLTMID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SchoolID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="CheckedBy_Signature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="VerifiedBy_Signature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EndoresBy_Signature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Frequency" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="PrjMasID" Type="Int32" />
+    <Property Name="Draft_Flag" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+    <Property Name="User_Sign_Date" Type="DateTime" Precision="0" />
+    <Property Name="OpMngr_Sign_Date" Type="DateTime" Precision="0" />
+    <Property Name="MA_Sign_Date" Type="DateTime" Precision="0" />
+    <Property Name="CheckedBy_Remarks" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="VerifiedBy_Remarks" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="EndoresBy_Remarks" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="Status_Flag" Type="Int32" />
+    <Property Name="CLType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CheckedBy_DateTime" Type="DateTime" Precision="3" />
+    <Property Name="VerifiedBy_DateTime" Type="DateTime" Precision="3" />
+    <Property Name="EndoresBy_DateTime" Type="DateTime" Precision="3" />
+    <Property Name="CB_Latitude" Type="Decimal" Precision="10" Scale="6" />
+    <Property Name="CB_Longitude" Type="Decimal" Precision="10" Scale="6" />
+    <Property Name="CheckedBy_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="VerifiedBy_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="EndoresBy_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CLMonth" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="chklst_trn_detail" Relationship="BuildInspectModel.FK_chklst_trn_detail_chklst_trn_master" FromRole="chklst_trn_master" ToRole="chklst_trn_detail" />
+    <NavigationProperty Name="chklst_trn_files" Relationship="BuildInspectModel.FK_chklst_trn_files_chklrn_trn_master" FromRole="chklst_trn_master" ToRole="chklst_trn_files" />
+  </EntityType>
+  <EntityType Name="company_master">
+    <Key>
+      <PropertyRef Name="CompanyID" />
+    </Key>
+    <Property Name="CompanyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Pincode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Mob" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="RegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GstRegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LogoPath" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="GST" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+    <Property Name="IsActive" Type="Int32" />
+    <Property Name="ShortName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="users" Relationship="BuildInspectModel.FK_users_company_master" FromRole="company_master" ToRole="user" />
+  </EntityType>
+  <EntityType Name="deployment">
+    <Key>
+      <PropertyRef Name="DeployID" />
+    </Key>
+    <Property Name="DeployID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SchoolID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="Schedule_Date" Type="DateTime" Precision="0" />
+    <Property Name="Is_Completed" Type="Int32" />
+    <Property Name="Completed_Date" Type="DateTime" Precision="0" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="EmpID" />
+    </Key>
+    <Property Name="EmpID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Employee_Id" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DoB" Type="DateTime" Precision="0" />
+    <Property Name="PhotoPath" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="DesignationID" Type="Int32" />
+    <Property Name="ScheduleID" Type="Int32" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="DoJ" Type="DateTime" Precision="0" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="DoR" Type="DateTime" Precision="0" />
+    <Property Name="IsActive" Type="Int32" />
+  </EntityType>
+  <EntityType Name="License_Master">
+    <Key>
+      <PropertyRef Name="LicenseID" />
+    </Key>
+    <Property Name="LicenseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyID" Type="Int32" Nullable="false" />
+    <Property Name="License_Start_Date" Type="DateTime" Precision="0" />
+    <Property Name="License_End_Date" Type="DateTime" Precision="0" />
+    <Property Name="IsActive" Type="Int32" />
+    <Property Name="LicenseKey" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="No_of_Days" Type="Int32" />
+    <Property Name="Creation_Date" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="module">
+    <Key>
+      <PropertyRef Name="ModuleID" />
+    </Key>
+    <Property Name="ModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AccessType" Type="Int32" Nullable="false" />
+    <Property Name="ModuleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Order_By" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="permissions" Relationship="BuildInspectModel.FK_rapid_permission_rapid_module" FromRole="module" ToRole="permission" />
+    <NavigationProperty Name="screens" Relationship="BuildInspectModel.FK_rapid_screens_rapid_module" FromRole="module" ToRole="screen" />
+  </EntityType>
+  <EntityType Name="permission">
+    <Key>
+      <PropertyRef Name="PermissionID" />
+    </Key>
+    <Property Name="PermissionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupID" Type="Int32" />
+    <Property Name="ModuleID" Type="Int32" />
+    <Property Name="Access" Type="Int32" />
+    <NavigationProperty Name="module" Relationship="BuildInspectModel.FK_rapid_permission_rapid_module" FromRole="permission" ToRole="module" />
+    <NavigationProperty Name="usergroup" Relationship="BuildInspectModel.FK_rapid_permission_rapid_usergroup" FromRole="permission" ToRole="usergroup" />
+  </EntityType>
+  <EntityType Name="project_master">
+    <Key>
+      <PropertyRef Name="PrjMasID" />
+    </Key>
+    <Property Name="PrjMasID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SchoolID" Type="Int32" />
+    <Property Name="MonthName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Month_Start_Date" Type="DateTime" Precision="0" />
+    <Property Name="Month_End_Date" Type="DateTime" Precision="0" />
+    <Property Name="Frequency" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Lift_Count" Type="Int32" />
+    <Property Name="Is_Completed" Type="Int32" />
+    <Property Name="Is_Rescheduled" Type="Int32" />
+    <Property Name="Rescheduled_Date" Type="DateTime" Precision="0" />
+    <Property Name="Rescheduled_Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CLType" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Lift_Opr_Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="school_master">
+    <Key>
+      <PropertyRef Name="SchoolID" />
+    </Key>
+    <Property Name="SchoolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Zone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="School_Type" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="School_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Prefix" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Op_Manager_Name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+    <Property Name="ME_Coordinator_ID" Type="Int32" />
+    <Property Name="School_Ref_Num" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Latitude" Type="Decimal" Precision="10" Scale="6" />
+    <Property Name="Longitude" Type="Decimal" Precision="10" Scale="6" />
+    <Property Name="Is_Project_Created" Type="Int32" />
+    <Property Name="IsActive" Type="Int32" />
+    <Property Name="CompanyID" Type="Int32" />
+    <Property Name="HVLSFan_count" Type="Int32" />
+    <Property Name="LIFT_count" Type="Int32" />
+    <Property Name="CHILLER_count" Type="Int32" />
+  </EntityType>
+  <EntityType Name="school_user_mapping">
+    <Key>
+      <PropertyRef Name="SUID" />
+    </Key>
+    <Property Name="SUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SchoolID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="CLType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="screen">
+    <Key>
+      <PropertyRef Name="SCREEN_ID" />
+    </Key>
+    <Property Name="SCREEN_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MODULEID" Type="Int32" Nullable="false" />
+    <Property Name="SCREEN_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SCREEN_CLASS_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SCREEN_URL" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ORDER_BY" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="module" Relationship="BuildInspectModel.FK_rapid_screens_rapid_module" FromRole="screen" ToRole="module" />
+  </EntityType>
+  <EntityType Name="service_form">
+    <Key>
+      <PropertyRef Name="ServiceID" />
+    </Key>
+    <Property Name="ServiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ServiceRefNum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CaseRefNum" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Service_Datetime" Type="DateTime" Precision="3" />
+    <Property Name="Priority" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SchoolID" Type="Int32" />
+    <Property Name="Contact_Person" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RoomNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ServiceType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Work_Requests" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Customer_Rep" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Customer_Rep_Signature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Work_Completion_Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Remarks_TC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Client_Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Technician_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Technician_Signature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Customer_incharge_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Customer_incharge_Signature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="Status_Flag" Type="Int32" />
+    <Property Name="AssignedBy" Type="Int32" />
+    <Property Name="AssignedDate" Type="DateTime" Precision="3" />
+    <Property Name="Technician_Signature_Date" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="service_form_files" Relationship="BuildInspectModel.FK_service_form_files_service_form" FromRole="service_form" ToRole="service_form_files" />
+  </EntityType>
+  <EntityType Name="service_form_files">
+    <Key>
+      <PropertyRef Name="ServiceFileID" />
+    </Key>
+    <Property Name="ServiceFileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ServiceID" Type="Int32" />
+    <Property Name="FileCaption" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="FileName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+    <Property Name="FilePath" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="service_form" Relationship="BuildInspectModel.FK_service_form_files_service_form" FromRole="service_form_files" ToRole="service_form" />
+  </EntityType>
+  <EntityType Name="servicetype_master">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ServiceType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ServiceDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="sys_freqTable">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MonthNum" Type="Int32" />
+    <Property Name="MonthName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CalendarMonthNum" Type="Int32" />
+  </EntityType>
+  <EntityType Name="usergroup">
+    <Key>
+      <PropertyRef Name="GroupID" />
+    </Key>
+    <Property Name="GroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="permissions" Relationship="BuildInspectModel.FK_rapid_permission_rapid_usergroup" FromRole="usergroup" ToRole="permission" />
+    <NavigationProperty Name="users" Relationship="BuildInspectModel.FK_rapid_users_rapid_usergroup" FromRole="usergroup" ToRole="user" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EmpID" Type="Int32" />
+    <Property Name="GroupID" Type="Int32" />
+    <Property Name="DisplayName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="LastLogin" Type="DateTime" Precision="0" />
+    <Property Name="UID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+    <Property Name="CompanyID" Type="Int32" />
+    <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="ServiceType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Zone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TeamLead_ID" Type="Int32" />
+    <Property Name="Admin_ID" Type="Int32" />
+    <Property Name="ProjMngr_ID" Type="Int32" />
+    <Property Name="DeviceID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="company_master" Relationship="BuildInspectModel.FK_users_company_master" FromRole="user" ToRole="company_master" />
+    <NavigationProperty Name="usergroup" Relationship="BuildInspectModel.FK_rapid_users_rapid_usergroup" FromRole="user" ToRole="usergroup" />
+  </EntityType>
+  <EntityType Name="Scool_lift">
+    <Key>
+      <PropertyRef Name="item_desc" />
+    </Key>
+    <Property Name="RID" Type="Int64" />
+    <Property Name="item_desc" Type="String" Nullable="false" MaxLength="17" FixedLength="false" Unicode="false" />
+    <Property Name="Frequency" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="SchoolID" Type="Int32" />
+    <Property Name="TrnID" Type="Int32" />
+    <Property Name="LIFT_count" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_chklst_trn_detail_chklst_trn_master">
+    <End Type="BuildInspectModel.chklst_trn_master" Role="chklst_trn_master" Multiplicity="0..1" />
+    <End Type="BuildInspectModel.chklst_trn_detail" Role="chklst_trn_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="chklst_trn_master">
+        <PropertyRef Name="CLTMID" />
+      </Principal>
+      <Dependent Role="chklst_trn_detail">
+        <PropertyRef Name="CLTMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chklst_trn_files_chklrn_trn_master">
+    <End Type="BuildInspectModel.chklst_trn_master" Role="chklst_trn_master" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="BuildInspectModel.chklst_trn_files" Role="chklst_trn_files" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="chklst_trn_master">
+        <PropertyRef Name="CLTMID" />
+      </Principal>
+      <Dependent Role="chklst_trn_files">
+        <PropertyRef Name="CLTMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_users_company_master">
+    <End Type="BuildInspectModel.company_master" Role="company_master" Multiplicity="0..1" />
+    <End Type="BuildInspectModel.user" Role="user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="company_master">
+        <PropertyRef Name="CompanyID" />
+      </Principal>
+      <Dependent Role="user">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rapid_permission_rapid_module">
+    <End Type="BuildInspectModel.module" Role="module" Multiplicity="0..1" />
+    <End Type="BuildInspectModel.permission" Role="permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="module">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="permission">
+        <PropertyRef Name="ModuleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rapid_screens_rapid_module">
+    <End Type="BuildInspectModel.module" Role="module" Multiplicity="1" />
+    <End Type="BuildInspectModel.screen" Role="screen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="module">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="screen">
+        <PropertyRef Name="MODULEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rapid_permission_rapid_usergroup">
+    <End Type="BuildInspectModel.usergroup" Role="usergroup" Multiplicity="0..1" />
+    <End Type="BuildInspectModel.permission" Role="permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usergroup">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="permission">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_service_form_files_service_form">
+    <End Type="BuildInspectModel.service_form" Role="service_form" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="BuildInspectModel.service_form_files" Role="service_form_files" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="service_form">
+        <PropertyRef Name="ServiceID" />
+      </Principal>
+      <Dependent Role="service_form_files">
+        <PropertyRef Name="ServiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rapid_users_rapid_usergroup">
+    <End Type="BuildInspectModel.usergroup" Role="usergroup" Multiplicity="0..1" />
+    <End Type="BuildInspectModel.user" Role="user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usergroup">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="user">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

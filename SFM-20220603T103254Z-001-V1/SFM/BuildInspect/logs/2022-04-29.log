@@ -1,0 +1,8 @@
+2022-04-29 12:02:08.3555|DEBUG|BuildInspect.Models.Repository.Interface.UserRepository|ValidateLoginWeb:
+2022-04-29 12:02:08.4426|ERROR|BuildInspect.Models.Repository.Interface.UserRepository|Object reference not set to an instance of an object.
+2022-04-29 12:02:08.5163|ERROR|BuildInspect.Models.Repository.Interface.UserRepository|   at BuildInspect.Models.Repository.Interface.UserRepository.ValidateUserLoginWeb(String username, String password) in C:\Users\HP\Desktop\BuildInspect_UAT\BuildInspect\Models\Repository\Imp\UserRepository.cs:line 70
+2022-04-29 12:02:08.5163|INFO|BuildInspect.Models.Repository.Interface.UserRepository|admin101:2yNUSwzbGmo982sqfst+4w==;
+2022-04-29 12:08:38.8562|DEBUG|BuildInspect.Models.Repository.Interface.UserRepository|ValidateLoginWeb:
+2022-04-29 12:08:38.8562|ERROR|BuildInspect.Models.Repository.Interface.UserRepository|Object reference not set to an instance of an object.
+2022-04-29 12:08:38.8562|ERROR|BuildInspect.Models.Repository.Interface.UserRepository|   at BuildInspect.Models.Repository.Interface.UserRepository.ValidateUserLoginWeb(String username, String password) in C:\Users\HP\Desktop\BuildInspect_UAT\BuildInspect\Models\Repository\Imp\UserRepository.cs:line 70
+2022-04-29 12:08:38.8562|INFO|BuildInspect.Models.Repository.Interface.UserRepository|admin101:2yNUSwzbGmo982sqfst+4w==;

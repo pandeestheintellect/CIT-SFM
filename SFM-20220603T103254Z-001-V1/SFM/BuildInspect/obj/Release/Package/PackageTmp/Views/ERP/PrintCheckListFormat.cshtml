@@ -1,0 +1,359 @@
+﻿@model BuildInspect.Models.ViewModel.CheckListTransMasterViewModel
+@using BuildInspect.Models.ViewModel
+
+@{
+    Layout = null;
+}
+
+<style type="text/css">
+    body {
+        font-family: Arial, Helvetica, sans-serif !important;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tfoot {
+        display: table-row-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+
+    table > tr > th {
+        background-color: #222;
+        color: #fff;
+        padding: 5px;
+    }
+
+    table > tr > td {
+        padding: 5px;
+    }
+
+    table, tr, td, th, tbody, thead, tfoot, td div {
+        page-break-inside: avoid !important;
+    }
+
+    /***Always insert a page break before the element***/
+    .pb_before {
+        page-break-before: always !important;
+    }
+
+    /***Always insert a page break after the element***/
+    .pb_after {
+        page-break-after: always !important;
+    }
+</style>
+<html>
+<body>
+    @if (ViewBag.CLCount > 1)
+    {
+    <center>
+        <header>
+            <table width="890" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        @if (ViewBag.CompanyID == 1)
+                        {
+                            <img height="90" width="160" src="~/Scripts/assets/images/logo.png" />
+                        }
+                        @if (ViewBag.CompanyID == 2)
+                        {
+                            <img height="120" width="120" src="~/Scripts/assets/images/hec.png" />
+                        }
+                        @if (ViewBag.CompanyID == 3)
+                        {
+                            <img height="90" width="160" src="~/Scripts/assets/images/ppl.png" />
+                        }
+                    </td>
+                    <td align="center">
+                        @if (ViewBag.CompanyID == 1)
+                        {
+                            <span style="font-size:26px; font-weight:bold; color: orangered; text-align:center;">
+                                MKV ENGINEERING AND TRADING SERVICES PTE LTD
+                            </span><br />
+                            <span style="font-weight:bold; font-size:14px; text-align:center">
+                                NO : 10 KAKI BUKIT ROAD 1 #03-12 KB INDUSTRIAL BUILDING SINGAPORE - 416175 <br />
+                                TEL:  6283 9289   FAX:  6283 9286  Email: info@mkv.com.sg
+                            </span>
+                        }
+                        @if (ViewBag.CompanyID == 2)
+                        {
+                            <span style="font-size:26px; font-weight:bold; color: #ff8040; text-align:center;">
+                                HEC Electrical & Construction Pte Ltd
+                            </span><br />
+                            <span style="font-weight:bold; font-size:14px; text-align:center">
+                                47, Sungei Kadut Street 6, HEC STAR Building, Singapore 728873   Tel : 62860336   Fax : 62860635 <br />
+                                Reg No : 199501306G     GST Reg No : M2-8921899-8     E-Mail : moeadmin@hec.com.sg
+                            </span>
+                        }
+                        @if (ViewBag.CompanyID == 3)
+                        {
+                            <span style="font-size:26px; font-weight:bold; color: orangered; text-align:center;">
+                                Propell Integrated Pte Ltd
+                            </span><br />
+                                    <span style="font-weight:bold; font-size:14px; text-align:center">
+                                        15, Bukit Batok St 22, #06-00, Propell Building, Singapore 659586   Tel : 62822822   Fax : 62820300 <br />
+                                        Reg No : 199903182D   E-Mail : info@propell.com.sg
+                                    </span>
+                        }
+
+                    </td>
+                </tr>
+            </table>
+        </header>
+
+
+        <table width="900" border="0" cellspacing="0" cellpadding="0">
+
+            <tr>
+                <td>
+                    <table width="890" border="0" cellspacing="0" cellpadding="0">
+                        <tr><td><br /></td><td><br /></td></tr>
+                        <tr>
+                            <td width="65%" style="font-weight:bold;">@ViewBag.Title</td>
+                            <td width="35%" align="right" style="font-weight:bold;"> @ViewBag.Annexure </td>
+                        </tr>
+                        <tr><td><br /></td><td><br /></td></tr>
+                        <tr>
+                            <td width="65%" style="font-weight:bold;">SITE: _______________________</td>
+                            <td width="35%" align="right" style="font-weight:bold;">Month: ___________________</td>
+                        </tr>
+                        <tr><td><br /></td><td><br /></td></tr>
+                    </table>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+            </tr>
+
+        </table>
+
+
+        <table width="890" border="1" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr>
+                    <th style="width:50px;">S/N</th>
+                    <th style="width:450px;">ITEM</th>
+                    <th style="width:200px;">DONE? (Y or N or NA)</th>
+                    <th style="width:100px;">Date Done</th>
+                    <th style="width:190px;">Remarks</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    List<CheckListItemMasterViewModel> header = ViewBag.CheckListItems;
+                    header = header.Where(a => a.ParentID == null).OrderBy(a=>a.OrderBy).ToList();
+                    int headCnt = 1;
+
+                    foreach (var h in header)
+                    {
+                        <tr style="background-color: #808080; color: #fff">
+                            <td>@headCnt</td>
+                            <td colspan="4">@h.Title</td>
+                        </tr>
+
+
+                        List<CheckListItemMasterViewModel> detail = ViewBag.CheckListItems;
+                        detail = detail.Where(a => a.ParentID == h.ChkListID).ToList();
+                        int detailCnt = 1;
+                        foreach (var d in detail)
+                        {
+                            if (d.IsSubTitle == "Yes")
+                            {
+                                <tr style="background-color: #ddd9d9">
+                                    <td></td>
+                                    <td colspan="4">@d.Title</td>
+                                </tr>
+
+                                detailCnt--;
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>@detailCnt</td>
+                                    <td>@d.Title</td>
+
+                                    @{
+                                        var loop = 0;
+                                    }
+                                    @if (d.ServiceType == "SP-HVLSFMPIS" || d.ServiceType == "SP-LIFTSYS")
+                                    {
+                                        if (d.ServiceType == "SP-HVLSFMPIS")
+                                        {
+                                            loop = ViewBag.HVLSFan_count;
+                                        }
+                                        else
+                                        {
+                                            loop = ViewBag.LIFT_count;
+                                        }
+
+
+                                        for (var j = 1; j <= loop; j++)
+                                        {
+                                            string strid = j.ToString() + "_" + d.CLTDID;
+
+                                            <td class="form-group">
+
+                                                @if (d.ServiceType == "SP-HVLSFMPIS")
+                                                {
+                                                    <span></span>
+                                                }
+                                                else
+                                                {
+                                                    <span></span>
+                                                }
+
+                                                <label class="form-check-label">
+
+                                                    <input disabled="disabled" type="checkbox">
+
+                                                    Yes
+                                                </label>
+
+                                                <label class="form-check-label">
+
+                                                    <input disabled="disabled" type="checkbox">
+
+                                                    No
+                                                </label>
+
+                                                <label class="form-check-label">
+
+
+
+                                                    <input disabled="disabled" type="checkbox">
+
+                                                    N/A
+                                                </label>
+
+                                            </td>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <label class="form-check-label">
+
+
+
+                                                <input disabled="disabled" type="checkbox">
+
+                                                Yes
+                                            </label>
+                                            <label class="form-check-label">
+
+
+
+                                                <input disabled="disabled" type="checkbox">
+
+                                                No
+                                            </label>
+                                            <label class="form-check-label">
+
+
+                                                <input disabled="disabled" type="checkbox">
+
+                                                N/A
+                                            </label>
+
+                                        </td>
+
+                                    }
+                                    <td>
+                                        @{
+                                            var datedone = "";
+
+                                        }
+                                        @datedone
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                                    }
+                                                    detailCnt++;
+                                                }
+
+                                                headCnt++;
+                                            }
+
+                }
+
+            </tbody>
+
+        </table>
+
+
+
+        <table width="890" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="300">
+                    <table>
+                        <tr>
+                            <td style="font-weight: bold;">Checked By</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">_______________________</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">THE CONTRACTOR</td>
+                        </tr>
+                    </table>
+
+                </td>
+                <td width="300" align="center">
+
+                    <table>
+                        <tr>
+                            <td style="font-weight: bold;">Endorsed By</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">_______________________</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">USER</td>
+                        </tr>
+                    </table>
+                    
+
+                </td>
+                <td width="290" align="right">
+                    <table>
+                        <tr>
+                            <td style="font-weight: bold;">Verified By</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">_______________________</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">MANAGEMENT AGENT</td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+        </table>
+
+    </center>
+}
+else
+{
+<h1>No result found for the Check list selected</h1>
+}
+</body>
+</html>

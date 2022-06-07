@@ -1,0 +1,1542 @@
+﻿@model BuildInspect.Models.ViewModel.FilterViewModel
+@using BuildInspect.Models.ViewModel
+
+@{
+    Layout = null;
+    var groupID = BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup();
+    var companyID = BuildInspect.Models.Utility.AppSession.GetCompanyId();
+
+    if (companyID == 1)
+    {
+        ViewBag.Company = "MKV-";
+    }
+    if (companyID == 2)
+    {
+        ViewBag.Company = "HEC-";
+    }
+    if (companyID == 3)
+    {
+        ViewBag.Company = "PPL-";
+    }
+
+
+    // '@ViewBag.Company' + "Zone_" + '@ViewBag.FN' + "_" + datetime;
+
+    var Not_Applicable = 0;
+    var Not_Submitted = 0;
+    var Pending_User_MA = 0;
+    var Pending_user = 0;
+    var Pending_MA = 0;
+    var Completed = 0;
+
+
+}
+
+<style>
+    .summary-title span {
+        border-radius: 5px;
+        padding: 0 5px;
+        text-align: center;
+    }
+
+    .red {
+        background: red;
+    }
+
+    .yellow {
+        background: yellow;
+    }
+
+    .green {
+        background: green;
+    }
+</style>
+
+<script>
+
+
+</script>
+
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+
+            <div class="tab-content">
+                <div class="container-fluid">
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { role = "form", id = "DirectorchklstReportForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <section class="content-header">
+                            <h4>
+                                Checklist Summary Matrix
+                            </h4>
+                            <div class="summaryreport-container">
+                                <div class="row form-group">
+                                    <div class="col-sm-12 col-md-6 col-xl-1">
+                                        <div class="title">Zone</div>
+                                    </div>
+                                    @if (companyID == 1)
+                                    {
+                                        <div class="col-sm-12 col-md-6 col-xl-2">
+                                            @Html.DropDownListFor(model => model.Zone, new SelectList(
+             new List<Object>{
+                                            new { value = "Select" , text = "Select"  },
+                                            new { value = "E1" , text = "E1" },
+                                            new { value = "S1" , text = "S1" },
+                                            new { value = "SW2" , text = "SW2" }
+            }, "value", "text", 0), htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                    }
+
+                                    @if (companyID == 2)
+                                    {
+                                        <div class="col-sm-12 col-md-6 col-xl-2">
+                                            @Html.DropDownListFor(model => model.Zone, new SelectList(
+         new List<Object>{
+                                        new { value = "Select" , text = "Select"  },
+                                        new { value = "N2" , text = "N2" },
+                                        new { value = "NE1" , text = "NE1" },
+                                        new { value = "W1" , text = "W1" }
+        }, "value", "text", 0), htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                    }
+
+                                    @if (companyID == 3)
+                                    {
+                                        <div class="col-sm-12 col-md-6 col-xl-2">
+                                            @Html.DropDownListFor(model => model.Zone, new SelectList(
+         new List<Object>{
+                                        new { value = "Select" , text = "Select"  },
+                                        new { value = "E2" , text = "E2" },
+                                        new { value = "NE2" , text = "NE2" },
+                                        new { value = "SW1" , text = "SW1" }
+        }, "value", "text", 0), htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                    }
+
+                                    <div class="col-sm-12 col-md-6 col-xl-1">
+                                        <div class="title">Month</div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-xl-2">
+                                        @Html.DropDownListFor(model => model.Month, new SelectList(
+         new List<Object>{
+                                        new { value = "Select" , text = "Select"  },
+                                        new { value = "01/01/" , text = "January" },
+                                        new { value = "01/02/" , text = "February" },
+                                        new { value = "01/03/" , text = "March" },
+                                        new { value = "01/04/" , text = "April" },
+                                        new { value = "01/05/" , text = "May" },
+                                        new { value = "01/06/" , text = "June" },
+                                        new { value = "01/07/" , text = "July" },
+                                        new { value = "01/08/" , text = "August" },
+                                        new { value = "01/09/" , text = "September" },
+                                        new { value = "01/10/" , text = "October" },
+                                        new { value = "01/11/" , text = "November" },
+                                        new { value = "01/12/" , text = "December" }
+        }, "value", "text", 0), htmlAttributes: new { @class = "form-control" })
+
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-6 col-xl-1">
+                                        <div class="title">Year</div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-xl-2">
+                                        @Html.DropDownListFor(model => model.Year, new SelectList(
+         new List<Object>{
+                                        new { value = "Select" , text = "Select"  },
+                                        new { value = "2019" , text = "2019" },
+                                        new { value = "2020" , text = "2020" },
+                                         new { value = "2021" , text = "2021" },
+                                          new { value = "2022" , text = "2022" },
+                                           new { value = "2023" , text = "2023" }
+        }, "value", "text", 0), htmlAttributes: new { @class = "form-control" })
+
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-6 col-xl-2">
+                                        <button type="button" id="report-directorclmatrix-search" class="mb-2 mr-2 btn-icon btn btn-success maintenance-generate">
+                                            <i class="fas fa-table"></i>
+                                            Search
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+                    }
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+                                    <div class="box-header with-border">
+
+
+                                    </div>
+
+                                    <div class="box-body">
+                                        <div class="summary-title">
+                                            Maintenance Report Summary For <span class="zone">Zone: @ViewBag.Zone</span>  - <span class="month-year">@ViewBag.Mon (@ViewBag.Freq)</span>
+                                        </div>
+                                        @{
+                                            ViewBag.FN = ViewBag.Zone + "-" + ViewBag.Mon + "-" + ViewBag.Freq;
+
+                                            var title_name = ViewBag.Company + "Zone_" + ViewBag.FN + "_" + DateTime.Now.ToString();
+                                        }
+                                        <div class="summaryreport-container">
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div style="font-weight: bolder;">Legend:</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div><img src="~/Scripts/assets/images/not-applicable.png" /> - Not Applicable</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div><img src="~/Scripts/assets/images/not-submitted.png" /> - Not Submitted</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div><img src="~/Scripts/assets/images/pending_user_ma.png" /> - Pending User & MA</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div><img src="~/Scripts/assets/images/pending_user.png" /> - Pending User</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div><img src="~/Scripts/assets/images/pending_ma.png" /> - Pending MA</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div><img src="~/Scripts/assets/images/completed.png" /> - Completed</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="button" style="background-color:#AF531A; color:white" value="Export" onclick="Export()" />
+                                        </div>
+                                        <table id="chklistTable" class="table table-hover table-striped table-bordered">
+                                            <thead style="background-color: #575555; color: white">
+                                                <tr style="background-color:gainsboro"><td colspan="20" align="center"><b style="color:black">@title_name</b></td></tr>
+                                                <tr>
+                                                    <th>Sno</th>
+                                                    <th>Project Name</th>
+                                                    <th>E&D</th>
+                                                    <th>Mec</th>
+                                                    <th>SP Lift</th>
+                                                    <th>SP Sec</th>
+                                                    <th>SP Fire</th>
+                                                    <th>SP PLC</th>
+                                                    <th>SP HPUMP</th>
+                                                    <th>SP PAS</th>
+                                                    <th>SP Bas</th>
+                                                    <th>SP Chil</th>
+                                                    <th>SP FumC</th>
+                                                    <th>SP FSpkl</th>
+                                                    <th>SP Wetch</th>
+                                                    <th>SP HVLS</th>
+                                                    <th>SP SMKC</th>
+                                                    <th>SP OthLift</th>
+                                                    <th>SP GEN</th>
+                                                    <th>SP CDS</th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @{ var i = 0;}
+                                                @foreach (var item in Model.cls)
+                                                {
+                                                    i = i + 1;
+                                                    var mark = "";
+                                                    var color = "";
+                                                    var status = "";
+                                                    var image = "";
+                                                    var mark1 = "";
+                                                    <tr>
+                                                        <td>@i</td>
+                                                        <td>@item.School_Name</td>
+                                                        <td>
+                                                            @{
+                                                                if (item.Electrical == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.Electrical <= 0)
+                                                                {
+                                                                    mark = "fas fa-times-circle";
+                                                                    color = "orange";
+                                                                    status = "X";
+                                                                    image = "~/Scripts/assets/images/not-submitted.png";
+                                                                    Not_Submitted = Not_Submitted + 1;
+                                                                }
+                                                                else if (item.Electrical == 1)
+                                                                {
+                                                                    mark = "fas fa-dice-two";
+                                                                    color = "mediumvioletred";
+                                                                    status = "PU/M";
+                                                                    image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                    Pending_User_MA = Pending_User_MA + 1;
+                                                                }
+                                                                else if (item.Electrical == 2)
+                                                                {
+                                                                    mark = "fas fa-handshake";
+                                                                    color = "greenyellow";
+                                                                    status = "PM";
+                                                                    image = "~/Scripts/assets/images/pending_ma.png";
+                                                                    Pending_MA = Pending_MA + 1;
+                                                                }
+                                                                else if (item.Electrical == 3)
+                                                                {
+                                                                    mark = "fas fa-dice-three";
+                                                                    color = "blue";
+                                                                    status = "PU";
+                                                                    image = "~/Scripts/assets/images/pending_user.png";
+                                                                    Pending_user = Pending_user + 1;
+                                                                }
+                                                                else
+                                                                {
+                                                                    mark = "fas fa-check-circle";
+                                                                    color = "forestgreen";
+                                                                    status = "C";
+                                                                    image = "~/Scripts/assets/images/completed.png";
+                                                                    Completed = Completed + 1;
+                                                                }
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none">@status</span>
+                                                            </i>
+
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+                                                                if (item.Mechanical == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.Mechanical <= 0)
+                                                                {
+                                                                    mark = "fas fa-times-circle";
+                                                                    color = "orange";
+                                                                    status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                    Not_Submitted = Not_Submitted + 1;
+                                                                }
+                                                                else if (item.Mechanical == 1)
+                                                                {
+                                                                    mark = "fas fa-dice-two";
+                                                                    color = "mediumvioletred";
+                                                                    status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                    Pending_User_MA = Pending_User_MA + 1;
+                                                                }
+                                                                else if (item.Mechanical == 2)
+                                                                {
+                                                                    mark = "fas fa-handshake";
+                                                                    color = "greenyellow";
+                                                                    status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                    Pending_MA = Pending_MA + 1;
+                                                                }
+                                                                else if (item.Mechanical == 3)
+                                                                {
+                                                                    mark = "fas fa-dice-three";
+                                                                    color = "blue";
+                                                                    status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                    Pending_user = Pending_user + 1;
+                                                                }
+                                                                else
+                                                                {
+                                                                    mark = "fas fa-check-circle";
+                                                                    color = "forestgreen";
+                                                                    status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                    Completed = Completed + 1;
+                                                                }
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+                                                                if (item.SP_LIFTSYS == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.SP_LIFTSYS <= 0)
+                                                                {
+                                                                    mark = "fas fa-times-circle";
+                                                                    color = "orange";
+                                                                    status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                    Not_Submitted = Not_Submitted + 1;
+                                                                }
+                                                                else if (item.SP_LIFTSYS == 1)
+                                                                {
+                                                                    mark = "fas fa-dice-two";
+                                                                    color = "mediumvioletred";
+                                                                    status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                    Pending_User_MA = Pending_User_MA + 1;
+                                                                }
+                                                                else if (item.SP_LIFTSYS == 2)
+                                                                {
+                                                                    mark = "fas fa-handshake";
+                                                                    color = "greenyellow";
+                                                                    status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                    Pending_MA = Pending_MA + 1;
+                                                                }
+                                                                else if (item.SP_LIFTSYS == 3)
+                                                                {
+                                                                    mark = "fas fa-dice-three";
+                                                                    color = "blue";
+                                                                    status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                    Pending_user = Pending_user + 1;
+                                                                }
+                                                                else
+                                                                {
+                                                                    mark = "fas fa-check-circle";
+                                                                    color = "forestgreen";
+                                                                    status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                    Completed = Completed + 1;
+                                                                }
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+                                                                if (item.SP_SECUTYSYS == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.SP_SECUTYSYS <= 0)
+                                                                {
+                                                                    mark = "fas fa-times-circle";
+                                                                    color = "orange";
+                                                                    status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+
+                                                                    Not_Submitted = Not_Submitted + 1;
+                                                                }
+                                                                else if (item.SP_SECUTYSYS == 1)
+                                                                {
+                                                                    mark = "fas fa-dice-two";
+                                                                    color = "mediumvioletred";
+                                                                    status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                    Pending_User_MA = Pending_User_MA + 1;
+                                                                }
+                                                                else if (item.SP_SECUTYSYS == 2)
+                                                                {
+                                                                    mark = "fas fa-handshake";
+                                                                    color = "greenyellow";
+                                                                    status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                    Pending_MA = Pending_MA + 1;
+                                                                }
+                                                                else if (item.SP_SECUTYSYS == 3)
+                                                                {
+                                                                    mark = "fas fa-dice-three";
+                                                                    color = "blue";
+                                                                    status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                    Pending_user = Pending_user + 1;
+                                                                }
+                                                                else
+                                                                {
+                                                                    mark = "fas fa-check-circle";
+                                                                    color = "forestgreen";
+                                                                    status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                    Completed = Completed + 1;
+                                                                }
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+                                                                if (item.SP_FIREALMSYS == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.SP_FIREALMSYS <= 0)
+                                                                {
+                                                                    //mark = "fas fa-times-circle";
+                                                                    //color = "orange";
+                                                                    if (item.Electrical <= 0)
+                                                                    {
+                                                                        mark = "fas fa-times-circle";
+                                                                        color = "orange";
+                                                                        status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+
+                                                                        Not_Submitted = Not_Submitted + 1;
+                                                                    }
+                                                                    else if (item.Electrical == 1)
+                                                                    {
+                                                                        mark = "fas fa-dice-two";
+                                                                        color = "mediumvioletred";
+                                                                        status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                        Pending_User_MA = Pending_User_MA + 1;
+                                                                    }
+                                                                    else if (item.Electrical == 2)
+                                                                    {
+                                                                        mark = "fas fa-handshake";
+                                                                        color = "greenyellow";
+                                                                        status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                        Pending_MA = Pending_MA + 1;
+                                                                    }
+                                                                    else if (item.Electrical == 3)
+                                                                    {
+                                                                        mark = "fas fa-dice-three";
+                                                                        color = "blue";
+                                                                        status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                        Pending_user = Pending_user + 1;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        mark = "fas fa-check-circle";
+                                                                        color = "forestgreen";
+                                                                        status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                        Completed = Completed + 1;
+                                                                    }
+                                                                }
+                                                                //else if (item.SP_FIREALMSYS == 1)
+                                                                //{
+                                                                //    mark = "fas fa-dice-two";
+                                                                //    color = "mediumvioletred";
+                                                                //}
+                                                                //else if (item.SP_FIREALMSYS == 2)
+                                                                //{
+                                                                //    mark = "fas fa-handshake";
+                                                                //    color = "greenyellow";
+                                                                //}
+                                                                //else
+                                                                //{
+                                                                //    mark = "fas fa-check-circle";
+                                                                //    color = "forestgreen";
+                                                                //}
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+                                                                if (item.SP_PLCWDWL == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.SP_PLCWDWL <= 0)
+                                                                {
+                                                                    if (item.Mechanical <= 0)
+                                                                    {
+                                                                        mark = "fas fa-times-circle";
+                                                                        color = "orange";
+                                                                        status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                        Not_Submitted = Not_Submitted + 1;
+                                                                    }
+                                                                    else if (item.Mechanical == 1)
+                                                                    {
+                                                                        mark = "fas fa-dice-two";
+                                                                        color = "mediumvioletred";
+                                                                        status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                        Pending_User_MA = Pending_User_MA + 1;
+                                                                    }
+                                                                    else if (item.Mechanical == 2)
+                                                                    {
+                                                                        mark = "fas fa-handshake";
+                                                                        color = "greenyellow";
+                                                                        status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                        Pending_MA = Pending_MA + 1;
+                                                                    }
+                                                                    else if (item.Mechanical == 3)
+                                                                    {
+                                                                        mark = "fas fa-dice-three";
+                                                                        color = "blue";
+                                                                        status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                        Pending_user = Pending_user + 1;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        mark = "fas fa-check-circle";
+                                                                        color = "forestgreen";
+                                                                        status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                        Completed = Completed + 1;
+                                                                    }
+                                                                }
+
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+                                                                if (item.SP_HYDPUMP == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.SP_HYDPUMP <= 0)
+                                                                {
+                                                                    if (item.Mechanical <= 0)
+                                                                    {
+                                                                        mark = "fas fa-times-circle";
+                                                                        color = "orange";
+                                                                        status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                        Not_Submitted = Not_Submitted + 1;
+                                                                    }
+                                                                    else if (item.Mechanical == 1)
+                                                                    {
+                                                                        mark = "fas fa-dice-two";
+                                                                        color = "mediumvioletred";
+                                                                        status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                        Pending_User_MA = Pending_User_MA + 1;
+                                                                    }
+                                                                    else if (item.Mechanical == 2)
+                                                                    {
+                                                                        mark = "fas fa-handshake";
+                                                                        color = "greenyellow";
+                                                                        status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                        Pending_MA = Pending_MA + 1;
+                                                                    }
+                                                                    else if (item.Mechanical == 3)
+                                                                    {
+                                                                        mark = "fas fa-dice-three";
+                                                                        color = "blue";
+                                                                        status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                        Pending_user = Pending_user + 1;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        mark = "fas fa-check-circle";
+                                                                        color = "forestgreen";
+                                                                        status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                        Completed = Completed + 1;
+                                                                    }
+                                                                }
+
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+                                                                if (item.SP_PASISCM == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.SP_PASISCM <= 0)
+                                                                {
+                                                                    mark = "fas fa-times-circle";
+                                                                    color = "orange";
+                                                                    status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                    Not_Submitted = Not_Submitted + 1;
+                                                                }
+                                                                else if (item.SP_PASISCM == 1)
+                                                                {
+                                                                    mark = "fas fa-dice-two";
+                                                                    color = "mediumvioletred";
+                                                                    status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                    Pending_User_MA = Pending_User_MA + 1;
+                                                                }
+                                                                else if (item.SP_PASISCM == 2)
+                                                                {
+                                                                    mark = "fas fa-handshake";
+                                                                    color = "greenyellow";
+                                                                    status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                    Pending_MA = Pending_MA + 1;
+                                                                }
+                                                                else if (item.SP_PASISCM == 3)
+                                                                {
+                                                                    mark = "fas fa-dice-three";
+                                                                    color = "blue";
+                                                                    status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                    Pending_user = Pending_user + 1;
+                                                                }
+                                                                else
+                                                                {
+                                                                    mark = "fas fa-check-circle";
+                                                                    color = "forestgreen";
+                                                                    status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                    Completed = Completed + 1;
+                                                                }
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+                                                                if (item.SP_BASBMSSYS == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.SP_BASBMSSYS <= 0)
+                                                                {
+                                                                    mark = "fas fa-times-circle";
+                                                                    color = "orange";
+                                                                    status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                    Not_Submitted = Not_Submitted + 1;
+                                                                }
+                                                                else if (item.SP_BASBMSSYS == 1)
+                                                                {
+                                                                    mark = "fas fa-dice-two";
+                                                                    color = "mediumvioletred";
+                                                                    status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                    Pending_User_MA = Pending_User_MA + 1;
+                                                                }
+                                                                else if (item.SP_BASBMSSYS == 2)
+                                                                {
+                                                                    mark = "fas fa-handshake";
+                                                                    color = "greenyellow";
+                                                                    status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                    Pending_MA = Pending_MA + 1;
+                                                                }
+                                                                else if (item.SP_BASBMSSYS == 3)
+                                                                {
+                                                                    mark = "fas fa-dice-three";
+                                                                    color = "blue";
+                                                                    status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                    Pending_user = Pending_user + 1;
+                                                                }
+                                                                else
+                                                                {
+                                                                    mark = "fas fa-check-circle";
+                                                                    color = "forestgreen";
+                                                                    status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                    Completed = Completed + 1;
+                                                                }
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+                                                                if (item.SP_CHILLERSYS == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.SP_CHILLERSYS <= 0)
+                                                                {
+                                                                    mark = "fas fa-times-circle";
+                                                                    color = "orange";
+                                                                    status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                    Not_Submitted = Not_Submitted + 1;
+                                                                }
+                                                                else if (item.SP_CHILLERSYS == 1)
+                                                                {
+                                                                    mark = "fas fa-dice-two";
+                                                                    color = "mediumvioletred";
+                                                                    status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                    Pending_User_MA = Pending_User_MA + 1;
+                                                                }
+                                                                else if (item.SP_CHILLERSYS == 2)
+                                                                {
+                                                                    mark = "fas fa-handshake";
+                                                                    color = "greenyellow";
+                                                                    status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                    Pending_MA = Pending_MA + 1;
+                                                                }
+                                                                else if (item.SP_CHILLERSYS == 3)
+                                                                {
+                                                                    mark = "fas fa-dice-three";
+                                                                    color = "blue";
+                                                                    status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                    Pending_user = Pending_user + 1;
+                                                                }
+                                                                else
+                                                                {
+                                                                    mark = "fas fa-check-circle";
+                                                                    color = "forestgreen";
+                                                                    status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                    Completed = Completed + 1;
+                                                                }
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+
+                                                                if (item.SP_FUMECESYS == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.SP_FUMECESYS <= 0)
+                                                                {
+                                                                    mark = "fas fa-times-circle";
+                                                                    color = "orange";
+                                                                    status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                    Not_Submitted = Not_Submitted + 1;
+                                                                }
+                                                                else if (item.SP_FUMECESYS == 1)
+                                                                {
+                                                                    mark = "fas fa-dice-two";
+                                                                    color = "mediumvioletred";
+                                                                    status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                    Pending_User_MA = Pending_User_MA + 1;
+                                                                }
+                                                                else if (item.SP_FUMECESYS == 2)
+                                                                {
+                                                                    mark = "fas fa-handshake";
+                                                                    color = "greenyellow";
+                                                                    status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                    Pending_MA = Pending_MA + 1;
+                                                                }
+                                                                else if (item.SP_FUMECESYS == 3)
+                                                                {
+                                                                    mark = "fas fa-dice-three";
+                                                                    color = "blue";
+                                                                    status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                    Pending_user = Pending_user + 1;
+                                                                }
+                                                                else
+                                                                {
+                                                                    mark = "fas fa-check-circle";
+                                                                    color = "forestgreen";
+                                                                    status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                    Completed = Completed + 1;
+                                                                }
+
+
+                                                                //if (item.SP_FUMECESYS == null)
+                                                                //{
+                                                                //    mark = "fas fa-not-equal";
+                                                                //    color = "grey";
+                                                                //    status = "NA";
+                                                                //    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                //}
+                                                                //else if (item.SP_FUMECESYS <= 0)
+                                                                //{
+                                                                //    if (item.Mechanical <= 0)
+                                                                //    {
+                                                                //        mark = "fas fa-times-circle";
+                                                                //        color = "orange";
+                                                                //        status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                //    }
+                                                                //    else if (item.Mechanical == 1)
+                                                                //    {
+                                                                //        mark = "fas fa-dice-two";
+                                                                //        color = "mediumvioletred";
+                                                                //        status = "PU/M"; image = "~/Scripts/assets/images/pending-user-ma.png";
+                                                                //    }
+                                                                //    else if (item.Mechanical == 2)
+                                                                //    {
+                                                                //        mark = "fas fa-handshake";
+                                                                //        color = "greenyellow";
+                                                                //        status = "PM"; image = "~/Scripts/assets/images/pending-ma.png";
+                                                                //    }
+                                                                //    else if (item.Mechanical == 3)
+                                                                //    {
+                                                                //        mark = "fas fa-dice-three";
+                                                                //        color = "blue";
+                                                                //        status = "PU"; image = "~/Scripts/assets/images/pending-user.png";
+                                                                //    }
+                                                                //    else
+                                                                //    {
+                                                                //        mark = "fas fa-check-circle";
+                                                                //        color = "forestgreen";
+                                                                //        status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                //    }
+                                                                //}
+
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+                                                                if (item.SP_FIRESPNKLR == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.SP_FIRESPNKLR <= 0)
+                                                                {
+                                                                    if (item.Mechanical <= 0)
+                                                                    {
+                                                                        mark = "fas fa-times-circle";
+                                                                        color = "orange";
+                                                                        status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                        Not_Submitted = Not_Submitted + 1;
+                                                                    }
+                                                                    else if (item.Mechanical == 1)
+                                                                    {
+                                                                        mark = "fas fa-dice-two";
+                                                                        color = "mediumvioletred";
+                                                                        status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                        Pending_User_MA = Pending_User_MA + 1;
+                                                                    }
+                                                                    else if (item.Mechanical == 2)
+                                                                    {
+                                                                        mark = "fas fa-handshake";
+                                                                        color = "greenyellow";
+                                                                        status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                        Pending_MA = Pending_MA + 1;
+                                                                    }
+                                                                    else if (item.Mechanical == 3)
+                                                                    {
+                                                                        mark = "fas fa-dice-three";
+                                                                        color = "blue";
+                                                                        status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                        Pending_user = Pending_user + 1;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        mark = "fas fa-check-circle";
+                                                                        color = "forestgreen";
+                                                                        status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                        Completed = Completed + 1;
+
+                                                                    }
+                                                                }
+
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+                                                                if (item.SP_WETCHSUSYS == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.SP_WETCHSUSYS <= 0)
+                                                                {
+                                                                    mark = "fas fa-times-circle";
+                                                                    color = "orange";
+                                                                    status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                    Not_Submitted = Not_Submitted + 1;
+                                                                }
+                                                                else if (item.SP_WETCHSUSYS == 1)
+                                                                {
+                                                                    mark = "fas fa-dice-two";
+                                                                    color = "mediumvioletred";
+                                                                    status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                    Pending_User_MA = Pending_User_MA + 1;
+                                                                }
+                                                                else if (item.SP_WETCHSUSYS == 2)
+                                                                {
+                                                                    mark = "fas fa-handshake";
+                                                                    color = "greenyellow";
+                                                                    status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                    Pending_MA = Pending_MA + 1;
+                                                                }
+                                                                else if (item.SP_WETCHSUSYS == 3)
+                                                                {
+                                                                    mark = "fas fa-dice-three";
+                                                                    color = "blue";
+                                                                    status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                    Pending_user = Pending_user + 1;
+                                                                }
+                                                                else
+                                                                {
+                                                                    mark = "fas fa-check-circle";
+                                                                    color = "forestgreen";
+                                                                    status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                    Completed = Completed + 1;
+                                                                }
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+
+                                                                if (item.SP_HVLSFMPIS == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.SP_HVLSFMPIS <= 0)
+                                                                {
+                                                                    mark = "fas fa-times-circle";
+                                                                    color = "orange";
+                                                                    status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                    Not_Submitted = Not_Submitted + 1;
+                                                                }
+                                                                else if (item.SP_HVLSFMPIS == 1)
+                                                                {
+                                                                    mark = "fas fa-dice-two";
+                                                                    color = "mediumvioletred";
+                                                                    status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                    Pending_User_MA = Pending_User_MA + 1;
+                                                                }
+                                                                else if (item.SP_HVLSFMPIS == 2)
+                                                                {
+                                                                    mark = "fas fa-handshake";
+                                                                    color = "greenyellow";
+                                                                    status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                    Pending_MA = Pending_MA + 1;
+                                                                }
+                                                                else if (item.SP_HVLSFMPIS == 3)
+                                                                {
+                                                                    mark = "fas fa-dice-three";
+                                                                    color = "blue";
+                                                                    status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                    Pending_user = Pending_user + 1;
+                                                                }
+                                                                else
+                                                                {
+                                                                    mark = "fas fa-check-circle";
+                                                                    color = "forestgreen";
+                                                                    status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                    Completed = Completed + 1;
+                                                                }
+
+                                                                //if (item.SP_HVLSFMPIS == null)
+                                                                //{
+                                                                //    mark = "fas fa-not-equal";
+                                                                //    color = "grey";
+                                                                //    status = "NA";
+                                                                //    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                //}
+                                                                //else if (item.SP_HVLSFMPIS <= 0)
+                                                                //{
+                                                                //    if (item.Electrical <= 0)
+                                                                //    {
+                                                                //        mark = "fas fa-times-circle";
+                                                                //        color = "orange";
+                                                                //        status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                //    }
+                                                                //    else if (item.Electrical == 1)
+                                                                //    {
+                                                                //        mark = "fas fa-dice-two";
+                                                                //        color = "mediumvioletred";
+                                                                //        status = "PU/M"; image = "~/Scripts/assets/images/pending-user-ma.png";
+                                                                //    }
+                                                                //    else if (item.Electrical == 2)
+                                                                //    {
+                                                                //        mark = "fas fa-handshake";
+                                                                //        color = "greenyellow";
+                                                                //        status = "PM"; image = "~/Scripts/assets/images/pending-ma.png";
+                                                                //    }
+                                                                //    else if (item.Electrical == 3)
+                                                                //    {
+                                                                //        mark = "fas fa-dice-three";
+                                                                //        color = "blue";
+                                                                //        status = "PU"; image = "~/Scripts/assets/images/pending-user.png";
+                                                                //    }
+                                                                //    else
+                                                                //    {
+                                                                //        mark = "fas fa-check-circle";
+                                                                //        color = "forestgreen";
+                                                                //        status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                //    }
+                                                                //}
+
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+                                                                if (item.SP_SMKCTLSYS == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.SP_SMKCTLSYS <= 0)
+                                                                {
+                                                                    if (item.Electrical <= 0)
+                                                                    {
+                                                                        mark = "fas fa-times-circle";
+                                                                        color = "orange";
+                                                                        status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                        Not_Submitted = Not_Submitted + 1;
+                                                                    }
+                                                                    else if (item.Electrical == 1)
+                                                                    {
+                                                                        mark = "fas fa-dice-two";
+                                                                        color = "mediumvioletred";
+                                                                        status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                        Pending_User_MA = Pending_User_MA + 1;
+                                                                    }
+                                                                    else if (item.Electrical == 2)
+                                                                    {
+                                                                        mark = "fas fa-handshake";
+                                                                        color = "greenyellow";
+                                                                        status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                        Pending_MA = Pending_MA + 1;
+                                                                    }
+                                                                    else if (item.Electrical == 3)
+                                                                    {
+                                                                        mark = "fas fa-dice-three";
+                                                                        color = "blue";
+                                                                        status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                        Pending_user = Pending_user + 1;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        mark = "fas fa-check-circle";
+                                                                        color = "forestgreen";
+                                                                        status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                        Completed = Completed + 1;
+                                                                    }
+                                                                }
+
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+                                                                if (item.SP_OTHLIFTS == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.SP_OTHLIFTS <= 0)
+                                                                {
+                                                                    mark = "fas fa-times-circle";
+                                                                    color = "orange";
+                                                                    status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                    Not_Submitted = Not_Submitted + 1;
+                                                                }
+                                                                else if (item.SP_OTHLIFTS == 1)
+                                                                {
+                                                                    mark = "fas fa-dice-two";
+                                                                    color = "mediumvioletred";
+                                                                    status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                    Pending_User_MA = Pending_User_MA + 1;
+                                                                }
+                                                                else if (item.SP_OTHLIFTS == 2)
+                                                                {
+                                                                    mark = "fas fa-handshake";
+                                                                    color = "greenyellow";
+                                                                    status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                    Pending_MA = Pending_MA + 1;
+                                                                }
+                                                                else if (item.SP_OTHLIFTS == 3)
+                                                                {
+                                                                    mark = "fas fa-dice-three";
+                                                                    color = "blue";
+                                                                    status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                    Pending_user = Pending_user + 1;
+                                                                }
+                                                                else
+                                                                {
+                                                                    mark = "fas fa-check-circle";
+                                                                    color = "forestgreen";
+                                                                    status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                    Completed = Completed + 1;
+                                                                }
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+                                                                if (item.SP_GENSET == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.SP_GENSET <= 0)
+                                                                {
+                                                                    if (item.Electrical <= 0)
+                                                                    {
+                                                                        mark = "fas fa-times-circle";
+                                                                        color = "orange";
+                                                                        status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                        Not_Submitted = Not_Submitted + 1;
+                                                                    }
+                                                                    else if (item.Electrical == 1)
+                                                                    {
+                                                                        mark = "fas fa-dice-two";
+                                                                        color = "mediumvioletred";
+                                                                        status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                        Pending_User_MA = Pending_User_MA + 1;
+                                                                    }
+                                                                    else if (item.Electrical == 2)
+                                                                    {
+                                                                        mark = "fas fa-handshake";
+                                                                        color = "greenyellow";
+                                                                        status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                        Pending_MA = Pending_MA + 1;
+                                                                    }
+                                                                    else if (item.Electrical == 3)
+                                                                    {
+                                                                        mark = "fas fa-dice-three";
+                                                                        color = "blue";
+                                                                        status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                        Pending_user = Pending_user + 1;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        mark = "fas fa-check-circle";
+                                                                        color = "forestgreen";
+                                                                        status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                        Completed = Completed + 1;
+                                                                    }
+                                                                }
+
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+                                                        <td>
+                                                            @{
+                                                                if (item.SP_SIOCDSYS == null)
+                                                                {
+                                                                    mark = "fas fa-not-equal";
+                                                                    color = "grey";
+                                                                    status = "NA";
+                                                                    image = "~/Scripts/assets/images/not-applicable.png";
+                                                                    Not_Applicable = Not_Applicable + 1;
+                                                                }
+                                                                else if (item.SP_SIOCDSYS <= 0)
+                                                                {
+                                                                    if (item.Electrical <= 0)
+                                                                    {
+                                                                        mark = "fas fa-times-circle";
+                                                                        color = "orange";
+                                                                        status = "X"; image = "~/Scripts/assets/images/not-submitted.png";
+                                                                        Not_Submitted = Not_Submitted + 1;
+                                                                    }
+                                                                    else if (item.Electrical == 1)
+                                                                    {
+                                                                        mark = "fas fa-dice-two";
+                                                                        color = "mediumvioletred";
+                                                                        status = "PU/M"; image = "~/Scripts/assets/images/pending_user_ma.png";
+                                                                        Pending_User_MA = Pending_User_MA + 1;
+                                                                    }
+                                                                    else if (item.Electrical == 2)
+                                                                    {
+                                                                        mark = "fas fa-handshake";
+                                                                        color = "greenyellow";
+                                                                        status = "PM"; image = "~/Scripts/assets/images/pending_ma.png";
+                                                                        Pending_MA = Pending_MA + 1;
+                                                                    }
+                                                                    else if (item.Electrical == 3)
+                                                                    {
+                                                                        mark = "fas fa-dice-three";
+                                                                        color = "blue";
+                                                                        status = "PU"; image = "~/Scripts/assets/images/pending_user.png";
+                                                                        Pending_user = Pending_user + 1;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        mark = "fas fa-check-circle";
+                                                                        color = "forestgreen";
+                                                                        status = "C"; image = "~/Scripts/assets/images/completed.png";
+                                                                        Completed = Completed + 1;
+                                                                    }
+                                                                }
+
+                                                            }
+
+                                                            <i class="@mark1" style="color: @color; font-size: 18px;">
+                                                                <img src="@image" />
+                                                                <span style="display:none;">@status</span>
+                                                            </i>
+                                                        </td>
+
+
+                                                    </tr>
+
+                                                                }
+
+
+                                            </tbody>
+                                            <tfoot>
+                                                <tr style="background-color:#F0FFF0">
+                                                    <td colspan="2"><u><b>Summary:</b></u></td>
+                                                    <td colspan="3"><b>Not Applicable: @Not_Applicable</b></td>
+
+                                                    <td colspan="3"><b>Not Submitted: @Not_Submitted</b></td>
+                                                    <td colspan="3"><b>Pending User & MA: @Pending_User_MA</b></td>
+                                                    <td colspan="3"><b>Pending User: @Pending_user</b></td>
+                                                    <td colspan="3"><b>Pending MA: @Pending_MA</b></td>
+                                                    <td colspan="3"><b>Completed: @Completed</b></td>
+                                                </tr>
+                                                @{
+                                                    var total_scheduled_count = Not_Submitted + Pending_User_MA + Pending_user + Pending_MA + Completed;
+                                                    double total_completed_percentage = 0.0;
+                                                    if (total_scheduled_count > 0)
+                                                    {
+                                                        total_completed_percentage = (Double)Completed / total_scheduled_count * 100;
+                                                        //Convert.ToSingle (Convert.ToSingle(Completed) / Convert.ToSingle(total_scheduled_count)) * 100;
+                                                    }
+
+                                                }
+
+                                                <!--style="background-color:gainsboro"-->
+                                                <tr style="background-color:#F0FFF0">
+                                                    <td colspan="2">&nbsp;</td>
+                                                    <td colspan="3"><b>Total Scheduled Count: @total_scheduled_count</b></td>
+
+                                                    <td colspan="3"><b>Total Completed %: @total_completed_percentage.ToString("N2")</b></td>
+                                                    <td colspan="3"><b>Total Completed: @Completed</b></td>
+                                                    <td colspan="3">&nbsp; </td>
+                                                    <td colspan="3">&nbsp;  </td>
+                                                    <td colspan="3">&nbsp;  </td>
+                                                </tr>
+                                                <tr style="background-color:#F0FFF0">
+                                                    <td colspan="2"><u><b>Legend:</b></u></td>
+                                                    <td colspan="3"><img src="~/Scripts/assets/images/not-applicable.png" /><b>&nbsp;-&nbsp;Not&nbsp;Applicable</b></td>
+
+                                                    <td colspan="3"><img src="~/Scripts/assets/images/not-submitted.png" /><b>&nbsp;-&nbsp;Not&nbsp;Submitted</b></td>
+                                                    <td colspan="3"><img src="~/Scripts/assets/images/pending_user_ma.png" /><b>&nbsp;-&nbsp;Pending&nbsp;User&nbsp;&&nbsp;MA</b></td>
+                                                    <td colspan="3"><img src="~/Scripts/assets/images/pending_user.png" /><b>&nbsp;-&nbsp;Pending&nbsp;User</b></td>
+                                                    <td colspan="3"><img src="~/Scripts/assets/images/pending_ma.png" /><b>&nbsp;-&nbsp;Pending&nbsp;MA</b></td>
+                                                    <td colspan="3"><img src="~/Scripts/assets/images/completed.png" /><b>&nbsp;-&nbsp;Completed</b></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<script src="~/Scripts/assets/plugins/select2.min.js"></script>
+    <script src="~/Scripts/assets/plugins/moment.min.js"></script>*@
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+<script>
+
+
+     var currentdate = new Date();
+        var datetime = addZero(currentdate.getDate()) + ""
+                    + addZero((currentdate.getMonth() + 1)) + ""
+                    + currentdate.getFullYear() + " "
+                    + addZero(currentdate.getHours()) + ""
+                    + addZero(currentdate.getMinutes()) + ""
+                    + addZero(currentdate.getSeconds());
+
+  //  var fname = '@ViewBag.Company' + "Zone_" + '@ViewBag.FN' + "_" + datetime;
+    var fname =  "Zone_" + '@ViewBag.FN' + "_" + datetime;
+
+        var pdfname = fname + ".pdf";
+
+
+        /*
+
+         */
+    function addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+    $(document).ready(function () {
+
+
+
+        //$("#Month").select2({
+        //    theme: "bootstrap4",
+        //});
+
+        //$("#Year").select2({
+        //    theme: "bootstrap4",
+        //});
+
+
+        $('#chklistTable').DataTable({
+             //"autoWidth": true,
+        //"scrollX": true,
+        dom: 'Bfrtipl',
+            responsive: true,
+            "pageLength": 100,
+       // "scrollY": true,
+        buttons: [
+            //{
+            //    extend: 'pdfHtml5',
+            //    title: 'Checklist Matrix'
+            //}
+            //'excelHtml5',
+            //'csvHtml5',
+            //'copy', 'csv', 'excel', 'pdf', 'print',
+        {
+       // extend: 'pdf',
+        orientation: 'landscape',
+         pageSize: 'LEGAL',
+        title: fname
+        }
+
+        ]
+        });
+
+      //  $('.dt-button').addClass('btn btn-primary').removeClass('dt-button').css('margin-right', '5px')
+
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
+        });
+
+
+});
+
+    function Export() {
+
+        html2canvas(document.getElementById('chklistTable'), {
+            onrendered: function (canvas) {
+
+               /*
+                //  canvas.dataTable.
+                var a = document.createElement('h1');
+                a.textContent = 'Download';
+               // document.body.appendChild(a);
+                canvas.appendChild(a);
+              */
+
+                var data = canvas.toDataURL();
+
+
+
+                var docDefinition = {
+                    //  header: 'welcome text',
+                    // footer: {},
+                    // info: {
+                      // title: 'welcome'
+                    //},
+                    //   background: 'simple text',
+
+                    content: [
+                        // 'welcome',
+                       {
+                        image: data,
+                            width: 500
+                        // ,   height: 700
+
+                        }]
+
+                };
+
+                pdfMake.createPdf(docDefinition).download(pdfname);
+            }
+        });
+    }
+
+</script>
+
+

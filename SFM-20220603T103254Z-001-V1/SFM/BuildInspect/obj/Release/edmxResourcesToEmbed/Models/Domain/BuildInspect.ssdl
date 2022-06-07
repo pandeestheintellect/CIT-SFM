@@ -1,0 +1,514 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BuildInspectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="checklist_files">
+    <Key>
+      <PropertyRef Name="ReportID" />
+    </Key>
+    <Property Name="ReportID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SchoolID" Type="int" />
+    <Property Name="Month_Start_Date" Type="date" />
+    <Property Name="Frequency" Type="nvarchar" MaxLength="20" />
+    <Property Name="CLType" Type="nvarchar" MaxLength="20" />
+    <Property Name="FilePath" Type="nvarchar" MaxLength="350" />
+  </EntityType>
+  <EntityType Name="chklst_item_master">
+    <Key>
+      <PropertyRef Name="ChkListID" />
+    </Key>
+    <Property Name="ChkListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FormName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="ParentID" Type="int" />
+    <Property Name="IsSubTitle" Type="nvarchar" MaxLength="3" />
+    <Property Name="OrderBy" Type="int" />
+    <Property Name="PageNum" Type="int" />
+    <Property Name="CF_Flag" Type="int" />
+    <Property Name="ServiceType" Type="nvarchar" MaxLength="20" />
+    <Property Name="Frequency" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="chklst_trn_detail">
+    <Key>
+      <PropertyRef Name="CLTDID" />
+    </Key>
+    <Property Name="CLTDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CLTMID" Type="int" />
+    <Property Name="ChkListID" Type="int" />
+    <Property Name="IsDone" Type="nvarchar" MaxLength="50" />
+    <Property Name="DateDone" Type="date" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="chklst_trn_files">
+    <Key>
+      <PropertyRef Name="CLFileID" />
+    </Key>
+    <Property Name="CLFileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CLTMID" Type="int" />
+    <Property Name="FileCaption" Type="nvarchar" MaxLength="250" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="350" />
+    <Property Name="FilePath" Type="nvarchar" MaxLength="350" />
+  </EntityType>
+  <EntityType Name="chklst_trn_master">
+    <Key>
+      <PropertyRef Name="CLTMID" />
+    </Key>
+    <Property Name="CLTMID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SchoolID" Type="int" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="CheckedBy_Signature" Type="nvarchar(max)" />
+    <Property Name="VerifiedBy_Signature" Type="nvarchar(max)" />
+    <Property Name="EndoresBy_Signature" Type="nvarchar(max)" />
+    <Property Name="Frequency" Type="nvarchar" MaxLength="20" />
+    <Property Name="PrjMasID" Type="int" />
+    <Property Name="Draft_Flag" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="UpdatedDate" Type="date" />
+    <Property Name="User_Sign_Date" Type="date" />
+    <Property Name="OpMngr_Sign_Date" Type="date" />
+    <Property Name="MA_Sign_Date" Type="date" />
+    <Property Name="CheckedBy_Remarks" Type="nvarchar" MaxLength="450" />
+    <Property Name="VerifiedBy_Remarks" Type="nvarchar" MaxLength="450" />
+    <Property Name="EndoresBy_Remarks" Type="nvarchar" MaxLength="450" />
+    <Property Name="Status_Flag" Type="int" />
+    <Property Name="CLType" Type="nvarchar" MaxLength="20" />
+    <Property Name="CheckedBy_DateTime" Type="datetime" />
+    <Property Name="VerifiedBy_DateTime" Type="datetime" />
+    <Property Name="EndoresBy_DateTime" Type="datetime" />
+    <Property Name="CB_Latitude" Type="decimal" Precision="10" Scale="6" />
+    <Property Name="CB_Longitude" Type="decimal" Precision="10" Scale="6" />
+    <Property Name="CheckedBy_Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="VerifiedBy_Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="EndoresBy_Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="CLMonth" Type="date" />
+  </EntityType>
+  <EntityType Name="company_master">
+    <Key>
+      <PropertyRef Name="CompanyID" />
+    </Key>
+    <Property Name="CompanyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Country" Type="nvarchar" MaxLength="80" />
+    <Property Name="Pincode" Type="nvarchar" MaxLength="10" />
+    <Property Name="Tel" Type="nvarchar" MaxLength="50" />
+    <Property Name="Fax" Type="nvarchar" MaxLength="20" />
+    <Property Name="Mob" Type="nvarchar" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" MaxLength="80" />
+    <Property Name="RegNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="GstRegNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="LogoPath" Type="nvarchar" MaxLength="250" />
+    <Property Name="GST" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="date" />
+    <Property Name="IsActive" Type="int" />
+    <Property Name="ShortName" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="deployment">
+    <Key>
+      <PropertyRef Name="DeployID" />
+    </Key>
+    <Property Name="DeployID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SchoolID" Type="int" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="Schedule_Date" Type="date" />
+    <Property Name="Is_Completed" Type="int" />
+    <Property Name="Completed_Date" Type="date" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="date" />
+  </EntityType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="EmpID" />
+    </Key>
+    <Property Name="EmpID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Employee_Id" Type="nvarchar" MaxLength="20" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="DoB" Type="date" />
+    <Property Name="PhotoPath" Type="nvarchar" MaxLength="300" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="ScheduleID" Type="int" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+    <Property Name="DoJ" Type="date" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="DoR" Type="date" />
+    <Property Name="IsActive" Type="int" />
+  </EntityType>
+  <EntityType Name="License_Master">
+    <Key>
+      <PropertyRef Name="LicenseID" />
+    </Key>
+    <Property Name="LicenseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyID" Type="int" Nullable="false" />
+    <Property Name="License_Start_Date" Type="date" />
+    <Property Name="License_End_Date" Type="date" />
+    <Property Name="IsActive" Type="int" />
+    <Property Name="LicenseKey" Type="nvarchar(max)" />
+    <Property Name="No_of_Days" Type="int" />
+    <Property Name="Creation_Date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="module">
+    <Key>
+      <PropertyRef Name="ModuleID" />
+    </Key>
+    <Property Name="ModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AccessType" Type="int" Nullable="false" />
+    <Property Name="ModuleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Order_By" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="permission">
+    <Key>
+      <PropertyRef Name="PermissionID" />
+    </Key>
+    <Property Name="PermissionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupID" Type="int" />
+    <Property Name="ModuleID" Type="int" />
+    <Property Name="Access" Type="int" />
+  </EntityType>
+  <EntityType Name="project_master">
+    <Key>
+      <PropertyRef Name="PrjMasID" />
+    </Key>
+    <Property Name="PrjMasID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SchoolID" Type="int" />
+    <Property Name="MonthName" Type="nvarchar" MaxLength="20" />
+    <Property Name="Month_Start_Date" Type="date" />
+    <Property Name="Month_End_Date" Type="date" />
+    <Property Name="Frequency" Type="nvarchar" MaxLength="20" />
+    <Property Name="Lift_Count" Type="int" />
+    <Property Name="Is_Completed" Type="int" />
+    <Property Name="Is_Rescheduled" Type="int" />
+    <Property Name="Rescheduled_Date" Type="date" />
+    <Property Name="Rescheduled_Remarks" Type="nvarchar" MaxLength="500" />
+    <Property Name="CLType" Type="nvarchar" MaxLength="25" />
+    <Property Name="Lift_Opr_Name" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="school_master">
+    <Key>
+      <PropertyRef Name="SchoolID" />
+    </Key>
+    <Property Name="SchoolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Zone" Type="nvarchar" MaxLength="20" />
+    <Property Name="School_Type" Type="nvarchar" MaxLength="80" />
+    <Property Name="School_Name" Type="nvarchar" MaxLength="150" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Prefix" Type="nvarchar" MaxLength="10" />
+    <Property Name="Op_Manager_Name" Type="nvarchar" MaxLength="80" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="15" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="15" />
+    <Property Name="Email" Type="nvarchar" MaxLength="80" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="date" />
+    <Property Name="ME_Coordinator_ID" Type="int" />
+    <Property Name="School_Ref_Num" Type="nvarchar" MaxLength="50" />
+    <Property Name="Latitude" Type="decimal" Precision="10" Scale="6" />
+    <Property Name="Longitude" Type="decimal" Precision="10" Scale="6" />
+    <Property Name="Is_Project_Created" Type="int" />
+    <Property Name="IsActive" Type="int" />
+    <Property Name="CompanyID" Type="int" />
+    <Property Name="HVLSFan_count" Type="int" />
+    <Property Name="LIFT_count" Type="int" />
+    <Property Name="CHILLER_count" Type="int" />
+  </EntityType>
+  <EntityType Name="school_user_mapping">
+    <Key>
+      <PropertyRef Name="SUID" />
+    </Key>
+    <Property Name="SUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SchoolID" Type="int" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="CLType" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="screens">
+    <Key>
+      <PropertyRef Name="SCREEN_ID" />
+    </Key>
+    <Property Name="SCREEN_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MODULEID" Type="int" Nullable="false" />
+    <Property Name="SCREEN_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SCREEN_CLASS_NAME" Type="nvarchar" MaxLength="50" />
+    <Property Name="SCREEN_URL" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="ORDER_BY" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="service_form">
+    <Key>
+      <PropertyRef Name="ServiceID" />
+    </Key>
+    <Property Name="ServiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceRefNum" Type="nvarchar" MaxLength="20" />
+    <Property Name="CaseRefNum" Type="nvarchar" MaxLength="80" />
+    <Property Name="Service_Datetime" Type="datetime" />
+    <Property Name="Priority" Type="nvarchar" MaxLength="50" />
+    <Property Name="SchoolID" Type="int" />
+    <Property Name="Contact_Person" Type="nvarchar" MaxLength="80" />
+    <Property Name="Location" Type="nvarchar" MaxLength="50" />
+    <Property Name="RoomNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="ServiceType" Type="nvarchar" MaxLength="50" />
+    <Property Name="Work_Requests" Type="nvarchar(max)" />
+    <Property Name="Customer_Rep" Type="nvarchar" MaxLength="80" />
+    <Property Name="Customer_Rep_Signature" Type="nvarchar(max)" />
+    <Property Name="Work_Completion_Details" Type="nvarchar(max)" />
+    <Property Name="Remarks_TC" Type="nvarchar(max)" />
+    <Property Name="Client_Comments" Type="nvarchar(max)" />
+    <Property Name="Technician_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Technician_Signature" Type="nvarchar(max)" />
+    <Property Name="Customer_incharge_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Customer_incharge_Signature" Type="nvarchar(max)" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="Status_Flag" Type="int" />
+    <Property Name="AssignedBy" Type="int" />
+    <Property Name="AssignedDate" Type="datetime" />
+    <Property Name="Technician_Signature_Date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="service_form_files">
+    <Key>
+      <PropertyRef Name="ServiceFileID" />
+    </Key>
+    <Property Name="ServiceFileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceID" Type="int" />
+    <Property Name="FileCaption" Type="nvarchar" MaxLength="250" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="350" />
+    <Property Name="FilePath" Type="nvarchar" MaxLength="350" />
+  </EntityType>
+  <EntityType Name="servicetype_master">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceType" Type="nvarchar" MaxLength="20" />
+    <Property Name="ServiceDescription" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="sys_freqTable">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MonthNum" Type="int" />
+    <Property Name="MonthName" Type="nvarchar" MaxLength="20" />
+    <Property Name="CalendarMonthNum" Type="int" />
+  </EntityType>
+  <EntityType Name="usergroup">
+    <Key>
+      <PropertyRef Name="GroupID" />
+    </Key>
+    <Property Name="GroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="80" />
+    <Property Name="Password" Type="nvarchar" MaxLength="255" />
+    <Property Name="EmpID" Type="int" />
+    <Property Name="GroupID" Type="int" />
+    <Property Name="DisplayName" Type="nvarchar" MaxLength="80" />
+    <Property Name="LastLogin" Type="smalldatetime" />
+    <Property Name="UID" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="date" />
+    <Property Name="CompanyID" Type="int" />
+    <Property Name="Email" Type="nvarchar" MaxLength="80" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="12" />
+    <Property Name="ServiceType" Type="nvarchar" MaxLength="20" />
+    <Property Name="Zone" Type="nvarchar" MaxLength="10" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Designation" Type="nvarchar" MaxLength="50" />
+    <Property Name="TeamLead_ID" Type="int" />
+    <Property Name="Admin_ID" Type="int" />
+    <Property Name="ProjMngr_ID" Type="int" />
+    <Property Name="DeviceID" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'cybervaultdb.dbo.Scool_lift' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Scool_lift">
+    <Key>
+      <PropertyRef Name="item_desc" />
+    </Key>
+    <Property Name="RID" Type="bigint" />
+    <Property Name="item_desc" Type="varchar" MaxLength="17" Nullable="false" />
+    <Property Name="Frequency" Type="nvarchar" MaxLength="20" />
+    <Property Name="SchoolID" Type="int" />
+    <Property Name="TrnID" Type="int" />
+    <Property Name="LIFT_count" Type="int" />
+  </EntityType>
+  <Association Name="FK_chklst_trn_detail_chklst_trn_master">
+    <End Role="chklst_trn_master" Type="Self.chklst_trn_master" Multiplicity="0..1" />
+    <End Role="chklst_trn_detail" Type="Self.chklst_trn_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="chklst_trn_master">
+        <PropertyRef Name="CLTMID" />
+      </Principal>
+      <Dependent Role="chklst_trn_detail">
+        <PropertyRef Name="CLTMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chklst_trn_files_chklrn_trn_master">
+    <End Role="chklst_trn_master" Type="Self.chklst_trn_master" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="chklst_trn_files" Type="Self.chklst_trn_files" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="chklst_trn_master">
+        <PropertyRef Name="CLTMID" />
+      </Principal>
+      <Dependent Role="chklst_trn_files">
+        <PropertyRef Name="CLTMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rapid_permission_rapid_module">
+    <End Role="module" Type="Self.module" Multiplicity="0..1" />
+    <End Role="permission" Type="Self.permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="module">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="permission">
+        <PropertyRef Name="ModuleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rapid_permission_rapid_usergroup">
+    <End Role="usergroup" Type="Self.usergroup" Multiplicity="0..1" />
+    <End Role="permission" Type="Self.permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usergroup">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="permission">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rapid_screens_rapid_module">
+    <End Role="module" Type="Self.module" Multiplicity="1" />
+    <End Role="screens" Type="Self.screens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="module">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="screens">
+        <PropertyRef Name="MODULEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rapid_users_rapid_usergroup">
+    <End Role="usergroup" Type="Self.usergroup" Multiplicity="0..1" />
+    <End Role="users" Type="Self.users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usergroup">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="users">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_service_form_files_service_form">
+    <End Role="service_form" Type="Self.service_form" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="service_form_files" Type="Self.service_form_files" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="service_form">
+        <PropertyRef Name="ServiceID" />
+      </Principal>
+      <Dependent Role="service_form_files">
+        <PropertyRef Name="ServiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_users_company_master">
+    <End Role="company_master" Type="Self.company_master" Multiplicity="0..1" />
+    <End Role="users" Type="Self.users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="company_master">
+        <PropertyRef Name="CompanyID" />
+      </Principal>
+      <Dependent Role="users">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BuildInspectModelStoreContainer">
+    <EntitySet Name="checklist_files" EntityType="Self.checklist_files" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="chklst_item_master" EntityType="Self.chklst_item_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="chklst_trn_detail" EntityType="Self.chklst_trn_detail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="chklst_trn_files" EntityType="Self.chklst_trn_files" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="chklst_trn_master" EntityType="Self.chklst_trn_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="company_master" EntityType="Self.company_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="deployment" EntityType="Self.deployment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="License_Master" EntityType="Self.License_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="module" EntityType="Self.module" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="permission" EntityType="Self.permission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="project_master" EntityType="Self.project_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="school_master" EntityType="Self.school_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="school_user_mapping" EntityType="Self.school_user_mapping" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="screens" EntityType="Self.screens" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="service_form" EntityType="Self.service_form" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="service_form_files" EntityType="Self.service_form_files" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="servicetype_master" EntityType="Self.servicetype_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sys_freqTable" EntityType="Self.sys_freqTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="usergroup" EntityType="Self.usergroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Scool_lift" EntityType="Self.Scool_lift" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Scool_lift].[RID] AS [RID], 
+    [Scool_lift].[item_desc] AS [item_desc], 
+    [Scool_lift].[Frequency] AS [Frequency], 
+    [Scool_lift].[SchoolID] AS [SchoolID], 
+    [Scool_lift].[TrnID] AS [TrnID], 
+    [Scool_lift].[LIFT_count] AS [LIFT_count]
+    FROM [dbo].[Scool_lift] AS [Scool_lift]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_chklst_trn_detail_chklst_trn_master" Association="Self.FK_chklst_trn_detail_chklst_trn_master">
+      <End Role="chklst_trn_master" EntitySet="chklst_trn_master" />
+      <End Role="chklst_trn_detail" EntitySet="chklst_trn_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chklst_trn_files_chklrn_trn_master" Association="Self.FK_chklst_trn_files_chklrn_trn_master">
+      <End Role="chklst_trn_master" EntitySet="chklst_trn_master" />
+      <End Role="chklst_trn_files" EntitySet="chklst_trn_files" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rapid_permission_rapid_module" Association="Self.FK_rapid_permission_rapid_module">
+      <End Role="module" EntitySet="module" />
+      <End Role="permission" EntitySet="permission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rapid_permission_rapid_usergroup" Association="Self.FK_rapid_permission_rapid_usergroup">
+      <End Role="usergroup" EntitySet="usergroup" />
+      <End Role="permission" EntitySet="permission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rapid_screens_rapid_module" Association="Self.FK_rapid_screens_rapid_module">
+      <End Role="module" EntitySet="module" />
+      <End Role="screens" EntitySet="screens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rapid_users_rapid_usergroup" Association="Self.FK_rapid_users_rapid_usergroup">
+      <End Role="usergroup" EntitySet="usergroup" />
+      <End Role="users" EntitySet="users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_service_form_files_service_form" Association="Self.FK_service_form_files_service_form">
+      <End Role="service_form" EntitySet="service_form" />
+      <End Role="service_form_files" EntitySet="service_form_files" />
+    </AssociationSet>
+    <AssociationSet Name="FK_users_company_master" Association="Self.FK_users_company_master">
+      <End Role="company_master" EntitySet="company_master" />
+      <End Role="users" EntitySet="users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

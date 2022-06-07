@@ -1,0 +1,577 @@
+﻿@model BuildInspect.Models.ViewModel.FilterViewModel
+@using BuildInspect.Models.ViewModel
+
+@{
+    Layout = null;
+    var groupID = BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup();
+    
+    var companyID = BuildInspect.Models.Utility.AppSession.GetCompanyId();
+
+    if (companyID == 1)
+    {
+        ViewBag.Company = "MKV-";
+    }
+    if (companyID == 2)
+    {
+        ViewBag.Company = "HEC-";
+    }
+    if (companyID == 3)
+    {
+        ViewBag.Company = "PPL-";
+    }
+}
+
+ <style>
+     span { border-radius:5px;padding:0 5px;text-align:center; }
+.red { background:red; }
+.yellow {background:yellow; }
+.green { background:green; }
+ </style> 
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+            
+            <div class="tab-content">
+                <div class="container-fluid">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { role = "form", id = "clSearchIndexFormNew" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.SchoolID)
+                    <section class="content-header">
+                        <h4>
+                            Checklist Index New
+                        </h4>
+                        <div class="summaryreport-container">
+
+                            <div class="row form-group">
+
+                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                    <div class="title">Zone</div>
+                                </div>
+
+                                @if (companyID == 1)
+                                {
+                                    <div class="col-sm-12 col-md-6 col-xl-3">
+                                        @Html.DropDownListFor(model => model.Zone, new SelectList(
+                                    new List<Object>{
+                                    new { value = "Select" , text = "Select"  },
+                                    new { value = "E1" , text = "E1" },
+                                    new { value = "S1" , text = "S1" },
+                                    new { value = "SW2" , text = "SW2" }
+                                   }, "value", "text", 0), htmlAttributes: new { @class = "form-control", @onchange = "zoneOnChange(this)" })
+                                    </div>
+                                }
+
+                                @if (companyID == 2)
+                                {
+                                    <div class="col-sm-12 col-md-6 col-xl-3">
+                                        @Html.DropDownListFor(model => model.Zone, new SelectList(
+                                    new List<Object>{
+                                    new { value = "Select" , text = "Select"  },
+                                    new { value = "N2" , text = "N2" },
+                                    new { value = "NE1" , text = "NE1" },
+                                    new { value = "W1" , text = "W1" }
+                                   }, "value", "text", 0), htmlAttributes: new { @class = "form-control", @onchange = "zoneOnChange(this)" })
+                                    </div>
+                                }
+
+                                @if (companyID == 3)
+                                {
+                                    <div class="col-sm-12 col-md-6 col-xl-3">
+                                        @Html.DropDownListFor(model => model.Zone, new SelectList(
+                                    new List<Object>{
+                                    new { value = "Select" , text = "Select"  },
+                                    new { value = "E2" , text = "E2" },
+                                    new { value = "NE2" , text = "NE2" },
+                                    new { value = "SW1" , text = "SW1" }
+                                   }, "value", "text", 0), htmlAttributes: new { @class = "form-control", @onchange = "zoneOnChange(this)" })
+                                    </div>
+                                }
+
+                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                    <div class="title">Project Name</div>
+                                </div>
+
+                                <div class="divSchool col-sm-12 col-md-6 col-xl-6">
+                                    <select class="school-dropdown form-control" id="Schoollist" name="Schoollist">
+                                        <optgroup label="Select">
+                                            <option value="0-0">-All-</option>
+                                        </optgroup>
+
+                                        @foreach (var grp in ViewBag.SchoolGroup)
+                                        {
+                                            List<SchoolMasterViewModel> sch = ViewBag.School;
+                                            var ctGrp = sch.Where(a => a.School_Type == grp).ToList();
+                                            <optgroup label="@grp">
+                                                @foreach (var sname in ctGrp)
+                                                {
+                                                    <option value="@sname.Zone-@sname.SchoolID">@sname.Zone-@sname.School_Name</option>
+                                                }
+                                            </optgroup>
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="row form-group">
+
+                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                    <div class="title">Service Type</div>
+                                </div>
+                               <div class="col-sm-12 col-md-6 col-xl-3">
+                                    <select class="priority-dropdown form-control" id="CLType" name="CLType">
+                                        <option value="Select">-All-</option>
+                                        <option value="Electrical">ELECTRICAL & DOMESTIC</option>
+                                        <option value="Mechanical">MECHANICAL</option>
+                                        <option value="SP-LIFTSYS">LIFTS SYSTEM (PASSENGER, FIREMAN & PLATFORM, HOIST) </option>
+                                        <option value="SP-SECUTYSYS">SECURITY SYSTEMS (INCLUDING DECAMS) </option>
+                                        <option value="SP-FIREALMSYS">ALL TYPES OF FIRE ALARM SYSTEMS (INCLUDING DECAMS)</option>
+                                        <option value="SP-PLCWDWL">PROGRAMMABLE LOGIC CONTROLLER (WIRED & WIRELESS)</option>
+                                        <option value="SP-HYDPUMP">HYDRANT PUMPING SYSTEM</option>
+                                        <option value="SP-PASISCM">PUBLIC ADDRESS SYSTEM, ISCM and SOUND REINFORCEMENT SYSTEM  </option>
+                                        <option value="SP-BASBMSSYS">BAS, BMS & MMS</option>
+                                        <option value="SP-CHILLERSYS"> CHILLER SYSTEMS (WATER OR AIR-COOLED TYPES)</option>
+                                        <option value="SP-FUMECESYS">FUME CUPBOARD EXHAUST SYSTEMS (DUCT OR DUCTLESS)</option>
+                                        <option value="SP-FIRESPNKLR">FIRE SPRINKLER SYSTEMS</option>
+                                        <option value="SP-WETCHSUSYS">WET CHEMICAL SUPRESSION SYSTEMS</option>
+                                        <option value="SP-HVLSFMPIS">HIGH VOLUME LOW SPEED FAN (MPH & ISH)</option>
+                                        <option value="SP-SMKCTLSYS">SMOKE CONTROL SYSTEMS</option>
+                                        <option value="SP-OTHLIFTS">OTHER TYPES OF LIFT (CHAIRLIFT & DUMBWAITER)</option>
+                                        <option value="SP-GENSET">GENERATOR SET (EXCLUDING LIFT,SMOKE AND FIRE FIGHTING SYSTEMS)</option>
+                                        <option value="SP-SIOCDSYS"> SERVICING & INSPECTION OF CIVIL DEFENCE SHELTERS</option>
+                                        <option value="SP-HOISTSYS"> HOIST LIFT SYSTEM</option>
+                                    </select>
+                                </div>
+
+
+
+
+                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                    <div class="title">Frequency</div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                    <select class="school-dropdown form-control" id="Frequency" name="Frequency">
+                                        <option value="Select">-All-</option>
+                                        <option value="Monthly">Monthly</option>
+                                        <option value="Quarterly">Quarterly</option>
+                                        <option value="HalfYearly">HalfYeaarly</option>
+                                        <option value="Yearly">Yearly</option>
+                                        <option value="BiYearly">BiYearly</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                    <div class="title">Check&nbsp;List&nbsp;Status</div>
+                                </div>
+
+                                <div class="divStatus col-sm-12 col-md-6 col-xl-2">
+                                    <select class="school-dropdown form-control" id="CLStatus" name="CLStatus">
+                                        <option value=0>-All-</option>
+                                        <option value=1>NEW SUBMIT</option>
+                                        <option value=2>PENDING USER</option>
+                                        <option value=3>PENDING MA</option>
+                                        <option value=4>PENDING USER & MA</option>
+                                        <option value=5>COMPLETED</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+
+
+
+
+                            <div class="row form-group">
+
+
+                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                    <div class="title">Start&nbsp;Month&nbsp;Year</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                    @Html.DropDownListFor(model => model.startDate, new SelectList(
+                                    new List<Object>{
+                                    new { value = "01/01/2000" , text = "Select"  },
+                                    new { value = "01/01/2019" , text = "January-2019" },
+                                    new { value = "01/02/2019" , text = "February-2019" },
+                                    new { value = "01/03/2019" , text = "March-2019" },
+                                    new { value = "01/04/2019" , text = "April-2019" },
+                                    new { value = "01/05/2019" , text = "May-2019" },
+                                    new { value = "01/06/2019" , text = "June-2019" },
+                                    new { value = "01/07/2019" , text = "July-2019" },
+                                    new { value = "01/08/2019" , text = "August-2019" },
+                                    new { value = "01/09/2019" , text = "September-2019" },
+                                    new { value = "01/10/2019" , text = "October-2019" },
+                                    new { value = "01/11/2019" , text = "November-2019" },
+                                    new { value = "01/12/2019" , text = "December-2019" },
+                                    new { value = "01/01/2020" , text = "January-2020" },
+                                    new { value = "01/02/2020" , text = "February-2020" },
+                                    new { value = "01/03/2020" , text = "March-2020" },
+                                    new { value = "01/04/2020" , text = "April-2020" },
+                                    new { value = "01/05/2020" , text = "May-2020" },
+                                    new { value = "01/06/2020" , text = "June-2020" },
+                                    new { value = "01/07/2020" , text = "July-2020" },
+                                    new { value = "01/08/2020" , text = "August-2020" },
+                                    new { value = "01/09/2020" , text = "September-2020" },
+                                    new { value = "01/10/2020" , text = "October-2020" },
+                                    new { value = "01/11/2020" , text = "November-2020" },
+                                    new { value = "01/12/2020" , text = "December-2020" },
+                                    new { value = "01/01/2021" , text = "January-2021" },
+                                    new { value = "01/02/2021" , text = "February-2021" },
+                                    new { value = "01/03/2021" , text = "March-2021" },
+                                    new { value = "01/04/2021" , text = "April-2021" },
+                                    new { value = "01/05/2021" , text = "May-2021" },
+                                    new { value = "01/06/2021" , text = "June-2021" },
+                                    new { value = "01/07/2021" , text = "July-2021" },
+                                    new { value = "01/08/2021" , text = "August-2021" },
+                                    new { value = "01/09/2021" , text = "September-2021" },
+                                    new { value = "01/10/2021" , text = "October-2021" },
+                                    new { value = "01/11/2021" , text = "November-2021" },
+                                    new { value = "01/12/2021" , text = "December-2021" },
+                                   new { value = "01/01/2022" , text = "January-2022" },
+                                    new { value = "01/02/2022" , text = "February-2022" },
+                                    new { value = "01/03/2022" , text = "March-2022" },
+                                    new { value = "01/04/2022" , text = "April-2022" },
+                                    new { value = "01/05/2022" , text = "May-2022" },
+                                    new { value = "01/06/2022" , text = "June-2022" },
+                                    new { value = "01/07/2022" , text = "July-2022" },
+                                    new { value = "01/08/2022" , text = "August-2022" },
+                                    new { value = "01/09/2022" , text = "September-2022" },
+                                    new { value = "01/10/2022" , text = "October-2022" },
+                                    new { value = "01/11/2022" , text = "November-2022" },
+                                    new { value = "01/12/2022" , text = "December-2022" },
+                                    new { value = "01/01/2023" , text = "January-2023" },
+                                    new { value = "01/02/2023" , text = "February-2023" },
+                                    new { value = "01/03/2023" , text = "March-2023" },
+                                    new { value = "01/04/2023" , text = "April-2023" },
+                                    new { value = "01/05/2023" , text = "May-2023" },
+                                    new { value = "01/06/2023" , text = "June-2023" },
+                                    new { value = "01/07/2023" , text = "July-2023" },
+                                    new { value = "01/08/2023" , text = "August-2023" },
+                                    new { value = "01/09/2023" , text = "September-2023" },
+                                    new { value = "01/10/2023" , text = "October-2023" },
+                                    new { value = "01/11/2023" , text = "November-2023" },
+                                    new { value = "01/12/2023" , text = "December-2023" }
+                                   }, "value", "text", 0), htmlAttributes: new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                    <div class="title">End&nbsp;Month&nbsp;Year</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                    @Html.DropDownListFor(model => model.endDate, new SelectList(
+                                    new List<Object>{
+                                    new { value = "01/01/2000" , text = "Select"  },
+                                    new { value = "01/01/2019" , text = "January-2019" },
+                                    new { value = "01/02/2019" , text = "February-2019" },
+                                    new { value = "01/03/2019" , text = "March-2019" },
+                                    new { value = "01/04/2019" , text = "April-2019" },
+                                    new { value = "01/05/2019" , text = "May-2019" },
+                                    new { value = "01/06/2019" , text = "June-2019" },
+                                    new { value = "01/07/2019" , text = "July-2019" },
+                                    new { value = "01/08/2019" , text = "August-2019" },
+                                    new { value = "01/09/2019" , text = "September-2019" },
+                                    new { value = "01/10/2019" , text = "October-2019" },
+                                    new { value = "01/11/2019" , text = "November-2019" },
+                                    new { value = "01/12/2019" , text = "December-2019" },
+                                    new { value = "01/01/2020" , text = "January-2020" },
+                                    new { value = "01/02/2020" , text = "February-2020" },
+                                    new { value = "01/03/2020" , text = "March-2020" },
+                                    new { value = "01/04/2020" , text = "April-2020" },
+                                    new { value = "01/05/2020" , text = "May-2020" },
+                                    new { value = "01/06/2020" , text = "June-2020" },
+                                    new { value = "01/07/2020" , text = "July-2020" },
+                                    new { value = "01/08/2020" , text = "August-2020" },
+                                    new { value = "01/09/2020" , text = "September-2020" },
+                                    new { value = "01/10/2020" , text = "October-2020" },
+                                    new { value = "01/11/2020" , text = "November-2020" },
+                                    new { value = "01/12/2020" , text = "December-2020" },
+                                    new { value = "01/01/2021" , text = "January-2021" },
+                                    new { value = "01/02/2021" , text = "February-2021" },
+                                    new { value = "01/03/2021" , text = "March-2021" },
+                                    new { value = "01/04/2021" , text = "April-2021" },
+                                    new { value = "01/05/2021" , text = "May-2021" },
+                                    new { value = "01/06/2021" , text = "June-2021" },
+                                    new { value = "01/07/2021" , text = "July-2021" },
+                                    new { value = "01/08/2021" , text = "August-2021" },
+                                    new { value = "01/09/2021" , text = "September-2021" },
+                                    new { value = "01/10/2021" , text = "October-2021" },
+                                    new { value = "01/11/2021" , text = "November-2021" },
+                                    new { value = "01/12/2021" , text = "December-2021" },
+                                   new { value = "01/01/2022" , text = "January-2022" },
+                                    new { value = "01/02/2022" , text = "February-2022" },
+                                    new { value = "01/03/2022" , text = "March-2022" },
+                                    new { value = "01/04/2022" , text = "April-2022" },
+                                    new { value = "01/05/2022" , text = "May-2022" },
+                                    new { value = "01/06/2022" , text = "June-2022" },
+                                    new { value = "01/07/2022" , text = "July-2022" },
+                                    new { value = "01/08/2022" , text = "August-2022" },
+                                    new { value = "01/09/2022" , text = "September-2022" },
+                                    new { value = "01/10/2022" , text = "October-2022" },
+                                    new { value = "01/11/2022" , text = "November-2022" },
+                                    new { value = "01/12/2022" , text = "December-2022" },
+                                    new { value = "01/01/2023" , text = "January-2023" },
+                                    new { value = "01/02/2023" , text = "February-2023" },
+                                    new { value = "01/03/2023" , text = "March-2023" },
+                                    new { value = "01/04/2023" , text = "April-2023" },
+                                    new { value = "01/05/2023" , text = "May-2023" },
+                                    new { value = "01/06/2023" , text = "June-2023" },
+                                    new { value = "01/07/2023" , text = "July-2023" },
+                                    new { value = "01/08/2023" , text = "August-2023" },
+                                    new { value = "01/09/2023" , text = "September-2023" },
+                                    new { value = "01/10/2023" , text = "October-2023" },
+                                    new { value = "01/11/2023" , text = "November-2023" },
+                                    new { value = "01/12/2023" , text = "December-2023" }
+                                   }, "value", "text", 0), htmlAttributes: new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                    <button type="button" id="clsearchIndex-search-new" class="mb-2 mr-2 btn-icon btn btn-success maintenance-generate">
+                                        <i class="fas fa-table"></i>
+                                        Search
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+                       
+                    </section>
+
+                    }
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    
+                                        <div class="box-header with-border">
+                                            
+                                           
+                                        </div>
+                                        <div class="box-body">
+                                                                                       
+                                            
+                                            <table id="CLSerachIndexTable" class="table table-hover table-striped table-bordered">
+                                              
+                                            </table>
+                                        </div>
+                                   
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<script src="~/Scripts/assets/plugins/select2.min.js"></script>
+<script src="~/Scripts/assets/plugins/moment.min.js"></script>*@
+
+<script>
+
+   
+
+
+    $(document).ready(function () {
+        var grpid = @BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup();
+        data = [];
+        var stat = "";
+        var table = $('#CLSerachIndexTable').DataTable(
+
+          {
+              "columns": [
+              { title: "Zone", "data": "Zone" },
+                  { title: "Project Name", "data": "SchoolName" },
+                  { title: "Frequecny", "data": "Frequency" },
+                  { title: "Month", "data": "Month_Name" },
+                  { title: "Type", "data": "CLType" },
+                  { title: "Status", "data": "Status" },
+                  { title: "Action", "data": "CLTMID" }
+              ],
+              //dom: 'Bfrtipl',
+              columnDefs: [
+                  {
+                      targets: 5,
+                      render: function (data, type, row, meta) {
+                          stat = data;
+                          return data; //render link in cell
+                      }
+                  },
+
+
+       {
+           targets: 6,
+           render: function (data, type, row, meta) {
+               if (stat != "New Submit" && stat != "Completed")
+               {
+                   if(grpid == 5)
+                   {
+                       return ' <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-success" onclick="EditCheckList(' + data + ')"><i class="fas fa-edit" title="Edit"></i></button>'; //render link in cell
+                   }
+                   else{
+                       return ' <button onclick="PrintCheckList(' + data + ')" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary" style="background-color: greenyellow !important"><i class="fas fa-file-pdf" title="View"></i> </button><button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary" style="background-color: blue !important" onclick="PDFReGenerate(' + data + ')"><i class="fas fa-file-pdf" title="Generate PDF"></i></button>'; //render link in cell
+                      
+                   }
+
+               }
+               if (stat == "Completed")
+               {
+                   return '<button onclick="PrintCheckList(' + data + ')" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary"><i class="fas fa-file-pdf" title="View"></i> </button> <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary" style="background-color: blue !important" onclick="PDFReGenerate(' + data + ')"><i class="fas fa-file-pdf" title="Generate PDF"></i></button>'; //render link in cell
+                  
+               }
+               if (stat == "New Submit")
+               {
+                   return '';
+               }
+               //return"<btn btn-danger btn-sm delete btn-flat' onclick='DeletePatientDetails("+data+")'><i class='fa fa-edit'></i> Delete</button>";
+           }
+       }
+              ],
+
+              createdRow: function (row, data, index) {
+                  // $(row).addClass('blue');   //add class to row
+                  //$('td', row).eq(0).css('text-align', 'center');  //add style to cell in third column
+                  //$('td', row).eq(3).css('nowrap', 'nowrap');
+                  //$('td', row).eq(5).css('text-align', 'right');
+                  //$('td', row).eq(6).css('text-align', 'right');
+                  //$('td', row).eq(7).css('text-align', 'center');
+                  //$('th', row).eq(8).css('text-align', 'center');
+              },
+              responsive: true,
+              "info": true,
+              scrollCollapse: true,
+              "pageLength": 100,
+              //"bSort": false,
+              "scrollY": 'calc(101vh - 263px)'
+          });
+        debugger;
+
+        if(@ViewBag.SearchCheck == 0)
+        {
+           // alert("Initial load");
+        }
+
+        if(@ViewBag.SearchCheck == 1)
+        {
+            debugger;
+            //var url = "/ERP/GetSearchChecklist?firstdate=01/01/2019&lastdate=01/10/2019";
+              // var url = "/ERP/GetSearchChecklistNew?zone=" + '@ViewBag.Zone' + "&schoolID=" + @ViewBag.schoolID;
+            var url = "/ERP/GetSearchChecklistNew?zone=" + '@ViewBag.Zone' +"&schoolID=" + '@ViewBag.schoolID' +"&cltype=" + '@ViewBag.CLType' +"&frequency=" + '@ViewBag.Freq' +"&clstatus=" + '@ViewBag.CLstatus' +"&fromdate=" + '@ViewBag.FromDate' + "&todate=" + '@ViewBag.ToDate' ;
+           // alert(url);
+  
+            $.ajax({
+                "url": url,
+                "type": "GET",
+                "data": data,
+                success: function (json) {
+                  //  alert(json.data)
+                    table.rows.add(json.data).draw();
+                }
+            });
+        }
+
+
+        $('.dataTables_paginate').addClass('pull-right').css('width', '70%')
+        $('#CLSerachIndexTable').DataTable().buttons('.buttons-excel').remove();
+        $('#CLSerachIndexTable').DataTable().buttons('.buttons-copy').remove();
+        $('#CLSerachIndexTable').DataTable().buttons('.buttons-pdf').remove();
+        $('#CLSerachIndexTable').DataTable().buttons('.buttons-print').remove();
+        $('#CLSerachIndexTable').DataTable().buttons('.buttons-csv').remove();
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
+        });
+
+    });
+    $('.dt-button').addClass('btn btn-primary').removeClass('dt-button').css('margin-right', '5px')
+
+    function PrintCheckList(id) {
+        debugger;
+        //location.href = "/ERP/PrintCheckList/" + id;
+        window.open('/ERP/PrintCheckList/' + id, '_blank');
+
+
+    }
+
+    function PDFReGenerate(id) {
+        debugger;
+        var url = "ERP/PDFReGenerate/" + id;
+        $.get(url, function (data) {
+
+            if(data == 1){
+                Lobibox.alert('success', {
+                    msg: "PDF Regenerated!"
+                });
+            }else
+            {
+                Lobibox.alert('error', {
+                    msg: "PDF Regeneration Unsuccessful!"
+                });
+            }
+            //alert (data);
+           
+        });
+       
+        //location.href = "/ERP/PrintCheckList/" + id;
+        //window.open('/ERP/PrintCheckList/' + id, '_blank');
+
+
+    }
+
+
+
+    function zoneOnChange(obj) {
+
+        $.each($(".divSchool option:selected"), function () {
+
+            // this is it
+            $(this).prop('selected', false);
+
+        });
+        debugger;
+        $('.divSchool option').css('display', 'none')
+
+        $('.divSchool option[value^="' + obj.value + '"]').css('display', 'block')
+
+        $.each($('.divSchool option[value^="' + obj.value + '"]'), function () {
+
+            // this is it
+            // $(this).prop('selected', true);
+
+            return;
+        });
+
+    }
+
+    function zoneFilter(obj) {
+
+        $.each($(".divSchool option:selected"), function () {
+            $(this).prop('selected', false);
+        });
+
+        $('.divSchool option').css('display', 'none')
+
+        $('.divSchool option[value^="' + obj + '"]').css('display', 'block')
+        $.each($('.divSchool option[value^="' + obj + '"]'), function () {
+
+            return;
+        });
+
+    }
+
+
+
+
+</script>

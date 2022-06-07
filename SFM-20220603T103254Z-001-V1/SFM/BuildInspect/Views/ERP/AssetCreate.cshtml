@@ -1,0 +1,218 @@
+﻿@model BuildInspect.Models.ViewModel.ProjectMasterViewModel
+@{
+    Layout = null;
+}
+
+@{
+    var groupID = BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup();
+    var companyID = BuildInspect.Models.Utility.AppSession.GetCompanyId();
+}
+
+<style>
+    .required::after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <section class="content-header">
+                        <h4>
+                            New Asset Creation
+                        </h4>
+
+                    </section>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+
+                                    <div class="box-header with-border">
+                                        <input type="button" value="Back" id="create_asset-back" class="btn btn-primary pull-right asset" /><span class="pull-right">&nbsp;</span>
+                                        <button type="submit" id="save_create_asset" class="btn btn-success btn-flat pull-right" name="save"><i class="fa fa-check-square-o"></i> Save</button>
+                                    </div>
+
+                                    <div class="box-body">
+
+                                        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "addasset_Form", @class = "form-horizontal" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            @Html.HiddenFor(model => model.Id)
+                                            @Html.HiddenFor(model => model.PrjMasID)
+                                            @Html.HiddenFor(model => model.CompanyName)
+
+                                            @Html.HiddenFor(model => model.Is_Completed)
+                                            @Html.HiddenFor(model => model.Is_Rescheduled)
+
+                                            @Html.HiddenFor(model => model.Month_End_Date)
+                                            @Html.HiddenFor(model => model.Rescheduled_Date)
+                                            @Html.HiddenFor(model => model.Rescheduled_Remarks)
+                                            @Html.HiddenFor(model => model.month_name)
+
+
+
+
+
+                                            <div class="row">
+                                                <div class="col-xl-12">
+
+                                                    <div class="form-group">
+                                                        <label for="companyid" class="col-sm-4 control-label ">Company Name</label>
+                                                        <div class="col-sm-8">
+                                                            @Html.DropDownList("CompanyID", null, htmlAttributes: new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(model => model.CompanyID, " ", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="schoolid" class="col-sm-4 control-label ">Building Name</label>
+                                                        <div class="col-sm-8">
+                                                            @Html.DropDownList("BuildingID", null, htmlAttributes: new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(model => model.BuildingID, " ", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="CLType" class="col-sm-4 control-label ">Checklist Type</label>
+                                                        <div class="col-sm-8">
+                                                            @Html.DropDownList("ServiceType", null, htmlAttributes: new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(model => model.CLType, " ", new { @class = "text-danger" })
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="frequency" class="col-sm-4 control-label ">Frequency</label>
+                                                        <div class="col-sm-8">
+                                                            @Html.DropDownListFor(model => model.Frequency, new SelectList(
+                                                                new List<Object>{
+                                                                new { value = "-Select-" , text = "-Select-"  },
+                                                                new { value = "Quarterly" , text = "Quarterly" },
+                                                                new { value = "Monthly" , text = "Monthly" },
+                                                                new { value = "Bi Yearly" , text = "Bi Yearly" },
+                                                                new { value = "Half Yearly" , text = "Half Yearly" },
+                                                                new { value = "Yearly" , text = "Yearly" },
+                                                                }, "value", "text", 2), htmlAttributes: new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(model => model.Frequency, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="monthstartdate" class="col-sm-4 control-label ">Month</label>
+                                                        <div class="col-sm-8">
+                                                            @Html.DropDownListFor(model => model.MonthName, new SelectList(
+                                                                new List<Object>{
+                                                                new { value = "-Select-" , text = "-Select-"  },
+                                                                new { value = "01" , text = "January" },
+                                                                new { value = "02" , text = "February" },
+                                                                new { value = "03" , text = "March" },
+                                                                new { value = "04" , text = "April" },
+                                                                new { value = "05" , text = "May" },
+                                                                new { value = "06" , text = "June" },
+                                                                new { value = "07" , text = "July" },
+                                                                new { value = "08" , text = "August" },
+                                                                new { value = "09" , text = "September" },
+                                                                new { value = "10" , text = "October" },
+                                                                new { value = "11" , text = "November" },
+                                                                new { value = "12" , text = "December" },
+
+
+                                                                }, "value", "text", 2), htmlAttributes: new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(model => model.MonthName, " ", new { @class = "text-danger" })
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="monthname" class="col-sm-4 control-label ">Year</label>
+                                                        <div class="col-sm-8">
+                                                            @Html.DropDownListFor(model => model.year, new SelectList(
+                                                                new List<Object>{
+                                                                new { value = "-Select-" , text = "-Select-"  },
+                                                                new { value = "2020" , text = "2020" },
+                                                                new { value = "2021" , text = "2021" },
+                                                                new { value = "2022" , text = "2022" },
+                                                                new { value = "2023" , text = "2023" },
+                                                                new { value = "2024" , text = "2024" },
+                                                                }, "value", "text", 2), htmlAttributes: new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(model => model.year, " ", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group" id="liftcount" style="display:none">
+                                                        <label for="liftcount" class="col-sm-4 control-label ">Lift Count</label>
+                                                        <div class="col-sm-8">
+                                                            @Html.EditorFor(model => model.Lift_Count, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.Lift_Count, " ", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group" id="liftname" style="display:none">
+                                                        <label for="liftoprname" class="col-sm-4 control-label ">Lift Operator Name</label>
+                                                        <div class="col-sm-8">
+                                                            @Html.EditorFor(model => model.Lift_Opr_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.Lift_Opr_Name, " ", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="fancount" id="fancount" style="display:none">
+                                                        <label for="firstname" class="col-sm-4 control-label ">Fan Count</label>
+                                                        <div class="col-sm-8">
+                                                            @Html.EditorFor(model => model.Fan_Count, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.Fan_Count, " ", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        }
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $("form").removeData("validator");
+    $("form").removeData("unobtrusiveValidation");
+    $.validator.unobtrusive.parse("form");
+
+    $('#ServiceType').on('change', function () {
+        //alert(this.value);
+        if (this.value == "SP-LIFTSYS") {
+            //alert(this.value);
+            $("#liftcount").css("display", "block");
+            $("#liftname").css("display", "block");
+            $("#fancount").css("display", "none");
+        }
+        else if (this.value == "SP-HVLSFMPIS") {
+            $("#liftcount").css("display", "none");
+            $("#liftname").css("display", "none");
+            $("#fancount").css("display", "block");
+        }
+        else {
+            //alert("others");
+            $("#liftcount").css("display", "none");
+            $("#liftname").css("display", "none");
+            $("#fancount").css("display", "none");
+        }
+
+    });
+
+
+</script>

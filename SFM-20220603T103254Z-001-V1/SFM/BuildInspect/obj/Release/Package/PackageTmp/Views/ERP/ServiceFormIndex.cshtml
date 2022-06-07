@@ -1,0 +1,132 @@
+﻿@model IEnumerable<BuildInspect.Models.ViewModel.ServiceFormViewModel>
+
+@{
+    Layout = null;
+}
+
+@{
+    var groupID = BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup();
+}
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <section class="content-header">
+                        <h4>
+                            Service Report
+                        </h4>
+                        @*<ol class="breadcrumb">
+                            <li><a href="#"><i class="fa fa-dashboard"></i> BuildInspect</a></li>
+                            <li>ServiceForm</li>
+                            <li class="active">Index</li>
+                        </ol>*@
+                    </section>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+                                    <div class="box-header with-border">
+                                        @if (BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup() == 3)
+                                        {
+                                            <a href="" onclick="CreateServiceForm()" data-toggle="modal" class="btn-icon btn btn-primary"><i class="fas fa-plus-square btn-icon-wrapper"></i> New Service</a>
+                                        }                                        
+                                        @if (BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup() == 8)
+                                        {
+                                            <a href="" onclick="AssignService()" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Assign Service</a>
+                                        }
+                                        
+                                    </div>
+                                    <div class="box-body">
+                                        <table id="serviceTable"  style="width: 100%;" class="table table-hover table-striped table-bordered">
+                                            <thead style="background-color: #575555; color: white">
+                                                <tr>
+                                                    <th>Svc No</th>
+                                                    <th>Zone</th>
+                                                    <th>Project Name</th>
+                                                    <th>Assigned on</th>
+                                                    <th>Technician</th>
+                                                    <th>Assigned By</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@item.ServiceRefNum</td>
+                                                        <td style="width:30px;">@item.Zone</td>
+                                                        <td style="width:200px;">@item.SchoolName</td>
+                                                        <td>
+                                                            @{ var adt = "";
+                                                                adt = Convert.ToDateTime(item.AssignedDate).ToString("dd/MM/yyyy"); }
+                                                        @adt
+                                                        </td>
+                                                        <td>@item.Technician_Name</td>
+                                                        <td>@item.Assigned_Name</td>
+                                                        <td>
+                                                           
+                                                            @item.Status
+                                                        </td>
+                                                        <td style="width:150px;">  
+                                                            @if (item.Status_Flag == 0 || item.Status_Flag == 1)
+                                                            {
+                                                                if (groupID == 3)
+                                                                {
+                                                                <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-success" onclick="EditServiceForm(@item.ServiceID)"><i class="fas fa-edit" title="Edit"></i></button>
+                                                                <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-danger" onclick="DeleteServiceForm('@item.ServiceID')"><i class="fas fa-trash-alt" title="Delete"></i></button>
+                                                                }
+                                                            }
+                                                            @if (item.Status_Flag == 2)
+                                                            {
+                                                                @*<button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary" onclick="PrintServiceForm(@item.ServiceID)"><i class="fas fa-file-pdf" title="View"></i></button>*@
+                                                                <button onclick="window.open('/ERP/PrintServiceForm/@item.ServiceID', '_blank')" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary"><i class="fas fa-file-pdf" title="View"></i> </button>
+                                                            }  
+                                                                
+                                                        </td>
+                                                    </tr>
+
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+$(document).ready(function () {
+
+    $('#serviceTable').DataTable({
+        //"autoWidth": true,
+        //"scrollX": true,
+        //dom: 'Bfrtipl',
+        responsive: true,
+       // "scrollY": true,
+        buttons: [
+            //'excelHtml5',
+            //'csvHtml5',
+            //'pdfHtml5',
+
+        ]
+    });
+});
+$('.dt-button').addClass('btn btn-primary').removeClass('dt-button').css('margin-right', '5px')
+
+</script>

@@ -1,0 +1,577 @@
+﻿@model BuildInspect.Models.ViewModel.CheckListTransMasterViewModel
+@using BuildInspect.Models.ViewModel
+
+@{
+    Layout = null;
+}
+
+<style>
+    .required::after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <h4 class="card-title">@ViewBag.Title</h4>
+                                    <form id="checklistform" class="col-md-12 mx-auto" method="post" action="">
+                                        <div class="checklist-container">
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Project Name</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <select class="school-dropdown form-control" id="SchoolID">
+                                                        @foreach (var grp in ViewBag.SchoolGroup)
+                                                        {
+                                                            List<SchoolMasterViewModel> sch = ViewBag.School;
+                                                            var ctGrp = sch.Where(a => a.School_Type == grp).ToList();
+                                                            <optgroup label="@grp">
+                                                                @foreach (var sname in ctGrp)
+                                                                {
+                                                                    <option value="@sname.SchoolID">@sname.Zone-@sname.School_Name</option>
+                                                                }
+                                                            </optgroup>
+                                                        }
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="title">Address</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-11">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 35px;" id="school-address"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="title">Date/Time</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-5">
+                                                    <input type="text" class="form-control" id="checklist-datetime"
+                                                           data-toggle="datepicker" />
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="title right">Tel</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-5">
+                                                    <input type="text" class="form-control" id="checklist-tel"
+                                                           name="checklist-tel" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="title">Contact Person</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-5">
+                                                    <input type="text" class="form-control" id="contact-person"
+                                                           name="contact-person" placeholder="" />
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="title right">Fax</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-5">
+                                                    <input type="text" class="form-control" id="checklist-fax"
+                                                           name="checklist-fax" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-table-container">
+                                            <div class="row table-head">
+                                                <div class="col-sm-12 col-md-6 col-xl-1 d-none d-sm-block">
+                                                    <div class="table-title">S/N</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4 d-none d-sm-block">
+                                                    <div class="table-title">Items</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-3 d-none d-sm-block">
+                                                    <div class="table-title">Done?</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2 d-none d-sm-block">
+                                                    <div class="table-title">Due Date</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2 d-none d-sm-block">
+                                                    <div class="table-title">Remarks</div>
+                                                </div>
+                                            </div>
+                                            <!--Start: 1st portion -->
+                                            <div class="row table-title-head">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="table-title">1</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-11">
+                                                    <div class="table-title">Fan System</div>
+                                                </div>
+                                            </div>
+                                            <div class="row table-body-content">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="txt">1</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <div class="txt">Check fan speeds are operated according to the fan regulator setting, replace regulator if faulty.</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <fieldset class="form-group">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> Yes
+                                                            </label>
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> No
+                                                            </label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <input type="text" class="form-control" id="checklist-duedate"
+                                                           data-toggle="datepicker" />
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 35px;" id="checkist-remarks"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row table-body-content">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="txt">2</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <div class="txt">Check for wobbling & speed. The condition of the fan blades, motor holding bolt, and plastic sleeve.  If found any of the mentioned parts that are not in-order, isolate fan and replace with new spare part.</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <fieldset class="form-group">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> Yes
+                                                            </label>
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> No
+                                                            </label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <input type="text" class="form-control" id="checklist-duedate"
+                                                           data-toggle="datepicker" />
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 35px;" id="checkist-remarks"></textarea>
+                                                </div>
+                                            </div>
+                                            <!--End: 1st portion -->
+                                            <!--Start: 2nd portion -->
+                                            <div class="row table-title-head">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="table-title">2</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-11">
+                                                    <div class="table-title">Light System</div>
+                                                </div>
+                                            </div>
+                                            <div class="row table-body-content">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="txt">3</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <div class="txt">Check cover/housing has no discoloration or cracks and supports are secured, replace if necessary.</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <fieldset class="form-group">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> Yes
+                                                            </label>
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> No
+                                                            </label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <input type="text" class="form-control" id="checklist-duedate"
+                                                           data-toggle="datepicker" />
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 35px;" id="checkist-remarks"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row table-body-content">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="txt">4</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <div class="txt">Check and all bulbs/tubes including LED drivers and lights are in working conditions, rectify or replace if necessary. To report to School any non-functioning lights.</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <fieldset class="form-group">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> Yes
+                                                            </label>
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> No
+                                                            </label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <input type="text" class="form-control" id="checklist-duedate"
+                                                           data-toggle="datepicker" />
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 35px;" id="checkist-remarks"></textarea>
+                                                </div>
+                                            </div>
+                                            <!--End: 2nd portion -->
+                                            <!--Start: 3rd portion -->
+                                            <div class="row table-title-head">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="table-title">3</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-11">
+                                                    <div class="table-title">UNDER FLOOR / RAISED FLOOR TRUNKING</div>
+                                                </div>
+                                            </div>
+                                            <div class="row table-body-content">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="txt">5</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <div class="txt">Check the cover and internal free from obstruction. Replace cover when necessary.</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <fieldset class="form-group">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> Yes
+                                                            </label>
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> No
+                                                            </label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <input type="text" class="form-control" id="checklist-duedate"
+                                                           data-toggle="datepicker" />
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 35px;" id="checkist-remarks"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row table-body-content">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="txt">6</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <div class="txt">Check all connections and cabling condition.</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <fieldset class="form-group">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> Yes
+                                                            </label>
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> No
+                                                            </label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <input type="text" class="form-control" id="checklist-duedate"
+                                                           data-toggle="datepicker" />
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 35px;" id="checkist-remarks"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row table-body-content">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="txt">7</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <div class="txt">Check and replace seal when necessary</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <fieldset class="form-group">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> Yes
+                                                            </label>
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> No
+                                                            </label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <input type="text" class="form-control" id="checklist-duedate"
+                                                           data-toggle="datepicker" />
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 35px;" id="checkist-remarks"></textarea>
+                                                </div>
+                                            </div>
+                                            <!--End: 3rd portion -->
+                                            <!--Start: 4th portion -->
+                                            <div class="row table-title-head">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="table-title">4</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-11">
+                                                    <div class="table-title">YEARLY  SERVICING,  INSPECTION  AND  TESTING  OF  ELECTRICAL INSTALLATIONS</div>
+                                                </div>
+                                            </div>
+                                            <div class="row table-body-content">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="txt"></div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-11">
+                                                    <div class="txt bold">The servicing,  inspection  and testing of electrical installations shall include the following :</div>
+                                                </div>
+                                            </div>
+                                            <div class="row table-body-content">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="txt"></div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <div class="txt">Electrical installation (General)</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <fieldset class="form-group">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> Yes
+                                                            </label>
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> No
+                                                            </label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <input type="text" class="form-control" id="checklist-duedate"
+                                                           data-toggle="datepicker" />
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 35px;" id="checkist-remarks"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row table-body-content">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="txt"></div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <div class="txt">The M&E Contractor shall investigate further if the insulation resistance readings are below One (1) Mega-ohm and submit a report</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <fieldset class="form-group">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> Yes
+                                                            </label>
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> No
+                                                            </label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <input type="text" class="form-control" id="checklist-duedate"
+                                                           data-toggle="datepicker" />
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 35px;" id="checkist-remarks"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row table-body-content">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="txt">1</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-11">
+                                                    <div class="txt">The M&E Contractor shall also check and trace those circuits which have shared neutral and to submit a report to the S.O. and recommend remedial actions to be taken.</div>
+                                                </div>
+                                            </div>
+                                            <div class="row table-body-content">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="txt"></div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <div class="txt">The above tests shall be conducted for the entire electrical installations in the School, which shall include from the main</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <fieldset class="form-group">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> Yes
+                                                            </label>
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> No
+                                                            </label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <input type="text" class="form-control" id="checklist-duedate"
+                                                           data-toggle="datepicker" />
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 35px;" id="checkist-remarks"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row table-body-content">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="txt"></div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <div class="txt">To ensure also that any holes are sealed to prevent ingress of dust/vermins etc..</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <fieldset class="form-group">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> Yes
+                                                            </label>
+                                                            <label class="form-check-label">
+                                                                <input name="checklist-done" type="radio" class="form-check-input"> No
+                                                            </label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <input type="text" class="form-control" id="checklist-duedate"
+                                                           data-toggle="datepicker" />
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 35px;" id="checkist-remarks"></textarea>
+                                                </div>
+                                            </div>
+                                            <!--End: 4th portion -->
+                                        </div>
+                                        <div class="checklist-signature-container">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <div id="title">Checked by</div>
+                                                    <div id="checkby-signature" class="signature"></div>
+                                                    <textarea id="checkby-signature-capture" class="d-none"></textarea>
+                                                    <a href="javascript:void(0);" class="btn checkby-clear-button delete"><i class="fas fa-trash-alt"></i></a>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <div id="title">Verified by</div>
+                                                    <div id="verified-signature" class="signature"></div>
+                                                    <textarea id="verified-signature-capture" class="d-none"></textarea>
+                                                    <a href="javascript:void(0);" class="btn verified-clear-button delete"><i class="fas fa-trash-alt"></i></a>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                                    <div id="title">Endorsed by</div>
+                                                    <div id="endorsed-signature" class="signature"></div>
+                                                    <textarea id="endorsed-signature-capture" class="d-none"></textarea>
+                                                    <a href="javascript:void(0);" class="btn endorsed-clear-button delete"><i class="fas fa-trash-alt"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/assets/scripts/main.js"></script>
+<script src="~/Scripts/assets/jsignature/jquery.js"></script>
+<script src="~/Scripts/assets/jsignature/flashcanvas.min.js"></script>
+<script src="~/Scripts/assets/jsignature/flashcanvas.swf"></script>
+<script src="~/Scripts/assets/jsignature/jSignature.min.js"></script>
+<script src="~/Scripts/assets/jsignature/jSignature.min.noconflict.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        /* Checkby Signature */
+        var $checkbySig = $('#checkby-signature');
+        var $checkbySigCapture = $('#checkby-signature-capture');
+        var $checkbyData = $checkbySig.jSignature('getData', 'svgbase64');
+        $checkbySig.jSignature({
+            'background-color': 'transparent',
+            'decor-color': 'transparent'
+        });
+        $checkbySig.bind('change', function (e) {
+            var $checkdata = $checkbySig.jSignature('getData');
+            $checkbySigCapture.val($checkdata);
+        });
+        $('.checkby-clear-button').on('click', function (e) {
+            e.preventDefault();
+            $checkbySig.jSignature('reset');
+            $checkbySigCapture.val('');
+        });
+
+        /* Verified Signature */
+        var $verifiedSig = $('#verified-signature');
+        var $verifiedSigCapture = $('#verified-signature-capture');
+        var $verifiedData = $verifiedSig.jSignature('getData', 'svgbase64');
+        $verifiedSig.jSignature({
+            'background-color': 'transparent',
+            'decor-color': 'transparent'
+        });
+        $verifiedSig.bind('change', function (e) {
+            var $verdata = $verifiedSig.jSignature('getData');
+            $verifiedSigCapture.val($verdata);
+        });
+        $('.verified-clear-button').on('click', function (e) {
+            e.preventDefault();
+            $verifiedSig.jSignature('reset');
+            $verifiedSigCapture.val('');
+        });
+
+        /* Endorsed Signature */
+        var $endorsedSig = $('#endorsed-signature');
+        var $endorsedSigCapture = $('#endorsed-signature-capture');
+        var $endorsedData = $endorsedSig.jSignature('getData', 'svgbase64');
+        $endorsedSig.jSignature({
+            'background-color': 'transparent',
+            'decor-color': 'transparent'
+        });
+        $endorsedSig.bind('change', function (e) {
+            var $enddata = $endorsedSig.jSignature('getData');
+            $endorsedSigCapture.val($enddata);
+        });
+        $('.endorsed-clear-button').on('click', function (e) {
+            e.preventDefault();
+            $endorsedSig.jSignature('reset');
+            $endorsedSigCapture.val('');
+        });
+    });
+
+    //$("form").removeData("validator");
+    //$("form").removeData("unobtrusiveValidation");
+    //$.validator.unobtrusive.parse("form");
+
+</script>

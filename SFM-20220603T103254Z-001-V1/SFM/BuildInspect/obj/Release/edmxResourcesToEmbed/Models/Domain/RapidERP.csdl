@@ -1,0 +1,529 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RapidERPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="RapidERPEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="client_contact" EntityType="RapidERPModel.client_contact" />
+    <EntitySet Name="client_master" EntityType="RapidERPModel.client_master" />
+    <EntitySet Name="company_master" EntityType="RapidERPModel.company_master" />
+    <EntitySet Name="invoice_detail" EntityType="RapidERPModel.invoice_detail" />
+    <EntitySet Name="invoice_master" EntityType="RapidERPModel.invoice_master" />
+    <EntitySet Name="po_detail" EntityType="RapidERPModel.po_detail" />
+    <EntitySet Name="po_master" EntityType="RapidERPModel.po_master" />
+    <EntitySet Name="quote_detail" EntityType="RapidERPModel.quote_detail" />
+    <EntitySet Name="quote_master" EntityType="RapidERPModel.quote_master" />
+    <EntitySet Name="rapid_employee" EntityType="RapidERPModel.rapid_employee" />
+    <EntitySet Name="rapid_module" EntityType="RapidERPModel.rapid_module" />
+    <EntitySet Name="rapid_permission" EntityType="RapidERPModel.rapid_permission" />
+    <EntitySet Name="rapid_screens" EntityType="RapidERPModel.rapid_screens" />
+    <EntitySet Name="rapid_usergroup" EntityType="RapidERPModel.rapid_usergroup" />
+    <EntitySet Name="rapid_users" EntityType="RapidERPModel.rapid_users" />
+    <EntitySet Name="supplier_contact" EntityType="RapidERPModel.supplier_contact" />
+    <EntitySet Name="supplier_master" EntityType="RapidERPModel.supplier_master" />
+    <AssociationSet Name="FK_client_contact_client_master" Association="RapidERPModel.FK_client_contact_client_master">
+      <End Role="client_master" EntitySet="client_master" />
+      <End Role="client_contact" EntitySet="client_contact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_invoice_master_client_master" Association="RapidERPModel.FK_invoice_master_client_master">
+      <End Role="client_master" EntitySet="client_master" />
+      <End Role="invoice_master" EntitySet="invoice_master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_quote_master_client_master" Association="RapidERPModel.FK_quote_master_client_master">
+      <End Role="client_master" EntitySet="client_master" />
+      <End Role="quote_master" EntitySet="quote_master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_invoice_detail_invoice_master" Association="RapidERPModel.FK_invoice_detail_invoice_master">
+      <End Role="invoice_master" EntitySet="invoice_master" />
+      <End Role="invoice_detail" EntitySet="invoice_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_po_detail_po_master" Association="RapidERPModel.FK_po_detail_po_master">
+      <End Role="po_master" EntitySet="po_master" />
+      <End Role="po_detail" EntitySet="po_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_po_master_supplier_master" Association="RapidERPModel.FK_po_master_supplier_master">
+      <End Role="supplier_master" EntitySet="supplier_master" />
+      <End Role="po_master" EntitySet="po_master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_quote_detail_quote_master" Association="RapidERPModel.FK_quote_detail_quote_master">
+      <End Role="quote_master" EntitySet="quote_master" />
+      <End Role="quote_detail" EntitySet="quote_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rapid_permission_rapid_module" Association="RapidERPModel.FK_rapid_permission_rapid_module">
+      <End Role="rapid_module" EntitySet="rapid_module" />
+      <End Role="rapid_permission" EntitySet="rapid_permission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rapid_screens_rapid_module" Association="RapidERPModel.FK_rapid_screens_rapid_module">
+      <End Role="rapid_module" EntitySet="rapid_module" />
+      <End Role="rapid_screens" EntitySet="rapid_screens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rapid_permission_rapid_usergroup" Association="RapidERPModel.FK_rapid_permission_rapid_usergroup">
+      <End Role="rapid_usergroup" EntitySet="rapid_usergroup" />
+      <End Role="rapid_permission" EntitySet="rapid_permission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rapid_users_rapid_usergroup" Association="RapidERPModel.FK_rapid_users_rapid_usergroup">
+      <End Role="rapid_usergroup" EntitySet="rapid_usergroup" />
+      <End Role="rapid_users" EntitySet="rapid_users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_supplier_contact_supplier_master" Association="RapidERPModel.FK_supplier_contact_supplier_master">
+      <End Role="supplier_master" EntitySet="supplier_master" />
+      <End Role="supplier_contact" EntitySet="supplier_contact" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="client_contact">
+    <Key>
+      <PropertyRef Name="ClientContactID" />
+    </Key>
+    <Property Name="ClientContactID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientID" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Remarks" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="client_master" Relationship="RapidERPModel.FK_client_contact_client_master" FromRole="client_contact" ToRole="client_master" />
+  </EntityType>
+  <EntityType Name="client_master">
+    <Key>
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientNum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Industry" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Functionality" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Pincode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Website" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Remarks" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+    <Property Name="IsActive" Type="Int32" />
+    <NavigationProperty Name="client_contact" Relationship="RapidERPModel.FK_client_contact_client_master" FromRole="client_master" ToRole="client_contact" />
+    <NavigationProperty Name="invoice_master" Relationship="RapidERPModel.FK_invoice_master_client_master" FromRole="client_master" ToRole="invoice_master" />
+    <NavigationProperty Name="quote_master" Relationship="RapidERPModel.FK_quote_master_client_master" FromRole="client_master" ToRole="quote_master" />
+  </EntityType>
+  <EntityType Name="company_master">
+    <Key>
+      <PropertyRef Name="CompanyID" />
+    </Key>
+    <Property Name="CompanyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Pincode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Mob" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="RegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GstRegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LogoPath" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="GST" Type="Decimal" Precision="5" Scale="2" />
+  </EntityType>
+  <EntityType Name="invoice_detail">
+    <Key>
+      <PropertyRef Name="IDID" />
+    </Key>
+    <Property Name="IDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InvoiceID" Type="Int32" />
+    <Property Name="Quantity" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UnitOfMeasure" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="DescOrder" Type="Int32" />
+    <Property Name="PartNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="invoice_master" Relationship="RapidERPModel.FK_invoice_detail_invoice_master" FromRole="invoice_detail" ToRole="invoice_master" />
+  </EntityType>
+  <EntityType Name="invoice_master">
+    <Key>
+      <PropertyRef Name="InvoiceID" />
+    </Key>
+    <Property Name="InvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InvoiceNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="InvoiceDate" Type="DateTime" Precision="0" />
+    <Property Name="QuoteID" Type="Int32" />
+    <Property Name="ClientID" Type="Int32" />
+    <Property Name="DoNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DoDate" Type="DateTime" Precision="0" />
+    <Property Name="Attention_To" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="GTAX" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="Currency" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="TotalInvoiceAmount" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="TermsAndCond" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ServicesFor" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="InvoiceCategory" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="GSTValue" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="IsFullyPaid" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="client_master" Relationship="RapidERPModel.FK_invoice_master_client_master" FromRole="invoice_master" ToRole="client_master" />
+    <NavigationProperty Name="invoice_detail" Relationship="RapidERPModel.FK_invoice_detail_invoice_master" FromRole="invoice_master" ToRole="invoice_detail" />
+  </EntityType>
+  <EntityType Name="po_detail">
+    <Key>
+      <PropertyRef Name="PDID" />
+    </Key>
+    <Property Name="PDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PoID" Type="Int32" />
+    <Property Name="Quantity" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UnitOfMeasure" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="DescOrder" Type="Int32" />
+    <Property Name="PartNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="po_master" Relationship="RapidERPModel.FK_po_detail_po_master" FromRole="po_detail" ToRole="po_master" />
+  </EntityType>
+  <EntityType Name="po_master">
+    <Key>
+      <PropertyRef Name="PoID" />
+    </Key>
+    <Property Name="PoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PoRefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PoDate" Type="DateTime" Precision="0" />
+    <Property Name="SupplierID" Type="Int32" />
+    <Property Name="Attention" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PoTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentTerms" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="DeliveryAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="GTAX" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="OrderStatus" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="FinalAmount" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="isFullyPaid" Type="Int32" />
+    <Property Name="GSTValue" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="Currency" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="po_detail" Relationship="RapidERPModel.FK_po_detail_po_master" FromRole="po_master" ToRole="po_detail" />
+    <NavigationProperty Name="supplier_master" Relationship="RapidERPModel.FK_po_master_supplier_master" FromRole="po_master" ToRole="supplier_master" />
+  </EntityType>
+  <EntityType Name="quote_detail">
+    <Key>
+      <PropertyRef Name="QDID" />
+    </Key>
+    <Property Name="QDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QuoteID" Type="Int32" />
+    <Property Name="Quantity" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UnitOfMeasure" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="DescOrder" Type="Int32" />
+    <Property Name="PartNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="quote_master" Relationship="RapidERPModel.FK_quote_detail_quote_master" FromRole="quote_detail" ToRole="quote_master" />
+  </EntityType>
+  <EntityType Name="quote_master">
+    <Key>
+      <PropertyRef Name="QuoteID" />
+    </Key>
+    <Property Name="QuoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QuoteNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="QuoteDate" Type="DateTime" Precision="0" />
+    <Property Name="ClientID" Type="Int32" />
+    <Property Name="Attention_To" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="ValidTill" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="YourRef" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TermsAndCond" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GTAX" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="Currency" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="QuoteStatus" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="QuoteTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="RvFlag" Type="Int32" />
+    <Property Name="ProjectTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Discount" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="isFullyPaid" Type="Int32" />
+    <Property Name="FinalAmount" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="GSTValue" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="Approval_Source" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Status_Remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="client_master" Relationship="RapidERPModel.FK_quote_master_client_master" FromRole="quote_master" ToRole="client_master" />
+    <NavigationProperty Name="quote_detail" Relationship="RapidERPModel.FK_quote_detail_quote_master" FromRole="quote_master" ToRole="quote_detail" />
+  </EntityType>
+  <EntityType Name="rapid_employee">
+    <Key>
+      <PropertyRef Name="EmpID" />
+    </Key>
+    <Property Name="EmpID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Employee_Id" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DoB" Type="DateTime" Precision="0" />
+    <Property Name="PhotoPath" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="DesignationID" Type="Int32" />
+    <Property Name="ScheduleID" Type="Int32" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="DoJ" Type="DateTime" Precision="0" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="DoR" Type="DateTime" Precision="0" />
+    <Property Name="IsActive" Type="Int32" />
+  </EntityType>
+  <EntityType Name="rapid_module">
+    <Key>
+      <PropertyRef Name="ModuleID" />
+    </Key>
+    <Property Name="ModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AccessType" Type="Int32" Nullable="false" />
+    <Property Name="ModuleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Order_By" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="rapid_permission" Relationship="RapidERPModel.FK_rapid_permission_rapid_module" FromRole="rapid_module" ToRole="rapid_permission" />
+    <NavigationProperty Name="rapid_screens" Relationship="RapidERPModel.FK_rapid_screens_rapid_module" FromRole="rapid_module" ToRole="rapid_screens" />
+  </EntityType>
+  <EntityType Name="rapid_permission">
+    <Key>
+      <PropertyRef Name="PermissionID" />
+    </Key>
+    <Property Name="PermissionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupID" Type="Int32" />
+    <Property Name="ModuleID" Type="Int32" />
+    <Property Name="Access" Type="Int32" />
+    <NavigationProperty Name="rapid_module" Relationship="RapidERPModel.FK_rapid_permission_rapid_module" FromRole="rapid_permission" ToRole="rapid_module" />
+    <NavigationProperty Name="rapid_usergroup" Relationship="RapidERPModel.FK_rapid_permission_rapid_usergroup" FromRole="rapid_permission" ToRole="rapid_usergroup" />
+  </EntityType>
+  <EntityType Name="rapid_screens">
+    <Key>
+      <PropertyRef Name="SCREEN_ID" />
+    </Key>
+    <Property Name="SCREEN_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MODULEID" Type="Int32" Nullable="false" />
+    <Property Name="SCREEN_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SCREEN_CLASS_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SCREEN_URL" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ORDER_BY" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="rapid_module" Relationship="RapidERPModel.FK_rapid_screens_rapid_module" FromRole="rapid_screens" ToRole="rapid_module" />
+  </EntityType>
+  <EntityType Name="rapid_usergroup">
+    <Key>
+      <PropertyRef Name="GroupID" />
+    </Key>
+    <Property Name="GroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="rapid_permission" Relationship="RapidERPModel.FK_rapid_permission_rapid_usergroup" FromRole="rapid_usergroup" ToRole="rapid_permission" />
+    <NavigationProperty Name="rapid_users" Relationship="RapidERPModel.FK_rapid_users_rapid_usergroup" FromRole="rapid_usergroup" ToRole="rapid_users" />
+  </EntityType>
+  <EntityType Name="rapid_users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EmpID" Type="Int32" />
+    <Property Name="GroupID" Type="Int32" />
+    <Property Name="DisplayName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="LastLogin" Type="DateTime" Precision="0" />
+    <Property Name="UID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="rapid_usergroup" Relationship="RapidERPModel.FK_rapid_users_rapid_usergroup" FromRole="rapid_users" ToRole="rapid_usergroup" />
+  </EntityType>
+  <EntityType Name="supplier_contact">
+    <Key>
+      <PropertyRef Name="SupplierContactID" />
+    </Key>
+    <Property Name="SupplierContactID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SupplierID" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Remarks" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="supplier_master" Relationship="RapidERPModel.FK_supplier_contact_supplier_master" FromRole="supplier_contact" ToRole="supplier_master" />
+  </EntityType>
+  <EntityType Name="supplier_master">
+    <Key>
+      <PropertyRef Name="SupplierID" />
+    </Key>
+    <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SupplierNum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Industry" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Functionality" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Pincode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Website" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Remarks" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+    <Property Name="IsActive" Type="Int32" />
+    <NavigationProperty Name="po_master" Relationship="RapidERPModel.FK_po_master_supplier_master" FromRole="supplier_master" ToRole="po_master" />
+    <NavigationProperty Name="supplier_contact" Relationship="RapidERPModel.FK_supplier_contact_supplier_master" FromRole="supplier_master" ToRole="supplier_contact" />
+  </EntityType>
+  <Association Name="FK_client_contact_client_master">
+    <End Type="RapidERPModel.client_master" Role="client_master" Multiplicity="0..1" />
+    <End Type="RapidERPModel.client_contact" Role="client_contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client_master">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="client_contact">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_invoice_master_client_master">
+    <End Type="RapidERPModel.client_master" Role="client_master" Multiplicity="0..1" />
+    <End Type="RapidERPModel.invoice_master" Role="invoice_master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client_master">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="invoice_master">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_quote_master_client_master">
+    <End Type="RapidERPModel.client_master" Role="client_master" Multiplicity="0..1" />
+    <End Type="RapidERPModel.quote_master" Role="quote_master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client_master">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="quote_master">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_invoice_detail_invoice_master">
+    <End Type="RapidERPModel.invoice_master" Role="invoice_master" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="RapidERPModel.invoice_detail" Role="invoice_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="invoice_master">
+        <PropertyRef Name="InvoiceID" />
+      </Principal>
+      <Dependent Role="invoice_detail">
+        <PropertyRef Name="InvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_po_detail_po_master">
+    <End Type="RapidERPModel.po_master" Role="po_master" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="RapidERPModel.po_detail" Role="po_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="po_master">
+        <PropertyRef Name="PoID" />
+      </Principal>
+      <Dependent Role="po_detail">
+        <PropertyRef Name="PoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_po_master_supplier_master">
+    <End Type="RapidERPModel.supplier_master" Role="supplier_master" Multiplicity="0..1" />
+    <End Type="RapidERPModel.po_master" Role="po_master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="supplier_master">
+        <PropertyRef Name="SupplierID" />
+      </Principal>
+      <Dependent Role="po_master">
+        <PropertyRef Name="SupplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_quote_detail_quote_master">
+    <End Type="RapidERPModel.quote_master" Role="quote_master" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="RapidERPModel.quote_detail" Role="quote_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="quote_master">
+        <PropertyRef Name="QuoteID" />
+      </Principal>
+      <Dependent Role="quote_detail">
+        <PropertyRef Name="QuoteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rapid_permission_rapid_module">
+    <End Type="RapidERPModel.rapid_module" Role="rapid_module" Multiplicity="0..1" />
+    <End Type="RapidERPModel.rapid_permission" Role="rapid_permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rapid_module">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="rapid_permission">
+        <PropertyRef Name="ModuleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rapid_screens_rapid_module">
+    <End Type="RapidERPModel.rapid_module" Role="rapid_module" Multiplicity="1" />
+    <End Type="RapidERPModel.rapid_screens" Role="rapid_screens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rapid_module">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="rapid_screens">
+        <PropertyRef Name="MODULEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rapid_permission_rapid_usergroup">
+    <End Type="RapidERPModel.rapid_usergroup" Role="rapid_usergroup" Multiplicity="0..1" />
+    <End Type="RapidERPModel.rapid_permission" Role="rapid_permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rapid_usergroup">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="rapid_permission">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rapid_users_rapid_usergroup">
+    <End Type="RapidERPModel.rapid_usergroup" Role="rapid_usergroup" Multiplicity="0..1" />
+    <End Type="RapidERPModel.rapid_users" Role="rapid_users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rapid_usergroup">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="rapid_users">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_supplier_contact_supplier_master">
+    <End Type="RapidERPModel.supplier_master" Role="supplier_master" Multiplicity="0..1" />
+    <End Type="RapidERPModel.supplier_contact" Role="supplier_contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="supplier_master">
+        <PropertyRef Name="SupplierID" />
+      </Principal>
+      <Dependent Role="supplier_contact">
+        <PropertyRef Name="SupplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

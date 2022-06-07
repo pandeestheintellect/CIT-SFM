@@ -1,0 +1,143 @@
+﻿@model IEnumerable<BuildInspect.Models.ViewModel.ProjectMasterViewModel>
+
+@{
+    /**/
+
+    Layout = null;
+}
+
+
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <section class="content-header">
+                        <h4>
+                            Asset
+                        </h4>
+                        @*<ol class="breadcrumb">
+                                <li><a href="#"><i class="fa fa-dashboard"></i> BuildInspect</a></li>
+                                <li>School</li>
+                                <li class="active">Config</li>
+                            </ol>*@
+                    </section>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+
+                                    <div class="box-header with-border">
+                                        <a href="" onclick="CreateAsset()" data-toggle="modal" class="btn-icon btn btn-primary"><i class="fas fa-plus-square btn-icon-wrapper"></i> New Asset</a>
+                                    </div>
+                                    <div class="box-body">
+
+                                        <table id="AssetTable" style="width: 100%;" class="table table-hover table-striped table-bordered">
+                                            <thead style="background-color: #575555; color: white">
+                                                <tr>
+                                                    <th>Sl No</th>
+                                                    <th>Building Name</th>
+                                                    <th>Checklist Type</th>
+                                                    <th>Frequency</th>
+                                                    <th>Month Name</th>
+
+
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @{
+                                                    var i = 0;
+                                                }
+                                                @foreach (var item in Model)
+                                                {
+                                                    i = i + 1;
+
+                                                    @Html.HiddenFor(model => item.PrjMasID)
+                                                    <tr>
+                                                        <td style="width:100px;">@i</td>
+
+
+                                                        <td style="width:100px;">@item.Building_Name</td>
+                                                        <td style="width:100px;">@item.CLType</td>
+                                                        <td style="width:100px;">@item.Frequency</td>
+                                                        <td style="width:100px;">@item.month_name</td>
+
+
+                                                        <td style="width:150px;">
+                                                            <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-danger" onclick="DeleteAsset('@item.PrjMasID','@item.Frequency')"><i class="fas fa-trash-alt"></i></button>
+
+                                                        </td>
+                                                    </tr>
+
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+
+    function DeleteAsset(id, un) {
+
+        Lobibox.confirm({
+            iconClass: false,
+            msg: 'Are you sure to delete the Checklist Type ' + un + '?',
+            callback: function (lobibox, type) {
+                var btnType;
+                if (type === 'no') {
+                    btnType = 'warning';
+                } else if (type === 'yes') {
+                    btnType = 'success';
+                    DeleteAssetConfirmed(id);
+
+                }
+                //Lobibox.notify(btnType, {
+                //    size: 'mini',
+                //    msg: 'This is ' + btnType + ' message'
+                //});
+            }
+        });
+
+    }
+
+
+
+
+
+    $(document).ready(function () {
+
+        $('#AssetTable').DataTable({
+            //"autoWidth": true,
+            //"scrollX": true,
+            //dom: 'Bfrtipl',
+            responsive: true,
+            // "scrollY": true,
+            buttons: [
+                //'excelHtml5',
+                //'csvHtml5',
+                //'pdfHtml5',
+
+            ]
+        });
+    });
+    $('.dt-button').addClass('btn btn-primary').removeClass('dt-button').css('margin-right', '5px')
+
+</script>

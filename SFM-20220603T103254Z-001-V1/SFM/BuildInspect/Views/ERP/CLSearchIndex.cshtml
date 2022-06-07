@@ -1,0 +1,284 @@
+﻿@model BuildInspect.Models.ViewModel.FilterViewModel
+@using BuildInspect.Models.ViewModel
+
+@{
+    Layout = null;
+    var groupID = BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup();
+    
+    var companyID = BuildInspect.Models.Utility.AppSession.GetCompanyId();
+
+    if (companyID == 1)
+    {
+        ViewBag.Company = "MKV-";
+    }
+    if (companyID == 2)
+    {
+        ViewBag.Company = "HEC-";
+    }
+    if (companyID == 3)
+    {
+        ViewBag.Company = "PPL-";
+    }
+}
+
+ <style>
+     span { border-radius:5px;padding:0 5px;text-align:center; }
+.red { background:red; }
+.yellow {background:yellow; }
+.green { background:green; }
+ </style> 
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+            
+            <div class="tab-content">
+                <div class="container-fluid">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { role = "form", id = "clSearchIndexForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.SchoolID)
+                    <section class="content-header">
+                        <h4>
+                            Checklist Index 
+                        </h4>
+                        <div class="summaryreport-container">
+
+                            <div class="row form-group">
+                               
+                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                    <div class="title">Month</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                    @Html.DropDownListFor(model => model.Month, new SelectList(
+                                    new List<Object>{
+                                    new { value = "Select" , text = "Select"  },
+                                    new { value = "01/01/" , text = "January" },
+                                    new { value = "01/02/" , text = "February" },
+                                    new { value = "01/03/" , text = "March" },
+                                    new { value = "01/04/" , text = "April" },
+                                    new { value = "01/05/" , text = "May" },
+                                    new { value = "01/06/" , text = "June" },
+                                    new { value = "01/07/" , text = "July" },
+                                    new { value = "01/08/" , text = "August" },
+                                    new { value = "01/09/" , text = "September" },
+                                    new { value = "01/10/" , text = "October" },
+                                    new { value = "01/11/" , text = "November" },
+                                    new { value = "01/12/" , text = "December" }
+                                   }, "value", "text", 0), htmlAttributes: new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                    <div class="title">Year</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                    @Html.DropDownListFor(model => model.Year, new SelectList(
+                                    new List<Object>{
+                                    new { value = "Select" , text = "Select"  },
+                                    new { value = "2019" , text = "2019" },
+                                    new { value = "2020" , text = "2020" },
+                                     new { value = "2021" , text = "2021" },
+                                      new { value = "2022" , text = "2022" },
+                                       new { value = "2023" , text = "2023" }
+                                   }, "value", "text", 0), htmlAttributes: new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                    <button type="button" id="clsearchIndex-search" class="mb-2 mr-2 btn-icon btn btn-success maintenance-generate">
+                                        <i class="fas fa-table"></i>
+                                        Search
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                            
+
+                        </div>
+                       
+                    </section>
+
+                    }
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    
+                                        <div class="box-header with-border">
+                                            
+                                           
+                                        </div>
+                                        <div class="box-body">
+                                                                                       
+                                            
+                                            <table id="CLSerachIndexTable" class="table table-hover table-striped table-bordered">
+                                              
+                                            </table>
+                                        </div>
+                                   
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<script src="~/Scripts/assets/plugins/select2.min.js"></script>
+<script src="~/Scripts/assets/plugins/moment.min.js"></script>*@
+
+<script>
+
+    $(document).ready(function () {
+        var grpid = @BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup();
+        data = [];
+        var stat = "";
+        var table = $('#CLSerachIndexTable').DataTable(
+
+          {
+              "columns": [
+              { title: "Zone", "data": "Zone" },
+                  { title: "Project Name", "data": "SchoolName" },
+                  { title: "Frequecny", "data": "Frequency" },
+                  { title: "Month", "data": "Month_Name" },
+                  { title: "Type", "data": "CLType" },
+                  { title: "Status", "data": "Status" },
+                  { title: "Action", "data": "CLTMID" }
+              ],
+              //dom: 'Bfrtipl',
+              columnDefs: [
+                  {
+                      targets: 5,
+                      render: function (data, type, row, meta) {
+                          stat = data;
+                          return data; //render link in cell
+                      }
+                  },
+
+
+       {
+           targets: 6,
+           render: function (data, type, row, meta) {
+               if (stat != "New Submit" && stat != "Completed")
+               {
+                   if(grpid == 5)
+                   {
+                       return ' <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-success" onclick="EditCheckList(' + data + ')"><i class="fas fa-edit" title="Edit"></i></button>'; //render link in cell
+                   }
+                   else{
+                       return ' <button onclick="PrintCheckList(' + data + ')" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary" style="background-color: greenyellow !important"><i class="fas fa-file-pdf" title="View"></i> </button><button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary" style="background-color: blue !important" onclick="PDFReGenerate(' + data + ')"><i class="fas fa-file-pdf" title="Generate PDF"></i></button>'; //render link in cell
+                      
+                   }
+
+               }
+               if (stat == "Completed")
+               {
+                   return '<button onclick="PrintCheckList(' + data + ')" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary"><i class="fas fa-file-pdf" title="View"></i> </button> <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary" style="background-color: blue !important" onclick="PDFReGenerate(' + data + ')"><i class="fas fa-file-pdf" title="Generate PDF"></i></button>'; //render link in cell
+                  
+               }
+               if (stat == "New Submit")
+               {
+                   return '';
+               }
+               //return"<btn btn-danger btn-sm delete btn-flat' onclick='DeletePatientDetails("+data+")'><i class='fa fa-edit'></i> Delete</button>";
+           }
+       }
+              ],
+
+              createdRow: function (row, data, index) {
+                  // $(row).addClass('blue');   //add class to row
+                  //$('td', row).eq(0).css('text-align', 'center');  //add style to cell in third column
+                  //$('td', row).eq(3).css('nowrap', 'nowrap');
+                  //$('td', row).eq(5).css('text-align', 'right');
+                  //$('td', row).eq(6).css('text-align', 'right');
+                  //$('td', row).eq(7).css('text-align', 'center');
+                  //$('th', row).eq(8).css('text-align', 'center');
+              },
+              responsive: true,
+              "info": true,
+              scrollCollapse: true,
+              "pageLength": 100,
+              //"bSort": false,
+              "scrollY": 'calc(101vh - 263px)'
+          });
+        debugger;
+
+        if(@ViewBag.SearchCheck == 0)
+        {
+           // alert("Initial load");
+        }
+
+        if(@ViewBag.SearchCheck == 1)
+        {
+           // alert('@ViewBag.LastDate');
+            var url = "/ERP/GetSearchChecklist?firstdate=" + '@ViewBag.FirstDate' + "&lastdate=" + '@ViewBag.LastDate' ;
+            $.ajax({
+                "url": url,
+                "type": "GET",
+                "data": data,
+                success: function (json) {
+
+                    table.rows.add(json.data).draw();
+                }
+            });
+        }
+
+
+        $('.dataTables_paginate').addClass('pull-right').css('width', '70%')
+        $('#CLSerachIndexTable').DataTable().buttons('.buttons-excel').remove();
+        $('#CLSerachIndexTable').DataTable().buttons('.buttons-copy').remove();
+        $('#CLSerachIndexTable').DataTable().buttons('.buttons-pdf').remove();
+        $('#CLSerachIndexTable').DataTable().buttons('.buttons-print').remove();
+        $('#CLSerachIndexTable').DataTable().buttons('.buttons-csv').remove();
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
+        });
+
+    });
+    $('.dt-button').addClass('btn btn-primary').removeClass('dt-button').css('margin-right', '5px')
+
+    function PrintCheckList(id) {
+        debugger;
+        //location.href = "/ERP/PrintCheckList/" + id;
+        window.open('/ERP/PrintCheckList/' + id, '_blank');
+
+
+    }
+
+    function PDFReGenerate(id) {
+        debugger;
+        var url = "ERP/PDFReGenerate/" + id;
+        $.get(url, function (data) {
+
+            if(data == 1){
+                Lobibox.alert('success', {
+                    msg: "PDF Regenerated!"
+                });
+            }else
+            {
+                Lobibox.alert('error', {
+                    msg: "PDF Regeneration Unsuccessful!"
+                });
+            }
+            //alert (data);
+           
+        });
+       
+        //location.href = "/ERP/PrintCheckList/" + id;
+        //window.open('/ERP/PrintCheckList/' + id, '_blank');
+
+
+    }
+
+
+
+
+</script>

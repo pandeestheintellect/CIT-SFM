@@ -1,0 +1,148 @@
+﻿@model IEnumerable<BuildInspect.Models.ViewModel.CompanyMasterViewModel>
+
+@{
+    Layout = null;
+}
+
+  
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <section class="content-header">
+                        <h4>
+                            Company List
+                        </h4>
+                        @*<ol class="breadcrumb">
+                            <li><a href="#"><i class="fa fa-dashboard"></i> BuildInspect</a></li>
+                            <li>Company</li>
+                            <li class="active">Config</li>
+                        </ol>*@
+                    </section>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+                                    
+                                        <div class="box-header with-border">
+
+                                            <a href="" data-toggle="modal" onclick="CompanyCreate()" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Add</a>
+                                        </div>
+                                        <div class="box-body">
+                                            <table id="companyTable" class="table table-hover table-striped table-bordered">
+                                                <thead style="background-color: #575555; color: white">
+                                                    <tr>
+                                                        <th>Company Ref#</th>
+                                                        <th>Company Name</th>
+                                                        <th>Address</th>
+                                                        <th>Phone</th>
+                                                        <th>Logo</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        var newfn = "";
+                                                        var space = "&nbsp;";
+
+                                                        if (item.LogoPath != null)
+                                                        {
+                                                            var path = item.LogoPath.Split('\\');
+                                                            newfn = "/" + path[path.Count() - 3] + "/" + path[path.Count() - 2] + "/" + path[path.Count() - 1];
+                                                        }
+
+
+                                                        IHtmlString tx = null;
+
+                                                        tx = Html.Raw(Html.Encode(item.Address).Replace(Environment.NewLine, "<br />"));
+                                                        tx = Html.Raw(Html.Encode(tx).Replace("\n", "<br />"));
+                                                        tx = Html.Raw(Html.Encode(tx).Replace("\r", "<br />"));
+
+                                                        <tr>
+                                                            <td>@item.ShortName</td>
+                                                            <td>@item.CompanyName</td>
+                                                            <td>
+                                                                @tx<br />
+                                                            @item.Country-@item.Pincode
+                                                        </td>
+                                                        <td>@item.Tel</td>
+                                                        
+                                                        <td>
+                                                            @{
+                                                                if (newfn != "")
+                                                                {
+
+                                                                    <img src="@newfn" height="40" width="70" />
+
+                                                                }else
+                                                                {
+                                                                    <img src="@newfn" height="0" width="0" />
+                                                                }
+
+                                                            }
+                                                            
+
+                                                            &nbsp;
+                                                        </td>
+                                                        <td style="width:150px;">
+                                                            <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-success" onclick="EditCompany(@item.CompanyID)"><i class="fas fa-edit"></i></button>
+                                                            <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-danger" onclick="DeleteCompany('@item.CompanyID','@item.CompanyName')"><i class="fas fa-trash-alt"></i></button>
+                                                            
+                                                        </td>
+                                                    </tr>
+
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function DeleteCompany(id,un) {
+
+        Lobibox.confirm({
+            iconClass: false,
+            msg: 'Are you sure to delete the Company ' + un + '?',
+            callback: function (lobibox, type) {
+                var btnType;
+                if (type === 'no') {
+                    btnType = 'warning';
+                } else if (type === 'yes') {
+                    btnType = 'success';
+                    DeleteCompanyConfirmed(id);
+
+                } 
+               
+            }
+        });
+
+    }
+
+
+$(document).ready(function () {
+
+    $('#companyTable').DataTable({
+        dom: 'Bfrtipl',
+        responsive: true
+    });
+});
+$('.dt-button').addClass('btn btn-primary').removeClass('dt-button').css('margin-right', '5px')
+
+</script>

@@ -1,0 +1,127 @@
+﻿@model BuildInspect.Models.ViewModel.CheckListTransMasterViewModel
+@using BuildInspect.Models.ViewModel
+@{
+    Layout = null;
+}
+
+<style>
+    .required::after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+@*<link href="~/Scripts/main.css" rel="stylesheet" />*@
+
+    <!-- Content Header (Page header) -->  
+    <!-- Main content -->
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "dummychklist_Form", @class = "form-horizontal" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })                                       
+                                        
+                                        <div class="service-container">
+
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Checklist Type</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <select class="priority-dropdown form-control" id="CLType" name="CLType">
+                                                        <option value="Select">-Select Type-</option>
+                                                        <option value="Electrical">ELECTRICAL & DOMESTIC</option>
+                                                        <option value="Mechanical">MECHANICAL</option>
+                                                        <option value="SP-LIFTSYS">LIFTS SYSTEM (PASSENGER, FIREMAN & PLATFORM, HOIST) </option>
+                                                        <option value="SP-SECUTYSYS">SECURITY SYSTEMS (INCLUDING DECAMS) </option>
+                                                        <option value="SP-FIREALMSYS">ALL TYPES OF FIRE ALARM SYSTEMS (INCLUDING DECAMS)</option>
+                                                        <option value="SP-PLCWDWL">PROGRAMMABLE LOGIC CONTROLLER (WIRED & WIRELESS)</option>
+                                                        <option value="SP-HYDPUMP">HYDRANT PUMPING SYSTEM</option>
+                                                        <option value="SP-PASISCM">PUBLIC ADDRESS SYSTEM, ISCM and SOUND REINFORCEMENT SYSTEM  </option>
+                                                        <option value="SP-BASBMSSYS">BAS, BMS & MMS</option>
+                                                        <option value="SP-CHILLERSYS"> CHILLER SYSTEMS (WATER OR AIR-COOLED TYPES)</option>
+                                                        <option value="SP-FUMECESYS">FUME CUPBOARD EXHAUST SYSTEMS (DUCT OR DUCTLESS)</option>
+                                                        <option value="SP-FIRESPNKLR">FIRE SPRINKLER SYSTEMS</option>
+                                                        <option value="SP-WETCHSUSYS">WET CHEMICAL SUPRESSION SYSTEMS</option>
+                                                        <option value="SP-HVLSFMPIS">HIGH VOLUME LOW SPEED FAN (MPH & ISH)</option>
+                                                        <option value="SP-SMKCTLSYS">SMOKE CONTROL SYSTEMS</option>
+                                                        <option value="SP-OTHLIFTS">OTHER TYPES OF LIFT (CHAIRLIFT & DUMBWAITER)</option>
+                                                        <option value="SP-GENSET">GENERATOR SET (EXCLUDING LIFT,SMOKE AND FIRE FIGHTING SYSTEMS)</option>
+                                                        <option value="SP-SIOCDSYS"> SERVICING & INSPECTION OF CIVIL DEFENCE SHELTERS</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Frequency</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <select class="school-dropdown form-control" id="Frequency" name="Frequency">
+                                                        <option value="Select">-Select Frequency-</option>
+                                                        <option value="Monthly">Monthly</option>
+                                                        <option value="Quarterly">Quarterly</option>
+                                                        <option value="HalfYearly">HalfYeaarly</option>
+                                                        <option value="Yearly">Yearly</option> 
+                                                        <option value="BiYearly">BiYearly</option>                                                       
+                                                    </select>
+                                                </div>
+                                            </div>                             
+                                        
+                                        </div>
+                                       
+                                    
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-primary" name="chklistformat-submit" id="chklistformat-submit"
+                                                    value="Submit">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+      
+
+
+<script src="~/Scripts/assets/plugins/select2.min.js"></script>
+<script src="~/Scripts/assets/plugins/moment.min.js"></script>
+
+
+<script>
+  
+    
+    $(document).ready(function () {
+       
+        $('.priority-dropdown').select2({
+            theme: "bootstrap4",
+            placeholder: "Select a priority",
+        });
+
+        $('.school-dropdown').select2({
+            theme: "bootstrap4",
+            placeholder: "Select a priority",
+        });        
+       
+    });
+
+    $("form").removeData("validator");
+    $("form").removeData("unobtrusiveValidation");
+    $.validator.unobtrusive.parse("form");
+
+
+</script>

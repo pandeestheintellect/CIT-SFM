@@ -1,0 +1,192 @@
+﻿@model IEnumerable<BuildInspect.Models.ViewModel.CheckListIndexViewModel>
+
+@{
+    Layout = null;
+    var groupID = BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup();
+}
+
+  
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+            
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <section class="content-header">
+                        <h4>
+                            Check List
+                        </h4>
+                        @*<ol class="breadcrumb">
+                            <li><a href="#"><i class="fa fa-dashboard"></i> BuildInspect</a></li>
+                            <li>Checklist</li>
+                            <li class="active">Index</li>
+                        </ol>*@
+                    </section>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    
+                                        <div class="box-header with-border">
+                                            @*<a href="" onclick="MonthlyCL()" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Monthly</a>
+                                            <a href="" onclick="QuarterlyCL()" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Quarterly</a>
+                                            <a href="" onclick="HalfYearlyCL()" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Half Yearly</a>
+                                            <a href="" onclick="YearlyCL()" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Yearly</a>
+                                            <a href="" onclick="BiYearlyCL()" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Bi-Yearly</a>*@
+                                           
+                                        </div>
+                                        <div class="box-body">
+                                            <table id="chklistIndexTable" style="width: 100%;" class="table table-hover table-striped table-bordered">
+                                                <thead style="background-color: #575555; color: white">
+                                                    <tr>
+                                                        
+                                                        <th>Zone</th>
+                                                        <th>Project Name</th>
+                                                        <th>Frequency</th>
+                                                        <th>Month</th>
+                                                        <th>Type</th>
+                                                        <th>Status</th>                                                        
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        <tr>
+                                                            <td style="width:100px;">@item.Zone</td>
+                                                            <td style="width:200px;">@item.SchoolName</td>                                                            
+                                                            <td>@item.Frequency</td>
+                                                            <td>@item.Month_Name</td>
+                                                            <td>@item.CLType</td>
+                                                            <td>
+                                                                @*<div class="mr-2 btn-pill btn btn-primary">                                                                    
+                                                                </div>*@
+                                                                @item.Status
+                                                            </td>
+                                                            <td style="width:150px;">
+                                                                @if (groupID == 3)
+                                                                {
+                                                                    if (item.Status == "New Submit")
+                                                                    {
+                                                                        <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-info" onclick="SubmitCheckList('@item.PrjMasID','@item.SchoolID', '@item.Frequency')"><i class="fas fa-plus-square" title="Add New"></i></button>
+                                                                    }
+                                                                    if (item.Status != "New Submit" && item.Status != "Completed")
+                                                                    {
+                                                                        if (item.Status == "Pending MA")
+                                                                        {
+                                                                            <button onclick="window.open('ERP/PrintCheckList/@item.CLTMID', '_blank')" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary" style="background-color: greenyellow !important"><i class="fas fa-file-pdf" title="View"></i> </button>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-success" onclick="EditCheckList(@item.CLTMID)"><i class="fas fa-edit" title="Edit"></i></button>                                                                            
+                                                                        }
+                                                                    }
+                                                                    if (item.Status == "Completed")
+                                                                    {                                                                        
+                                                                        <button onclick="window.open('ERP/PrintCheckList/@item.CLTMID', '_blank')" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary"><i class="fas fa-file-pdf" title="View"></i> </button>
+                                                                        @*<button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-success" onclick="MailCheckList(@item.CLTMID)"><i class="fas fa-mail-bulk" title="Email"></i></button>*@
+                                                                    }
+                                                                }
+
+                                                                @if (groupID == 5)
+                                                                {
+                                                                   if (item.Status == "Completed")
+                                                                    {
+                                                                        <button onclick="window.open('ERP/PrintCheckList/@item.CLTMID', '_blank')" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary"><i class="fas fa-file-pdf" title="View"></i> </button>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-success" onclick="EditCheckList(@item.CLTMID)"><i class="fas fa-edit" title="Edit"></i></button>
+                                                                    }
+                                                                }
+
+                                                                @if (groupID == 7 || groupID == 6)
+                                                                {                                                                   
+                                                                    if (item.Status != "New Submit" && item.Status != "Completed")
+                                                                    {
+                                                                        if (item.Status == "Pending MA")
+                                                                        {
+                                                                            <button onclick="window.open('ERP/PrintCheckList/@item.CLTMID', '_blank')" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary" style="background-color: greenyellow !important"><i class="fas fa-file-pdf" title="View"></i> </button>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-success" onclick="EditCheckList(@item.CLTMID)"><i class="fas fa-edit" title="Edit"></i></button>
+                                                                        }
+                                                                    }
+                                                                    if (item.Status == "Completed")
+                                                                    {
+                                                                        <button onclick="window.open('ERP/PrintCheckList/@item.CLTMID', '_blank')" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary"><i class="fas fa-file-pdf" title="View"></i> </button>
+                                                                    }
+                                                                }
+
+                                                                @if (groupID == 8 || groupID == 2)
+                                                                {
+                                                                    if (item.Status != "New Submit" && item.Status != "Completed")
+                                                                    {
+                                                                        <button onclick="window.open('ERP/PrintCheckList/@item.CLTMID', '_blank')" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary" style="background-color: greenyellow !important"><i class="fas fa-file-pdf" title="View"></i> </button>
+                                                      
+                                                                    }
+                                                                    if (item.Status == "Completed")
+                                                                    {                                                                        
+                                                                        <button onclick="window.open('ERP/PrintCheckList/@item.CLTMID', '_blank')" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary"><i class="fas fa-file-pdf" title="View"></i> </button>
+                                                                    }
+                                                                }
+                                                               
+                                                            </td>
+                                                        </tr>
+
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                   
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+   
+
+    $(document).ready(function () {
+
+       
+        $('#chklistIndexTable').DataTable({
+        //"autoWidth": true,
+        //"scrollX": true,
+        //dom: 'Bfrtipl',
+        responsive: true,
+        columnDefs: [
+        { "width": "8%", "targets": [0] },       
+        { "width": "28%", "targets": [1] },
+        { "width": "12%", "targets": [2,5] },
+        { "width": "14%", "targets": [6] }
+        ],
+       // "scrollY": true,
+        buttons: [
+            //'excelHtml5',
+            //'csvHtml5',
+            //'pdfHtml5',
+
+        ]
+    });
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
+    });
+
+});
+$('.dt-button').addClass('btn btn-primary').removeClass('dt-button').css('margin-right', '5px')
+
+
+
+</script>

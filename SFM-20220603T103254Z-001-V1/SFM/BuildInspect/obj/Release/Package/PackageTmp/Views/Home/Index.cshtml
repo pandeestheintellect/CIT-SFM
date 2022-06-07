@@ -1,0 +1,3009 @@
+﻿@model BuildInspect.Models.ViewModel.IndexViewModel
+@{
+    ViewBag.Title = "Home Page";
+
+}
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+
+<style>
+    .loading-img {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1020;
+        background: transparent url('/SFM/Scripts/assets/images/loading.gif') 50% 50% no-repeat;
+    }
+
+    .overlay {
+        z-index: 1060 !important;
+    }
+</style>
+
+@{
+    var groupID = BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup();
+    var companyID = BuildInspect.Models.Utility.AppSession.GetCompanyId();
+    var Company = "";
+    var logoclass = "app-header__logo";
+
+    if (companyID == 3)
+    {
+        // logoclass = "app-header__logo propell";
+        logoclass = "app-header__logo";
+    }
+}
+
+<div class="overlay" style="display: none;"></div>
+<div class="loading-img" style="display: none;"></div>
+
+
+<div class="app-container app-theme-gray app-sidebar-full">
+    <div class="app-main">
+        <div class="app-sidebar-wrapper">
+            <div class="app-sidebar sidebar-shadow bg-danger sidebar-text-light">
+                <div class="@logoclass">
+                    @{
+                        if (companyID == 1)
+                        {
+                            Company = "Smart Facility management (SFM)";
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="SFM" class="logo-src">
+                                <img src="~/Scripts/assets/images/Smart_Building_Suite_360.png" />
+                                <!-- <img src="~/Scripts/assets/images/logo.png" />-->
+                                <!--Smart_Building_Suite_360-->
+                            </a>
+                        }
+                        else if (companyID == 2)
+                        {
+                            Company = "Smart Facility management (SFM)";
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="SFM" class="logo-src">
+                                <img src="~/Scripts/assets/images/Smart_Building_Suite_360.png" />
+                                <!-- <img src="~/Scripts/assets/images/hec.png" />-->
+                            </a>
+                        }
+                        else if (companyID == 3)
+                        {
+                            Company = "Smart Facility management (SFM)";
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="SFM" class="logo-src">
+                                <img src="~/Scripts/assets/images/Smart_Building_Suite_360.png" />
+                                <!--  <img src="~/Scripts/assets/images/ppl.png" />-->
+                            </a>
+                        }
+                    }
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+                <div class="scrollbar-sidebar scrollbar-container">
+                    <div class="app-sidebar__inner">
+                        <ul class="vertical-nav-menu">
+                            <li class="app-sidebar__heading">Menu</li>
+                            <li class="mm-active">
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-rocket"></i>
+                                    Dashboards
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul class="mm-show">
+                                    <li><a class="mm-active Index" href="#"> &nbsp; &nbsp;Home</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-anchor"></i>
+                                    Master
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    @if (groupID != 5 && groupID != 3)
+                                    {
+                                        <li>
+                                            <a class="SchoolIndex" href="#">
+                                                <i class="metismenu-icon"></i>
+                                                &nbsp; &nbsp;Building
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a class="UserIndex" href="#">
+                                                <i class="metismenu-icon">
+                                                </i>&nbsp; &nbsp;User
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#" class="ChecklistFormat">
+                                                <i class="metismenu-icon"></i>
+                                                &nbsp; &nbsp;Checklist Format
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a class="ChecklistAdminIndex" href="#">
+                                                <i class="metismenu-icon">
+                                                </i>&nbsp; &nbsp;Checklist Form
+                                            </a>
+                                        </li>
+
+                                    }
+
+                                    <li>
+                                        <a href="#" id="admin_profile">
+                                            <i class="metismenu-icon"></i>
+                                            &nbsp; &nbsp;Change Password
+                                        </a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
+                            @if (groupID != 2)
+                            {
+                                <li>
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-browser"></i>
+                                        Transaction
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul>
+                                        @if (groupID == 5 || groupID == 8 || groupID == 6)
+                                        {
+                                            <li>
+                                                <a class="ChecklistAdminIndex" href="#">
+                                                    <i class="metismenu-icon">
+                                                    </i>&nbsp; &nbsp;Checklist Form
+                                                </a>
+                                            </li>
+
+
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a class="ChecklistIndex" href="#">
+                                                    <i class="metismenu-icon">
+                                                    </i>&nbsp; &nbsp;Checklist Form
+                                                </a>
+                                            </li>
+                                        }
+
+                                        @if (companyID != 4)
+                                        {
+                                            if (groupID == 8)
+                                            {
+                                                <li>
+                                                    <a class="ServiceFormIndex" href="#">
+                                                        <i class="metismenu-icon">
+                                                        </i>&nbsp; &nbsp;Service Form
+                                                    </a>
+                                                </li>
+                                            }
+                                        }
+
+
+                                        @if (groupID != 5)
+                                        {
+                                            if (Model.UserType == "Electrical" || Model.UserType == "Mechanical")
+                                            {
+                                                if (companyID != 4)
+                                                {
+                                                    <li>
+                                                        <a class="ServiceFormIndex" href="#">
+                                                            <i class="metismenu-icon">
+                                                            </i>&nbsp; &nbsp;Service Form
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-edit"></i>
+                                    Reports
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    @if (groupID != 3 && groupID != 2)
+                                    {
+                                        <li>
+                                            <a href="#" class="ChecklistMatrix">
+                                                <i class="metismenu-icon"></i>
+                                                &nbsp; &nbsp;Checklist Matrix
+                                            </a>
+                                        </li>
+                                    }
+
+                                    @if (groupID == 2)
+                                    {
+                                        <li>
+                                            <a href="#" class="ChecklistMatrixDir">
+                                                <i class="metismenu-icon"></i>
+                                                &nbsp; &nbsp;Checklist Matrix
+                                            </a>
+                                        </li>
+
+                                    }
+
+                                    @if (groupID == 2 || groupID == 6 || groupID == 8)
+                                    {
+                                        <li>
+                                            <a href="#" class="ChecklistLiftMatrix">
+                                                <i class="metismenu-icon"></i>
+                                                &nbsp; &nbsp;Checklist Lift
+                                            </a>
+                                        </li>
+                                    }
+
+                                    @if (Model.UserType == "SP-LIFTSYS")
+                                    {
+                                        <li>
+                                            <a href="#" class="ChecklistDownloadLiftOpr">
+                                                <i class="metismenu-icon"></i>
+                                                &nbsp; &nbsp;Checklist Download
+                                            </a>
+                                        </li>
+
+                                    }
+                                    else
+                                    {
+                                        if (groupID == 2)
+                                        {
+                                            <li>
+                                                <a href="#" class="ChecklistDownloadAdmin">
+                                                    <i class="metismenu-icon"></i>
+                                                    &nbsp; &nbsp;Checklist Download
+                                                </a>
+                                            </li>
+
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a href="#" class="ChecklistDownload">
+                                                    <i class="metismenu-icon"></i>
+                                                    &nbsp; &nbsp;Checklist Download
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+
+
+                                    @if (groupID != 5)
+                                    {
+                                        if (Model.UserType == "Electrical" || Model.UserType == "Mechanical")
+                                        {
+                                            if (companyID != 4)
+                                            {
+                                                <!--
+                <li>
+                    <a class="ServiceFormReportIndex" href="#">
+                        <i class="metismenu-icon"></i>
+                        &nbsp; &nbsp;Service Form
+                    </a>
+                </li>
+                    -->
+
+                                            }
+                                        }
+                                    }
+
+
+                                    @if (groupID == 5 || groupID == 8 || groupID == 2 || groupID == 5)
+                                    {
+
+                                        <li>
+                                            <a class="CLSearchIndex" href="#">
+                                                <i class="metismenu-icon"></i>
+                                                &nbsp; &nbsp;Checklist Index
+                                            </a>
+                                        </li>
+                                        <!--
+        <li>
+            <a class="CLSearchIndexNew" href="#">
+                <i class="metismenu-icon"></i>
+                &nbsp; &nbsp;Checklist Index New
+            </a>
+        </li>
+            -->
+                                    }
+
+                                </ul>
+                            </li>
+
+                            @if (groupID == 1)
+                            {
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-settings"></i>
+                                    Settings
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a class="CompanyIndex" href="#">
+                                            <i class="metismenu-icon"></i>
+                                            &nbsp; &nbsp;Company
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                                <ul>
+                                    <li>
+                                        <a class="LicenseIndex" href="#">
+                                            <i class="metismenu-icon"></i>
+                                            &nbsp; &nbsp;License
+                                        </a>
+                                    </li>
+
+
+                                </ul>
+
+
+                            </li>
+
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-sidebar-overlay d-none animated fadeIn"></div>
+        <div class="app-main__outer">
+            <div class="app-main__inner">
+                <div class="header-mobile-wrapper">
+                    <div class="app-header__logo">
+
+                        @{
+                            if (companyID == 1)
+                            {
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="MKV" class="logo-src">
+                                    <img src="/Scripts/assets/images/logo.png" />
+                                </a>
+                            }
+                            else if (companyID == 2)
+                            {
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="HEC" class="logo-src">
+                                    <img src="/Scripts/assets/images/hec.png" />
+                                </a>
+
+                            }
+                            else if (companyID == 3)
+                            {
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="PPL" class="logo-src">
+                                    <img src="/Scripts/assets/images/ppl.png" />
+                                </a>
+
+                            }
+                        }
+
+                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-sidebar-nav">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                        <div class="app-header__menu">
+                            <span>
+                                <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                                    <span class="btn-icon-wrapper">
+                                        <i class="fa fa-ellipsis-v fa-w-6"></i>
+                                    </span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-header">
+                    <div class="page-title-heading">
+                        @Company
+                        <div class="page-title-subheading">
+                        </div>
+                    </div>
+                    <div class="app-header-right">
+                        @*<div class="search-wrapper">
+                                <i class="search-icon-wrapper typcn typcn-zoom-outline"></i>
+                                <input type="text" placeholder="Search...">
+                            </div>*@
+
+                        <div class="header-btn-lg pr-0">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left">
+                                        <div class="btn-group">
+                                            <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+
+                                                <img width="42" class="rounded" src="~/Scripts/assets/images/avatars/3.jpg" alt="">
+                                                <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                            </a>
+                                            <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
+                                                <div class="dropdown-menu-header">
+                                                    <div class="dropdown-menu-header-inner bg-info">
+                                                        <div class="menu-header-image opacity-2" style="background-image: url('/Scripts/assets/images/dropdown-header/city1.jpg');"></div>
+                                                        <div class="menu-header-content text-left">
+                                                            <div class="widget-content p-0">
+                                                                <div class="widget-content-wrapper">
+                                                                    <div class="widget-content-left mr-3">
+                                                                        <img width="42" class="rounded-circle"
+                                                                             src="~/Scripts/assets/images/avatars/3.jpg"
+                                                                             alt="">
+                                                                    </div>
+                                                                    <div class="widget-content-left">
+                                                                        <div class="widget-heading">
+                                                                            @Model.DisplayName
+                                                                        </div>
+                                                                        <div class="widget-subheading opacity-8">
+                                                                            A short profile description
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="widget-content-right mr-2">
+                                                                        <a href="~/Login/SignOut" class="btn-pill btn-shadow btn-shine btn btn-focus">
+                                                                            Logout
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="scroll-area-xs" style="height: 150px;">
+                                                    <div class="scrollbar-container ps">
+                                                        <ul class="nav flex-column">
+                                                            <li class="nav-item-header nav-item">
+                                                                Activity
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a id="admin_profile" href="#" class="nav-link">
+                                                                    <i class="metismenu-icon"></i>&nbsp;Recover Password
+                                                                </a>
+                                                            </li>
+                                                            @*
+                                                                <li class="nav-item-header nav-item">
+                                                                    My Account
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a href="javascript:void(0);" class="nav-link">
+                                                                        Settings
+                                                                        <div class="ml-auto badge badge-success">
+                                                                            New
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a href="javascript:void(0);" class="nav-link">
+                                                                        Messages
+                                                                        <div class="ml-auto badge badge-warning">
+                                                                            512
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a href="javascript:void(0);" class="nav-link">
+                                                                        Logs
+                                                                    </a>
+                                                                </li>
+                                                            *@
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item-divider mb-0 nav-item"></li>
+                                                </ul>
+                                                @*
+                                                    <div class="grid-menu grid-menu-2col">
+                                                        <div class="no-gutters row">
+                                                            <div class="col-sm-6">
+                                                                <button class="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning">
+                                                                    <i class="pe-7s-chat icon-gradient bg-amy-crisp btn-icon-wrapper mb-2"></i>
+                                                                    Message Inbox
+                                                                </button>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <button class="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-danger">
+                                                                    <i class="pe-7s-ticket icon-gradient bg-love-kiss btn-icon-wrapper mb-2"></i>
+                                                                    <b>Pending Items</b>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <ul class="nav flex-column">
+                                                        <li class="nav-item-divider nav-item">
+                                                        </li>
+                                                        <li class="nav-item-btn text-center nav-item">
+                                                            <button class="btn-wide btn btn-primary btn-sm">
+                                                                Open Messages
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                *@
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="app-header-overlay d-none animated fadeIn"></div>
+
+                </div>
+                <div id="page-wrapper">
+
+                    <div class="app-inner-layout app-inner-layout-page">
+                        <div class="app-inner-layout__wrapper">
+
+                            <div class="app-inner-layout__content">
+                                <div class="tab-content">
+                                    <div class="container-fluid">
+                                        <div class="mb-3 card">
+                                            <div class="card-header-tab card-header">
+                                                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                                    <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                                                    General Summary
+                                                </div>
+                                                <div class="btn-actions-pane-right text-capitalize">
+                                                    @*<button class="btn-wide btn-outline-2x mr-md-2 btn btn-outline-focus btn-sm">
+                                                            View All
+                                                        </button>*@
+                                                </div>
+                                            </div>
+                                            <div class="no-gutters row">
+                                                <div class="col-sm-6 col-md-4 col-xl-4">
+                                                    <div class="card no-shadow rm-border bg-transparent widget-chart text-left">
+                                                        <div class="icon-wrapper rounded-circle">
+                                                            <div class="icon-wrapper-bg opacity-10 bg-warning"></div>
+                                                            <i class="lnr-laptop-phone text-dark opacity-8"></i>
+                                                        </div>
+                                                        <div class="widget-chart-content">
+                                                            <div class="widget-subheading">Total Buildings</div>
+                                                            <div class="widget-numbers">@Model.NoOfSchools</div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="divider m-0 d-md-none d-sm-block"></div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-4 col-xl-4">
+                                                    <div class="card no-shadow rm-border bg-transparent widget-chart text-left">
+                                                        <div class="icon-wrapper rounded-circle">
+                                                            <div class="icon-wrapper-bg opacity-9 bg-danger"></div>
+                                                            <i class="lnr-graduation-hat text-white"></i>
+                                                        </div>
+                                                        <div class="widget-chart-content">
+                                                            <div class="widget-subheading">Zone</div>
+                                                            <div class="widget-numbers"><span>@Model.Zone</span></div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="divider m-0 d-md-none d-sm-block"></div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-4 col-xl-4">
+                                                    <div class="card no-shadow rm-border bg-transparent widget-chart text-left">
+                                                        <div class="icon-wrapper rounded-circle">
+                                                            <div class="icon-wrapper-bg opacity-9 bg-success"></div>
+                                                            <i class="lnr-apartment text-white"></i>
+                                                        </div>
+                                                        <div class="widget-chart-content">
+                                                            <div class="widget-subheading">Type</div>
+                                                            <div class="widget-numbers text-success"><span>@Model.UserType</span></div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-sm-12 col-lg-6">
+                                                <div class="card-hover-shadow-2x mb-3 card">
+                                                    <div class="card-header-tab card-header">
+                                                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                                            <i class="header-icon lnr-database icon-gradient bg-malibu-beach"> </i>Tasks
+                                                            List
+                                                        </div>
+                                                    </div>
+                                                    <div class="scroll-area-task">
+                                                        <div class="scrollbar-container">
+                                                            <div class="p-2">
+                                                                <ul class="todo-list-wrapper list-group list-group-flush">
+                                                                    <li class="list-group-item">
+                                                                        <div class="todo-indicator bg-warning"></div>
+                                                                        <div class="widget-content p-0">
+                                                                            <div class="widget-content-wrapper">
+                                                                                <div class="widget-content-left mr-2">
+                                                                                    <div class="custom-checkbox custom-control">
+                                                                                        <input type="checkbox"
+                                                                                               id="exampleCustomCheckbox12"
+                                                                                               class="custom-control-input"><label class="custom-control-label"
+                                                                                                                                   for="exampleCustomCheckbox12">&nbsp;</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="widget-content-left">
+                                                                                    <div class="widget-heading">
+                                                                                        Pending submission
+
+                                                                                    </div>
+                                                                                    <div class="widget-subheading">
+                                                                                        <div>
+                                                                                            Monthly
+                                                                                            <div class="badge badge-pill badge-info ml-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "PendingSubmission" && a.Frequency == "Monthly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                            @if (groupID == 3)
+                                                                                            {
+                                                                                                <a href="#" class="badge pending-submission ml-2 ChecklistIndex">
+                                                                                                    View
+                                                                                                </a>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <a href="#" class="badge pending-submission ml-2 ChecklistAdminIndex">
+                                                                                                    View
+                                                                                                </a>
+                                                                                            }
+
+
+                                                                                        </div>
+
+                                                                                        <div>
+                                                                                            Quarterly
+                                                                                            <div class="badge badge-pill badge-info ml-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "PendingSubmission" && a.Frequency == "Quarterly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            Half Yearly
+                                                                                            <div class="badge badge-pill badge-info ml-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "PendingSubmission" && a.Frequency == "HalfYearly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            Yearly
+                                                                                            <div class="badge badge-pill badge-info ml-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "PendingSubmission" && a.Frequency == "Yearly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            Bi-Yearly
+                                                                                            <div class="badge badge-pill badge-info ml-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "PendingSubmission" && a.Frequency == "BiYearly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <div class="todo-indicator bg-focus"></div>
+                                                                        <div class="widget-content p-0">
+                                                                            <div class="widget-content-wrapper">
+                                                                                <div class="widget-content-left mr-2">
+                                                                                    <div class="custom-checkbox custom-control">
+                                                                                        <input type="checkbox"
+                                                                                               id="exampleCustomCheckbox1"
+                                                                                               class="custom-control-input"><label class="custom-control-label"
+                                                                                                                                   for="exampleCustomCheckbox1">&nbsp;</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="widget-content-left">
+                                                                                    <div class="widget-heading">
+                                                                                        Pending User Signature
+                                                                                    </div>
+                                                                                    <div class="widget-subheading">
+                                                                                        <div>
+                                                                                            Monthly
+                                                                                            <div class="badge badge-pill badge-info ml-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "PendingUser" && a.Frequency == "Monthly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                            @if (groupID == 3)
+                                                                                            {
+                                                                                                <a href="#" class="badge badge-danger ml-2 ChecklistIndex">
+                                                                                                    View
+                                                                                                </a>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <a href="#" class="badge badge-danger ml-2 ChecklistAdminIndex">
+                                                                                                    View
+                                                                                                </a>
+                                                                                            }
+
+                                                                                        </div>
+
+                                                                                        <div>
+                                                                                            Quarterly
+                                                                                            <div class="badge badge-pill badge-info ml-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "PendingUser" && a.Frequency == "Quarterly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            Half Yearly
+                                                                                            <div class="badge badge-pill badge-info ml-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "PendingUser" && a.Frequency == "HalfYearly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            Yearly
+                                                                                            <div class="badge badge-pill badge-info ml-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "PendingUser" && a.Frequency == "Yearly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            Bi-Yearly
+                                                                                            <div class="badge badge-pill badge-info ml-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "PendingUser" && a.Frequency == "BiYearly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <div class="todo-indicator bg-primary"></div>
+                                                                        <div class="widget-content p-0">
+                                                                            <div class="widget-content-wrapper">
+                                                                                <div class="widget-content-left mr-2">
+                                                                                    <div class="custom-checkbox custom-control">
+                                                                                        <input type="checkbox"
+                                                                                               id="exampleCustomCheckbox4"
+                                                                                               class="custom-control-input"><label class="custom-control-label"
+                                                                                                                                   for="exampleCustomCheckbox4">&nbsp;</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="widget-content-left flex2">
+                                                                                    <div class="widget-heading">
+                                                                                        Pending MA Signature
+                                                                                    </div>
+                                                                                    <div class="widget-subheading">
+                                                                                        <div>
+                                                                                            Monthly
+                                                                                            <div class="badge badge-pill badge-info ml-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "PendingMA" && a.Frequency == "Monthly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                            @if (groupID == 3)
+                                                                                            {
+                                                                                                <a href="#" class="badge pending-submission ml-2 ChecklistIndex">
+                                                                                                    View
+                                                                                                </a>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <a href="#" class="badge pending-submission ml-2 ChecklistAdminIndex">
+                                                                                                    View
+                                                                                                </a>
+                                                                                            }
+
+                                                                                        </div>
+
+                                                                                        <div>
+                                                                                            Quarterly
+                                                                                            <div class="badge badge-pill badge-info ml-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "PendingMA" && a.Frequency == "Quarterly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            Half Yearly
+                                                                                            <div class="badge badge-pill badge-info ml-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "PendingMA" && a.Frequency == "HalfYearly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            Yearly
+                                                                                            <div class="badge badge-pill badge-info ml-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "PendingMA" && a.Frequency == "Yearly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            Bi-Yearly
+                                                                                            <div class="badge badge-pill badge-info ml-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "PendingMA" && a.Frequency == "HalfYearly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li class="list-group-item">
+                                                                        <div class="todo-indicator bg-success"></div>
+                                                                        <div class="widget-content p-0">
+                                                                            <div class="widget-content-wrapper">
+                                                                                <div class="widget-content-left mr-2">
+                                                                                    <div class="custom-checkbox custom-control">
+                                                                                        <input type="checkbox"
+                                                                                               id="exampleCustomCheckbox3"
+                                                                                               class="custom-control-input">
+                                                                                        <label class="custom-control-label" for="exampleCustomCheckbox3">&nbsp;</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="widget-content-left flex2">
+                                                                                    <div class="widget-heading">
+                                                                                        Completed Submission
+                                                                                    </div>
+                                                                                    <div class="widget-subheading">
+                                                                                        <div>
+                                                                                            Monthly
+                                                                                            <div class="badge badge-warning mr-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "Completed" && a.Frequency == "Monthly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                            @if (groupID == 3)
+                                                                                            {
+                                                                                                <a href="#" class="badge badge-danger ml-2 ChecklistIndex">
+                                                                                                    View
+                                                                                                </a>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <a href="#" class="badge badge-danger ml-2 ChecklistAdminIndex">
+                                                                                                    View
+                                                                                                </a>
+                                                                                            }
+
+                                                                                        </div>
+
+                                                                                        <div>
+                                                                                            Quarterly
+                                                                                            <div class="badge badge-warning mr-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "Completed" && a.Frequency == "Quarterly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            Half Yearly
+                                                                                            <div class="badge badge-warning mr-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "Completed" && a.Frequency == "HalfYearly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            Yearly
+                                                                                            <div class="badge badge-warning mr-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "Completed" && a.Frequency == "Yearly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            Bi-Yearly
+                                                                                            <div class="badge badge-warning mr-2">
+                                                                                                @Model.dbsvm.Where(a => a.item_desc == "Completed" && a.Frequency == "BiYearly").FirstOrDefault().itemcount
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-lg-6">
+                                                <div class="main-card mb-3 card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Check List Submission Summary</h5>
+                                                        <canvas id="canvas"></canvas>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+
+
+
+
+                                            <div class="row">
+                                                @*<div class="col-md-6">
+                                                         <div class="main-card mb-3 card">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">Stacked Bars</h5>
+                                                                <canvas id="stacked-bars-chart"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </div>*@
+                                                <div class="col-md-6">
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="~/Scripts/assets/plugins/apexcharts.min.js"></script>
+    <script src="~/Scripts/assets/plugins/Chart.bundle.min.js"></script>
+    <script src="~/Scripts/assets/plugins/jquery.sparkline.min.js"></script>
+    <script src="~/Scripts/assets/custom/dashboard/dashboard.js"></script>
+    @*<script src="~/Scripts/assets/custom/dashboard/chartjs.js"></script>*@
+    @*<script src="~/Scripts/assets/custom/dashboard/apex-charts.js"></script>
+        <script src="~/Scripts/assets/custom/dashboard/apex-series.js"></script>*@
+    <script src="~/Scripts/assets/custom/dashboard/charts-sparklines.js"></script>
+
+    <script>
+
+
+    $(document).ready(function () {
+
+        $.ajaxSetup({
+            beforeSend: function (xhr) { showLoading(); },
+            complete: function (xhr, status) { hideLoading(); }
+        });
+    });
+
+
+    function showLoading() {
+        $('.overlay').show();
+        $('.loading-img').show();
+    }
+    function hideLoading() {
+        $('.overlay').hide();
+        $('.loading-img').hide();
+    }
+
+    $(document).on("click", ".Index", function () {
+        location.reload();
+    });
+
+    // /////// Logout////////////////////////////////
+
+
+
+
+
+    // /////// Logout ////////////////////////////////
+
+// /////// Profile modal - Begin////////////////////////////////
+
+    $(document).on("click", "#admin_profile", function () {
+        debugger;
+        $.get("Home/profile_modal", function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+    //$(document).on("click", "#admin_profile", function () {
+    //    $.get("Home/profile_modal", function (data) {
+    //        $('#profile').html(data);
+    //        $('#profile').modal('show');
+    //    });
+    //});
+
+    $(document).on("click", "#save_profile_update", function () {
+
+
+        if (!$('#profile_update_Form').valid()) {
+            return;
+        }
+        var cp = $("#Curr_Password").val();
+        if (cp == null || cp == "") {
+            $("span[data-valmsg-for='Curr_Password']").removeClass("field-validation-valid").addClass("field-validation-error");
+            $("span[data-valmsg-for='Curr_Password']").text("This field is required");
+            return false;
+        }
+
+        $.post("Home/UpdateProfile", $('#profile_update_Form').serialize(), function (data) {
+
+            if (data.value == "OK") {
+
+                $('#profile').modal('hide');
+                Lobibox.alert('success', {
+                    //AVAILABLE TYPES: "error", "info", "success", "warning"
+                    msg: "Profile Update successful!"
+                });
+
+            }
+            else if (data.value == "Failed") {
+                Lobibox.alert('error', {
+                    //AVAILABLE TYPES: "error", "info", "success", "warning"
+                    msg: "User creation failed!"
+                });
+
+            }
+            else {
+                Lobibox.alert('error', {
+                    msg: data.value
+                });
+
+            }
+
+        });
+
+    });
+
+    // /////// Profile modal - End////////////////////////////////
+
+
+    // /////// User Module - Begin////////////////////////////////
+
+    $(document).on("click", ".UserIndex", function () {
+
+        $.get("User/Index", function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+    function CreateUser() {
+        $.get("User/Create", function (data) {
+            $('#page-wrapper').html(data);
+        });
+    }
+
+    function EditUser(id) {
+
+        var url = "User/Edit/" + id;
+        $.get(url, function (data) {
+            $('#page-wrapper').html(data);
+        });
+    }
+
+    $(document).on("click", "#save_create_user", function () {
+
+        var grp = $("#GroupID").val();
+        if (grp == 0) {
+            $("span[data-valmsg-for='GroupID']").removeClass("field-validation-valid").addClass("field-validation-error");
+            $("span[data-valmsg-for='GroupID']").text("Please select Group");
+            return false;
+        }
+        if (!$('#adduser_Form').valid()) {
+            return;
+        }
+        $('#EmpID').val(0);
+
+        $.post("User/Create", $('#adduser_Form').serialize(), function (data) {
+
+            if (data.value == "OK") {
+                Lobibox.alert('success', {
+                    msg: "User creation successful!"
+                });
+                $.get("User/Index", function (data) {
+                    $('#page-wrapper').html(data);
+                });
+                $('#user_module_dialog').modal('hide');
+            }
+            else if (data.value == "Failed") {
+                Lobibox.alert('error', {
+                    msg: "User creation failed!"
+                });
+            }
+            else {
+                Lobibox.alert('error', {
+                    msg: data.value
+                });
+
+                //Lobibox.notify('warning', {
+                //    size: 'mini',
+                //    position: 'top right',
+                //    msg: data.value
+                //});
+            }
+        });
+    });
+
+    $(document).on("click", "#save_edit_user", function () {
+
+        var grp = $("#GroupID").val();
+        if (grp == 0) {
+            $("span[data-valmsg-for='GroupID']").removeClass("field-validation-valid").addClass("field-validation-error");
+            $("span[data-valmsg-for='GroupID']").text("Please select Group");
+            return false;
+        }
+        if (!$('#edituser_Form').valid()) {
+            return;
+        }
+
+        $.post("User/Edit", $('#edituser_Form').serialize(), function (data) {
+
+            if (data.value == "OK") {
+                Lobibox.alert('success', {
+                    msg: "User updation successful!"
+                });
+                //$('.UserIndex').click();
+                $.get("User/Index", function (data) {
+                    $('#page-wrapper').html(data);
+                });
+                $('#user_module_dialog').modal('hide');
+
+            }
+            else if (data.value == "Failed") {
+                Lobibox.alert('error', {
+                    msg: "User updation failed!"
+                });
+            }
+            else {
+                Lobibox.notify('warning', {
+                    size: 'mini',
+                    position: 'top right',
+                    msg: 'Something went wrong!'
+                });
+            }
+        });
+    });
+
+    function DeleteUserConfirmed(id) {
+        $.post("User/Delete/", { id: id,@Html.AntiForgeryTokenForAjaxPost()}, function (data) {
+            if (data.value == "OK") {
+                Lobibox.notify('success', {
+                    size: 'mini',
+                    position: 'top right',
+                    msg: 'User deletion Succesful!'
+                });
+                $.get("User/Index", function (data) {
+                    $('#page-wrapper').html(data);
+                });
+
+            }
+            else {
+                Lobibox.notify('error', {
+                    size: 'mini',
+                    position: 'top right',
+                    msg: 'User deletion failed!'
+                });
+            }
+        });
+
+    }
+
+    // /////// User Module - End////////////////////////////////
+
+
+    // /////// Employee Module - Begin////////////////////////////////
+
+    $(document).on("click", ".EmployeeIndex", function () {
+
+        $.get("Employee/Index", function (data) {
+            $('#page-wrapper').html(data);
+        });
+    });
+
+
+    // /////// Employee Module - End////////////////////////////////
+
+
+    // /////// School Module - Begin////////////////////////////////
+
+    $(document).on("click", ".SchoolIndex", function () {
+
+        $.get("ERP/SchoolIndex", function (data) {
+            $('#page-wrapper').html(data);
+        });
+    });
+
+    function CreateSchool() {
+        $.get("ERP/SchoolCreate", function (data) {
+            $('#page-wrapper').html(data);
+        });
+    }
+
+    function EditSchool(id) {
+
+        var url = "ERP/SchoolEdit/" + id;
+        $.get(url, function (data) {
+            $('#page-wrapper').html(data);
+        });
+    }
+
+    $(document).on("click", "#save_create_school", function () {
+
+        if (!$('#addschool_Form').valid()) {
+            return false;
+        }
+
+        if ($('#Zone').val() == "Select") {
+            Lobibox.alert('error', {
+                msg: "Please Select Zone!"
+            });
+            return;
+        }
+
+        if ($('#School_Type').val() == "Select") {
+            Lobibox.alert('error', {
+                msg: "Please Select School Type!"
+            });
+            return;
+        }
+
+        $('#SchoolID').val(0);
+
+        $.post("ERP/SchoolCreate", $('#addschool_Form').serialize(), function (data) {
+
+            if (data.value == "OK") {
+                Lobibox.alert('success', {
+                    msg: "School creation successful!"
+                });
+                $.get("ERP/SchoolIndex", function (data) {
+                    $('#page-wrapper').html(data);
+                });
+
+            }
+            else if (data.value == "Failed") {
+                Lobibox.alert('error', {
+                    msg: "School creation failed!"
+                });
+            }
+            else {
+                Lobibox.alert('error', {
+                    msg: data.value
+                });
+
+            }
+        });
+    });
+
+    $(document).on("click", "#save_edit_school", function () {
+
+        if (!$('#editschool_Form').valid()) {
+            return;
+        }
+
+        if ($('#Zone').val() == "Select") {
+            Lobibox.alert('error', {
+                msg: "Please Select Zone!"
+            });
+            return;
+        }
+
+        if ($('#School_Type').val() == "Select") {
+            Lobibox.alert('error', {
+                msg: "Please Select School Type!"
+            });
+            return;
+        }
+
+        $.post("ERP/SchoolEdit", $('#editschool_Form').serialize(), function (data) {
+
+            if (data.value == "OK") {
+                Lobibox.alert('success', {
+                    msg: "School updation successful!"
+                });
+
+                $.get("ERP/SchoolIndex", function (data) {
+                    $('#page-wrapper').html(data);
+                });
+
+            }
+            else if (data.value == "Failed") {
+                Lobibox.alert('error', {
+                    msg: "School updation failed!"
+                });
+            }
+            else {
+                Lobibox.notify('warning', {
+                    size: 'mini',
+                    position: 'top right',
+                    msg: 'Something went wrong!'
+                });
+            }
+        });
+    });
+
+
+
+    function DeleteSchoolConfirmed(id) {
+        $.post("ERP/DeleteSchool/", { id: id,@Html.AntiForgeryTokenForAjaxPost()}, function (data) {
+            if (data.value == "OK") {
+                Lobibox.alert('success', {
+                    msg: "School Deletion Successful!"
+                });
+                $.get("ERP/SchoolIndex", function (data) {
+                    $('#page-wrapper').html(data);
+                });
+
+            }
+            else {
+                Lobibox.alert('error', {
+                    msg: "School Deletion failed!"
+                });
+            }
+        });
+
+    }
+
+
+    // /////// School Module - End////////////////////////////////
+
+
+
+    // /////// Company Module - Begin////////////////////////////////
+
+    $(document).on("click", ".CompanyIndex", function () {
+
+        $.get("Home/CompanyIndex", function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+
+    function CompanyCreate() {
+        $.get("Home/CompanyCreate", function (data) {
+            $('#page-wrapper').html(data);
+        });
+    }
+
+    function EditCompany(id) {
+
+        var url = "Home/CompanyEdit/" + id;
+        $.get(url, function (data) {
+            $('#page-wrapper').html(data);
+        });
+    }
+
+    $(document).on("click", "#create-Company-dialog-save", function () {
+        debugger;
+        if (!$('#companyForm').valid()) {
+            return;
+        }
+
+
+        $("#companyForm").enctype = "multipart/form-data";
+        $("#companyForm").type = "POST";
+        var data = new FormData(document.forms.namedItem("companyForm"));
+
+        $.ajax({
+            url: 'Home/CompanyCreate',
+            data: data,
+            cache: false,
+            enctype: 'multipart/form-data',
+
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function (data) {
+                if (data.value == "OK") {
+                    Lobibox.alert('success', {
+                        msg: "Company Updation Successful!"
+                    });
+                    $.get("Home/CompanyIndex", function (data) {
+                        $('#page-wrapper').html(data);
+
+                    });
+                }
+                else {
+                    Lobibox.alert('error', {
+                        msg: "Company Updation failed!"
+                    });
+                }
+            }
+        });
+
+
+    });
+
+    $(document).on("click", "#edit-company-dialog-save", function () {
+        debugger;
+        if (!$('#companyEditForm').valid()) {
+            return;
+        }
+
+
+        $("#companyEditForm").enctype = "multipart/form-data";
+        $("#companyEditForm").type = "POST";
+        var data = new FormData(document.forms.namedItem("companyEditForm"));
+
+        $.ajax({
+            url: 'Home/CompanyEdit',
+            data: data,
+            cache: false,
+            enctype: 'multipart/form-data',
+
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function (data) {
+                if (data.value == "OK") {
+                    Lobibox.alert('success', {
+                        msg: "Company Updation Successful!"
+                    });
+                    $.get("Home/CompanyIndex", function (data) {
+                        $('#page-wrapper').html(data);
+
+                    });
+                }
+                else {
+                    Lobibox.alert('error', {
+                        msg: "Company Updation failed!"
+                    });
+                }
+            }
+        });
+
+    });
+
+
+
+    function DeleteCompanyConfirmed(id) {
+        $.post("Home/DeleteCompany/", { id: id,@Html.AntiForgeryTokenForAjaxPost()}, function (data) {
+            if (data.value == "OK") {
+                Lobibox.alert('success', {
+                    msg: "Company Deletion Successful!"
+                });
+                $.get("Home/CompanyIndex", function (data) {
+                    $('#page-wrapper').html(data);
+                });
+
+            }
+            else {
+                Lobibox.alert('error', {
+                    msg: "Company Deletion failed!"
+                });
+            }
+        });
+
+    }
+
+
+
+
+
+
+    // /////// Company Module - End////////////////////////////////
+
+
+    // /////// Checklist Module - Begin////////////////////////////////
+
+
+
+    $(document).on("click", ".ChecklistAdminIndex", function () {
+        $.get("ERP/ChecklistAdminIndex", function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+
+    $(document).on("click", ".ChecklistIndex", function () {
+        $.get("ERP/ChecklistIndex", function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+
+    function SubmitCheckList(prjid, schid, freq) {
+        //var url = "ERP/SubmitChecklist?PrjMasID=" + prjid + "&SchoolID=" + schid + "&Frequency=HalfYearly";
+        var url = "ERP/SubmitChecklist?PrjMasID=" + prjid + "&SchoolID=" + schid + "&Frequency=" + freq;
+        $.get(url, function (data) {
+            $('#page-wrapper').html(data);
+        });
+    }
+
+
+    $(document).on("click", "#save_chklst_submission", function () {
+        $('.myCustomErr').removeClass('myCustomErr');
+
+        if ($('#SchoolID').val() == 0) {
+            Lobibox.alert('error', {
+            //    //AVAILABLE TYPES: "error", "info", "success", "warning"
+            msg: 'Please select school.'
+            });
+            return;
+        }
+
+        if ($('#checklist-datetime').val() == '') {
+            Lobibox.alert('error', {
+                //    //AVAILABLE TYPES: "error", "info", "success", "warning"
+                msg: 'Please select date.'
+            });
+            return;
+        }
+
+        if ($('#CheckedBy_Name').val() == '' || $('#CheckedBy_Name').val() == null) {
+            Lobibox.alert('error', {
+                //    //AVAILABLE TYPES: "error", "info", "success", "warning"
+                msg: 'Please enter Technician Name.'
+            });
+            return;
+        }
+
+        var objArr = [];
+
+        // Common Cases
+        $.each($("input:checkbox[id^=yes_]"), function (i, v) {
+            var idstring = v.id;
+            var myid = idstring.split('_')[1]
+            if (v.checked) {
+                obj = { ChkListID: myid, IsDone: 1, DateDone: '', Remarks: '' };
+                objArr.push(obj);
+            }
+            else {
+
+                if ($('#no_' + myid).prop("checked")) {
+                    obj = { ChkListID: myid, IsDone: 2, DateDone: '', Remarks: '' };
+                    objArr.push(obj);
+                }
+                else if ($('#na_' + myid).prop("checked")) {
+                    obj = { ChkListID: myid, IsDone: 3, DateDone: '', Remarks: '' };
+                    objArr.push(obj);
+                }
+                else {
+                    obj = { ChkListID: myid, IsDone: 0, DateDone: '', Remarks: '' };
+                    objArr.push(obj);
+                }
+            }
+
+        });
+
+        //LIFT & HVLS FAN
+        $.each($("input:checkbox[id^=Fyes_]"), function (i, v) {
+            var idstring = v.id;
+            var myid = idstring.split('_')[2]
+            var jid = idstring.split('_')[1]
+            var mygrep = $.grep(objArr, function (n, i) {
+                return (n.ChkListID == myid);
+            });
+
+            if (v.checked) {
+                if (mygrep[0] == undefined) {
+                    obj = { ChkListID: myid, IsDone: 1, DateDone: '', Remarks: '' };
+                    objArr.push(obj);
+                }
+                else {
+                    mygrep[0].IsDone = mygrep[0].IsDone + ',' + 1;
+                }
+            }
+            else {
+
+                if ($('#Fno_' + jid + '_' + myid).prop("checked")) {
+                    if (mygrep[0] == undefined) {
+                        obj = { ChkListID: myid, IsDone: 2, DateDone: '', Remarks: '' };
+                        objArr.push(obj);
+                    }
+                    else {
+                        mygrep[0].IsDone = mygrep[0].IsDone + ',' + 2;
+                    }
+                }
+                else if ($('#Fna_' + jid + '_' + myid).prop("checked")) {
+                    if (mygrep[0] == undefined) {
+                        obj = { ChkListID: myid, IsDone: 3, DateDone: '', Remarks: '' };
+                        objArr.push(obj);
+                    }
+                    else {
+                        mygrep[0].IsDone = mygrep[0].IsDone + ',' + 3;
+                    }
+
+                }
+                else {
+                    if (mygrep[0] == undefined) {
+                        obj = { ChkListID: myid, IsDone: 0, DateDone: '', Remarks: '' };
+                        objArr.push(obj);
+                    }
+                    else {
+                        mygrep[0].IsDone = mygrep[0].IsDone + ',' + 0;
+                    }
+                }
+            }
+
+        });
+
+
+        //Gathering Date Done
+        $.each($("input[id^='checklist-duedate_']"), function (i, v) {
+            var myid = $(v).prop('id').split('_')[1];
+            var obj = $.grep(objArr, function (n, i) {
+                return (n.ChkListID == myid)
+            });
+            obj[0].DateDone = $(v).val();
+
+        });
+        //Gathering Remarks list
+        $.each($("textarea[id^='checkist-remarks_']"), function (i, v) {
+            //debugger;
+            var myid = $(v).prop('id').split('_')[1];
+            var obj = $.grep(objArr, function (n, i) {
+                return (n.ChkListID == myid)
+            });
+            obj[0].Remarks = $(v).val();
+
+        });
+        var flag = true;
+        var ErrRowId = "";
+        $.each(objArr, function (key, value) {
+           // debugger;
+            //validation of check box
+
+            if (value.IsDone.toString().indexOf('0') > -1)
+            {
+                flag = false;
+
+                ErrRowId = "input[id$= '_"+value.ChkListID+"']"
+                return flag;
+            }
+            if (value.DateDone == '') {
+                flag = false;
+                ErrRowId = "#checklist-duedate_" + value.ChkListID;
+                return flag;
+            }
+
+            //alert(key + ": " + value);
+        });
+
+        if (!flag)
+        {
+            $(""+ErrRowId).closest('.col-sm-12').addClass('myCustomErr')
+            Lobibox.alert('error', {
+                msg: "Pls ensure all check list items & date filled!"
+            });
+            return false;
+        }
+
+        if ($('#CheckedBy_Signature').val() == '' || $('#CheckedBy_Signature').val() == null) {
+            Lobibox.alert('error', {
+                msg: 'Please Sign!.'
+            });
+            return;
+        }
+
+        var clTrnMaster = new FormData(document.forms.namedItem("checklist_Form"));
+        createFormData(clTrnMaster, 'clTrnDetail', objArr);
+
+        $.ajax({
+            url: 'ERP/SubmitCheckList',
+            data: clTrnMaster,
+            cache: false,
+            enctype: 'multipart/form-data',
+
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function (data) {
+                if (data.value == "OK") {
+                    Lobibox.alert('success', {
+                        msg: "Check List Form created successful!",
+                        callback: function (lobibox, type) {
+                            var btnType;
+                            if (type === 'ok') {
+                                btnType = 'warning';
+                            }
+                        }
+                    });
+
+                    $('.ChecklistIndex').click();
+                }
+                else {
+                    Lobibox.alert('error', {
+                       // msg: "Service Form creation failed!"
+                        msg: data.value
+                    });
+                }
+            }
+        });
+
+        function createFormData(formData, key, data) {
+            if (data === Object(data) || Array.isArray(data)) {
+                for (var i in data) {
+                    createFormData(formData, key + '[' + i + ']', data[i]);
+                }
+            } else {
+                formData.append(key, data);
+            }
+        }
+
+    });
+
+    function MailCheckList(id) {
+
+        var url = "ERP/MailChecklist/" + id;
+        $.get(url, function (data) {
+            $('#page-wrapper').html(data);
+        });
+    }
+
+
+
+
+
+    function EditCheckList(id) {
+
+        var url = "ERP/EditChecklist/" + id;
+        $.get(url, function (data) {
+            $('#page-wrapper').html(data);
+        });
+    }
+
+
+    $(document).on("click", "#edit_chklst_submission", function () {
+
+        if ($('#EndoresBy_Signature').val() != '' || $('#EndoresBy_Signature').val() != null) {
+            if ($('#EndoresBy_Name').val() == '' || $('#EndoresBy_Name').val() == null) {
+                Lobibox.alert('error', {
+                    msg: 'Please type Endorsed By Name!.'
+                });
+                return;
+            }
+        }
+
+        var objArr = [];
+        // Common Cases
+        $.each($("input:checkbox[id^=yes_]"), function (i, v) {
+            var idstring = v.id;
+            var myid = idstring.split('_')[1]
+            if (v.checked) {
+                obj = { CLTDID: myid, IsDone: 1, DateDone: '', Remarks: '' };
+                objArr.push(obj);
+            }
+            else {
+
+                if ($('#no_' + myid).prop("checked")) {
+                    obj = { CLTDID: myid, IsDone: 2, DateDone: '', Remarks: '' };
+                    objArr.push(obj);
+                }
+                else if ($('#na_' + myid).prop("checked")) {
+                    obj = { CLTDID: myid, IsDone: 3, DateDone: '', Remarks: '' };
+                    objArr.push(obj);
+                }
+                else {
+                    obj = { CLTDID: myid, IsDone: 0, DateDone: '', Remarks: '' };
+                    objArr.push(obj);
+                }
+            }
+
+        });
+
+        //LIFT & HVLS FAN
+        $.each($("input:checkbox[id^=Fyes_]"), function (i, v) {
+            var idstring = v.id;
+            var myid = idstring.split('_')[2]
+            var jid = idstring.split('_')[1]
+            var mygrep = $.grep(objArr, function (n, i) {
+                return (n.CLTDID == myid);
+            });
+
+            if (v.checked) {
+                if (mygrep[0] == undefined) {
+                    obj = { CLTDID: myid, IsDone: 1, DateDone: '', Remarks: '' };
+                    objArr.push(obj);
+                }
+                else {
+                    mygrep[0].IsDone = mygrep[0].IsDone + ',' + 1;
+                }
+            }
+            else {
+
+                if ($('#Fno_' + jid + '_' + myid).prop("checked")) {
+                    if (mygrep[0] == undefined) {
+                        obj = { CLTDID: myid, IsDone: 2, DateDone: '', Remarks: '' };
+                        objArr.push(obj);
+                    }
+                    else {
+                        mygrep[0].IsDone = mygrep[0].IsDone + ',' + 2;
+                    }
+                }
+                else if ($('#Fna_' + jid + '_' + myid).prop("checked")) {
+                    if (mygrep[0] == undefined) {
+                        obj = { CLTDID: myid, IsDone: 3, DateDone: '', Remarks: '' };
+                        objArr.push(obj);
+                    }
+                    else {
+                        mygrep[0].IsDone = mygrep[0].IsDone + ',' + 3;
+                    }
+
+                }
+                else {
+                    if (mygrep[0] == undefined) {
+                        obj = { CLTDID: myid, IsDone: 0, DateDone: '', Remarks: '' };
+                        objArr.push(obj);
+                    }
+                    else {
+                        mygrep[0].IsDone = mygrep[0].IsDone + ',' + 0;
+                    }
+                }
+            }
+
+        });
+
+       // debugger;
+        //Gathering Date Done
+        $.each($("input[id^='checklist-duedate_']"), function (i, v) {
+            var myid = $(v).prop('id').split('_')[1];
+            var obj = $.grep(objArr, function (n, i) {
+                return (n.CLTDID == myid)
+            });
+
+            obj[0].DateDone = $(v).val();
+
+        });
+        //Gathering Remarks list
+        $.each($("textarea[id^='checkist-remarks_']"), function (i, v) {
+            //debugger;
+            var myid = $(v).prop('id').split('_')[1];
+            var obj = $.grep(objArr, function (n, i) {
+                return (n.CLTDID == myid)
+            });
+            obj[0].Remarks = $(v).val();
+
+        });
+
+        debugger;
+
+        if (!$('#checklistEdit_Form').valid()) {
+            return;
+        }
+
+        var aform = $('#checklistEdit_Form');
+        var atoken = $('input[name="__RequestVerificationToken"]', aform).val();
+
+        var clTrnMaster = {};
+        $('#checklistEdit_Form').serializeArray().map(function (x) { clTrnMaster[x.name] = x.value; });
+
+        $.post("ERP/EditCheckList", { inputCLTM: clTrnMaster, clTrnDetail: objArr, __RequestVerificationToken: atoken }, function (data) {
+
+            if (data.value == "OK") {
+                Lobibox.alert('success', {
+                    msg: "Check List updation successful!",
+                    callback: function (lobibox, type) {
+                        var btnType;
+                        if (type === 'ok') {
+                            btnType = 'warning';
+
+                        }
+                    }
+                });
+
+                $('.ChecklistIndex').click();
+
+            }
+            else if (data.value == "Failed") {
+                Lobibox.alert('error', {
+                    msg: "Checklist updation failed!"
+                });
+            }
+            else {
+                Lobibox.notify('warning', {
+                    size: 'mini',
+                    position: 'top right',
+                    msg: 'Something went wrong!'
+                });
+            }
+        });
+    });
+
+
+    $(document).on("click", "#signatures_chklst_submit", function () {
+
+        if (!$('#checklistEdit_Form').valid()) {
+            return;
+        }
+
+        if ($('#VerifiedBy_Signature').val() != '' || $('#VerifiedBy_Signature').val() != null) {
+            if ($('#VerifiedBy_Name').val() == '' || $('#VerifiedBy_Name').val() == null) {
+                Lobibox.alert('error', {
+                    msg: 'Please type Verified By Name!.'
+                });
+                return;
+            }
+        }
+
+        var aform = $('#checklistEdit_Form');
+        var atoken = $('input[name="__RequestVerificationToken"]', aform).val();
+
+        var clTrnMaster = {};
+        $('#checklistEdit_Form').serializeArray().map(function (x) { clTrnMaster[x.name] = x.value; });
+
+        $.post("ERP/SubmitSignatureCheckList", { inputCLTM: clTrnMaster, __RequestVerificationToken: atoken }, function (data) {
+
+            if (data.value == "OK") {
+                Lobibox.alert('success', {
+                    msg: "Check List updation successful!",
+                    callback: function (lobibox, type) {
+                        var btnType;
+                        if (type === 'ok') {
+                            btnType = 'warning';
+
+                        }
+                    }
+                });
+
+               // $('.ChecklistIndex').click();
+                $('.ChecklistAdminIndex').click();
+                
+
+            }
+            else if (data.value == "Failed") {
+                Lobibox.alert('error', {
+                    msg: "Checklist updation failed!"
+                });
+            }
+            else {
+                Lobibox.notify('warning', {
+                    size: 'mini',
+                    position: 'top right',
+                    msg: data.value
+                });
+            }
+        });
+    });
+
+    // /////// Checklist Module - End////////////////////////////////
+
+
+    // /////// Service Form Module - Begin////////////////////////////////
+
+    $(document).on("click", ".ServiceFormIndex", function () {
+
+        $.get("ERP/ServiceFormIndex", function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+    function CreateServiceForm() {
+        $.get("ERP/NewServiceForm/", function (data) {
+            $('#page-wrapper').html(data);
+        });
+    }
+
+    function AssignService() {
+        $.get("ERP/AssignService/", function (data) {
+            $('#page-wrapper').html(data);
+        });
+    }
+
+    function EditServiceForm(sfid) {
+        $.get("ERP/ServiceFormSave/" + sfid , function (data) {
+            $('#page-wrapper').html(data);
+        });
+    }
+
+
+    $(document).on("click", "#assign_serviceform", function () {
+
+        var pri = $("#Priority").val();
+        if (pri == "Select") {
+            Lobibox.alert('error', {
+                msg: "Please select Priority!"
+            });
+            return false;
+        }
+        if ($("#SchoolID").val() == 0) {
+            Lobibox.alert('error', {
+                msg: "Please select School!"
+            });
+            return false;
+        }
+        if ($("#UserID").val() == 0) {
+            Lobibox.alert('error', {
+                msg: "Please select Service Engineer!"
+            });
+            return false;
+        }
+        if (!$('#assignservice_Form').valid()) {
+            return;
+        }
+
+        var aform = $('#assignservice_Form');
+        var atoken = $('input[name="__RequestVerificationToken"]', aform).val();
+
+        var sfm = {};
+        $('#assignservice_Form').serializeArray().map(function (x) { sfm[x.name] = x.value; });
+
+        $.post("ERP/AssignService", { inputSF: sfm, __RequestVerificationToken: atoken }, function (data) {
+
+            if (data.value == "OK") {
+                Lobibox.alert('success', {
+                    msg: "Service From Creation successful!",
+                    callback: function (lobibox, type) {
+                        var btnType;
+                        if (type === 'ok') {
+                            btnType = 'warning';
+                        }
+                    }
+                });
+
+                $('.ServiceFormIndex').click();
+            }
+            else if (data.value == "Failed") {
+                Lobibox.alert('error', {
+                    msg: "Service Form assignment failed!"
+                });
+            }
+            else {
+                Lobibox.notify('warning', {
+                    size: 'mini',
+                    position: 'top right',
+                    msg: 'Something went wrong!'
+                });
+            }
+        });
+
+    });
+
+    $(document).on("click", "#new_serviceform", function () {
+
+        var pri = $("#Priority").val();
+        if (pri == "Select") {
+            Lobibox.alert('error', {
+                msg: "Please select Priority!"
+            });
+            return false;
+        }
+        if ($("#SchoolID").val() == 0) {
+            Lobibox.alert('error', {
+                msg: "Please select School!"
+            });
+            return false;
+        }
+
+        if (!$('#newservice_Form').valid()) {
+            return;
+        }
+
+        var aform = $('#newservice_Form');
+        var atoken = $('input[name="__RequestVerificationToken"]', aform).val();
+
+        var sfm = {};
+        $('#newservice_Form').serializeArray().map(function (x) { sfm[x.name] = x.value; });
+
+        $.post("ERP/NewServiceForm", { inputSF: sfm, __RequestVerificationToken: atoken }, function (data) {
+
+            if (data.value == "OK") {
+                Lobibox.alert('success', {
+                    msg: "Service From Creation successful!",
+                    callback: function (lobibox, type) {
+                        var btnType;
+                        if (type === 'ok') {
+                            btnType = 'warning';
+                        }
+                    }
+                });
+
+                $('.ServiceFormIndex').click();
+            }
+            else if (data.value == "Failed") {
+                Lobibox.alert('error', {
+                    msg: "Service Form assignment failed!"
+                });
+            }
+            else {
+                Lobibox.notify('warning', {
+                    size: 'mini',
+                    position: 'top right',
+                    msg: 'Something went wrong!'
+                });
+            }
+        });
+
+    });
+
+
+    $(document).on("click", "#save_serviceform_create", function () {
+        debugger;
+        if ($("#Service_Datetime").val() == 0) {
+            Lobibox.alert('error', {
+                msg: "Please select Date!"
+            });
+            return false;
+        }
+        if ($("#Work_Requests").val() == '' || $("#Customer_Rep").val() == '') {
+            Lobibox.alert('error', {
+                msg: "Please fill Work Requests & Customer Representative!"
+            });
+            return false;
+        }
+
+        if ($('#Customer_incharge_Signature').val() != '' || $('#Customer_incharge_Signature').val() != null) {
+            if ($('#Customer_incharge_Name').val() == '' || $('#Customer_incharge_Name').val() == null) {
+                Lobibox.alert('error', {
+                    msg: 'Please type Customer-in-charge Name!.'
+                });
+                return;
+            }
+        }
+
+        if (!$('#service_Form').valid()) {
+            return;
+        }
+
+
+
+        var service_form = new FormData(document.forms.namedItem("service_Form"));
+
+        $.ajax({
+            url: 'ERP/ServiceFormSave',
+            data: service_form,
+            cache: false,
+            enctype: 'multipart/form-data',
+
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function (data) {
+                if (data.value == "OK") {
+                    Lobibox.alert('success', {
+                        msg: "Service Form created successful!",
+                        callback: function (lobibox, type) {
+                            var btnType;
+                            if (type === 'ok') {
+                                btnType = 'warning';
+
+                            }
+                        }
+                    });
+
+                    $('.ServiceFormIndex').click();
+                }
+                else {
+                    Lobibox.alert('error', {
+                        msg: "Service Form creation failed!"
+                    });
+                }
+            }
+        });
+
+
+    });
+
+
+    // /////// Service Form Module - End////////////////////////////////
+
+
+    $(document).on("click", ".ChecklistMatrix", function () {
+
+        $.get("ERP/CLSummaryMatrix", function (data) {
+            $('#page-wrapper').html(data);
+        });
+    });
+
+    $(document).on("click", ".ChecklistMatrixDir", function () {
+
+        $.get("ERP/CLSummaryMatrixDirector", function (data) {
+            $('#page-wrapper').html(data);
+        });
+    });
+
+    $(document).on("click", "#report-clmatrix-search", function () {
+
+        if ($("#Month").val() == "Select" || $("#Year").val() == "Select") {
+            Lobibox.alert('error', {
+                msg: "Please select Month & Year!"
+            });
+            return false;
+        }
+        if ($("#Year").val() == "2019") {
+
+            if ($("#Month").val() == "01/01/" || $("#Month").val() == "01/02/" || $("#Month").val() == "01/03/" || $("#Month").val() == "01/04/" || $("#Month").val() == "01/05/" || $("#Month").val() == "01/06/") {
+                Lobibox.alert('error', {
+                    msg: "Month Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        if ($("#Year").val() == "2023") {
+
+            if ($("#Month").val() == "01/07/" || $("#Month").val() == "01/08/" || $("#Month").val() == "01/09/" || $("#Month").val() == "01/10/" || $("#Month").val() == "01/11/" || $("#Month").val() == "01/12/") {
+                Lobibox.alert('error', {
+                    msg: "Month Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        $.post("ERP/CLSummaryMatrix", $('#chklstReportForm').serialize(), function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+    $(document).on("click", "#report-directorclmatrix-search", function () {
+
+        if ($("#Month").val() == "Select" || $("#Year").val() == "Select" || $("#Zone").val() == "Select") {
+            Lobibox.alert('error', {
+                msg: "Please select Zone, Month & Year!"
+            });
+            return false;
+        }
+        if ($("#Year").val() == "2019") {
+
+            if ($("#Month").val() == "01/01/" || $("#Month").val() == "01/02/" || $("#Month").val() == "01/03/" || $("#Month").val() == "01/04/" || $("#Month").val() == "01/05/" || $("#Month").val() == "01/06/") {
+                Lobibox.alert('error', {
+                    msg: "Month Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        if ($("#Year").val() == "2023") {
+
+            if ($("#Month").val() == "01/07/" || $("#Month").val() == "01/08/" || $("#Month").val() == "01/09/" || $("#Month").val() == "01/10/" || $("#Month").val() == "01/11/" || $("#Month").val() == "01/12/") {
+                Lobibox.alert('error', {
+                    msg: "Month Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        $.post("ERP/CLSummaryMatrixDirector", $('#DirectorchklstReportForm').serialize(), function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+
+    $(document).on("click", ".ChecklistDownload", function () {
+        debugger;
+        $.get("ERP/CLDownload", function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+    $(document).on("click", ".ChecklistDownloadLiftOpr", function () {
+        debugger;
+        $.get("ERP/CLDownloadLiftOperator", function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+    $(document).on("click", ".ChecklistDownloadAdmin", function () {
+        debugger;
+        $.get("ERP/CLDownloadAdmin", function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+
+    $(document).on("click", "#cldownlaod-search", function () {
+
+        if ($("#SchoolID").val() == 0) {
+            Lobibox.alert('error', {
+                msg: "Please select School!"
+            });
+            return false;
+        }
+
+        if ($("#Month").val() == "Select" || $("#Year").val() == "Select") {
+            Lobibox.alert('error', {
+                msg: "Please select Month & Year!"
+            });
+            return false;
+        }
+        if ($("#Year").val() == "2019") {
+
+            if ($("#Month").val() == "01/01/" || $("#Month").val() == "01/02/" || $("#Month").val() == "01/03/" || $("#Month").val() == "01/04/" || $("#Month").val() == "01/05/" || $("#Month").val() == "01/06/") {
+                Lobibox.alert('error', {
+                    msg: "Month Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        if ($("#Year").val() == "2023") {
+
+            if ($("#Month").val() == "01/07/" || $("#Month").val() == "01/08/" || $("#Month").val() == "01/09/" || $("#Month").val() == "01/10/" || $("#Month").val() == "01/11/" || $("#Month").val() == "01/12/") {
+                Lobibox.alert('error', {
+                    msg: "Month Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        $.post("ERP/CLDownload", $('#chklstDownloadForm').serialize(), function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+
+    $(document).on("click", "#cldownlaodlift-search", function () {
+
+
+        if ($("#Month").val() == "Select" || $("#Year").val() == "Select") {
+            Lobibox.alert('error', {
+                msg: "Please select Month & Year!"
+            });
+            return false;
+        }
+        if ($("#Year").val() == "2019") {
+
+            if ($("#Month").val() == "01/01/" || $("#Month").val() == "01/02/" || $("#Month").val() == "01/03/" || $("#Month").val() == "01/04/" || $("#Month").val() == "01/05/" || $("#Month").val() == "01/06/") {
+                Lobibox.alert('error', {
+                    msg: "Month Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        if ($("#Year").val() == "2023") {
+
+            if ($("#Month").val() == "01/07/" || $("#Month").val() == "01/08/" || $("#Month").val() == "01/09/" || $("#Month").val() == "01/10/" || $("#Month").val() == "01/11/" || $("#Month").val() == "01/12/") {
+                Lobibox.alert('error', {
+                    msg: "Month Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        $.post("ERP/CLDownloadLiftOperator", $('#chklstDownloadForm').serialize(), function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+    $(document).on("click", "#cldownlaodAdmin-search", function () {
+
+        if ($("#Zone").val() == "Select") {
+            Lobibox.alert('error', {
+                msg: "Please select Zone!"
+            });
+            return false;
+        }
+
+        if ($("#Schoollist").val() == 0) {
+            Lobibox.alert('error', {
+                msg: "Please select School!"
+            });
+            return false;
+        }
+
+
+        if ($("#Month").val() == "Select" || $("#Year").val() == "Select") {
+            Lobibox.alert('error', {
+                msg: "Please select Month & Year!"
+            });
+            return false;
+        }
+        if ($("#Year").val() == "2019") {
+
+            if ($("#Month").val() == "01/01/" || $("#Month").val() == "01/02/" || $("#Month").val() == "01/03/" || $("#Month").val() == "01/04/" || $("#Month").val() == "01/05/" || $("#Month").val() == "01/06/") {
+                Lobibox.alert('error', {
+                    msg: "Month Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        if ($("#Year").val() == "2023") {
+
+            if ($("#Month").val() == "01/07/" || $("#Month").val() == "01/08/" || $("#Month").val() == "01/09/" || $("#Month").val() == "01/10/" || $("#Month").val() == "01/11/" || $("#Month").val() == "01/12/") {
+                Lobibox.alert('error', {
+                    msg: "Month Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        var sch = $("#Schoollist").val();
+        var schid = sch.split("-");
+        debugger;
+        $("#SchoolID").val(parseInt(schid[1]));
+
+        $.post("ERP/CLDownloadAdmin", $('#chklstDownloadForm').serialize(), function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+    //Lobibox.confirm({
+    //    iconClass: false,
+    //    msg: 'Are you sure?'
+    //});
+
+    //Lobibox.prompt('text', //Any input type will be valid
+    //{
+    //title: 'Please enter username',
+    ////Attributes of <input>
+    //attrs: {
+    //    placeholder: "Username"
+    //}
+    //});
+
+    //Lobibox.notify('warning', {
+    //    //AVAILABLE TYPES: "error", "info", "success", "warning"
+    //    msg: 'numerous sagittis wreaths.'
+    //});
+
+    //Lobibox.notify('success', {
+    //    img: '...', //path to image
+    //delay: 15000,
+    //position: 'bottom right' //AVAILABLE OPTIONS: 'top left', 'top right', 'bottom left', 'bottom right'
+    //width: 400 //Any Integer
+    //title: 'Custom title'
+    //size: 'mini',
+    //});
+
+    //Lobibox.progress({
+    //    title: 'Please wait',
+    //    label: 'Uploading files...',
+    //    onShow: function ($this) {
+    //        var i = 0;
+    //        var inter = setInterval(function () {
+    //            window.console.log(i);
+    //            if (i > 100) {
+    //                inter = clearInterval(inter);
+    //            }
+    //            i = i + 0.1;
+    //            $this.setProgress(i);
+    //        }, 10);
+    //    }
+    //});
+
+    //Lobibox.progress({
+    //    title: 'Please wait',
+    //    label: 'Uploading files...',
+    //    progressTpl: '<div class="progress lobibox-progress-outer">\n\
+    //            <div class="progress-bar progress-bar-danger progress-bar-striped lobibox-progress-element" data-role="progress-text" role="progressbar"></div>\n\
+    //            </div>',
+    //    onShow: function ($this) {
+    //        var i = 0;
+    //        var inter = setInterval(function () {
+    //            window.console.log(i);
+    //            if (i > 100) {
+    //                inter = clearInterval(inter);
+    //            }
+    //            i = i + 0.1;
+    //            $this.setProgress(i);
+    //        }, 10);
+    //    }
+    //});
+
+    var randomScalingFactor = function () {
+        return Math.round(Math.random() * 100);
+    };
+
+    window.chartColors = {
+        red: '#dc3545',
+        orange: '#fd7e14',
+        yellow: '#ffc107',
+        green: '#28a745',
+        blue: '#007bff',
+        purple: '#6f42c1',
+        grey: '#6c757d'
+    };
+
+    ////// Vertical Bar Chart
+    var barChartData = {
+        labels: ['Monthly', 'Quarterly', 'HalfYearly', 'Yearly', 'BiYearly'],
+        datasets: [{
+            label: 'Pending Submission',
+            backgroundColor: window.chartColors.red,
+            data: [
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor()
+                 @Model.dbsvm.Where(a => a.item_desc == "PendingSubmission" && a.Frequency == "Monthly").FirstOrDefault().itemcount,
+                @Model.dbsvm.Where(a => a.item_desc == "PendingSubmission" && a.Frequency == "Quarterly").FirstOrDefault().itemcount,
+                @Model.dbsvm.Where(a => a.item_desc == "PendingSubmission" && a.Frequency == "HalfYearly").FirstOrDefault().itemcount,
+                @Model.dbsvm.Where(a => a.item_desc == "PendingSubmission" && a.Frequency == "Yearly").FirstOrDefault().itemcount,
+                @Model.dbsvm.Where(a => a.item_desc == "PendingSubmission" && a.Frequency == "BiYearly").FirstOrDefault().itemcount
+            ]
+        }, {
+            label: 'Pending User',
+            backgroundColor: window.chartColors.purple,
+            data: [
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor()
+                @Model.dbsvm.Where(a => a.item_desc == "PendingUser" && a.Frequency == "Monthly").FirstOrDefault().itemcount,
+                @Model.dbsvm.Where(a => a.item_desc == "PendingUser" && a.Frequency == "Quarterly").FirstOrDefault().itemcount,
+                @Model.dbsvm.Where(a => a.item_desc == "PendingUser" && a.Frequency == "HalfYearly").FirstOrDefault().itemcount,
+                @Model.dbsvm.Where(a => a.item_desc == "PendingUser" && a.Frequency == "Yearly").FirstOrDefault().itemcount,
+                @Model.dbsvm.Where(a => a.item_desc == "PendingUser" && a.Frequency == "BiYearly").FirstOrDefault().itemcount
+
+            ]
+        }, {
+            label: 'Pending MA',
+            backgroundColor: window.chartColors.orange,
+            data: [
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor()
+                @Model.dbsvm.Where(a => a.item_desc == "PendingMA" && a.Frequency == "Monthly").FirstOrDefault().itemcount,
+                @Model.dbsvm.Where(a => a.item_desc == "PendingMA" && a.Frequency == "Quarterly").FirstOrDefault().itemcount,
+                @Model.dbsvm.Where(a => a.item_desc == "PendingMA" && a.Frequency == "HalfYearly").FirstOrDefault().itemcount,
+                @Model.dbsvm.Where(a => a.item_desc == "PendingMA" && a.Frequency == "Yearly").FirstOrDefault().itemcount,
+                @Model.dbsvm.Where(a => a.item_desc == "PendingMA" && a.Frequency == "BiYearly").FirstOrDefault().itemcount
+
+            ]
+        },
+        {
+            label: 'Completed',
+            backgroundColor: window.chartColors.green,
+            data: [
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor(),
+                //randomScalingFactor()
+                @Model.dbsvm.Where(a => a.item_desc == "Completed" && a.Frequency == "Monthly").FirstOrDefault().itemcount,
+                @Model.dbsvm.Where(a => a.item_desc == "Completed" && a.Frequency == "Quarterly").FirstOrDefault().itemcount,
+                @Model.dbsvm.Where(a => a.item_desc == "Completed" && a.Frequency == "HalfYearly").FirstOrDefault().itemcount,
+                @Model.dbsvm.Where(a => a.item_desc == "Completed" && a.Frequency == "Yearly").FirstOrDefault().itemcount,
+                @Model.dbsvm.Where(a => a.item_desc == "Completed" && a.Frequency == "BiYearly").FirstOrDefault().itemcount
+            ]
+        }]
+
+    };
+
+    window.onload = function () {
+
+        //Bar
+        if (document.getElementById('canvas')) {
+            var ctx = document.getElementById('canvas').getContext('2d');
+            window.myBar = new Chart(ctx, {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: false,
+                        text: 'Chart.js Bar Chart'
+                    }
+                }
+            });
+        }
+
+
+    };
+
+    ////***  Temporary     ***////
+
+    $(document).on("click", ".ChecklistFormat", function () {
+        $.get("ERP/ChecklistFormat", function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+    $(document).on("click", "#chklistformat-submit", function () {
+
+        if ($("#CLType").val() == 'Select' || $("#Frequency").val() == 'Select') {
+            Lobibox.alert('error', {
+                msg: "Please select Type & Frequency!"
+            });
+            return false;
+        }
+        var cltype = $("#CLType").val();
+        var freq = $("#Frequency").val();
+
+
+        window.open('@Url.Action("PrintCheckListFormat", "ERP")' + '?CLType=' + cltype + '&Frequency=' + freq);
+
+        //$.get("ERP/printCheckListFormat?CLType=" + cltype + "&Frequency=" + freq, function (data) {
+        //    var newTab = window.open("", "_blank", "", true);
+        //    newTab.document.body.innerHTML = data;
+        //    //$('#page-wrapper').html(data);
+        //});
+
+        ////$.post("ERP/printCheckListFormat", $('#dummychklist_Form').serialize(), function (data) {
+
+        ////    if (data.value == "OK") {
+        ////        Lobibox.alert('success', {
+        ////            msg: "Checklist form generated!"
+        ////        });
+        ////    }
+        ////    else if (data.value == "Failed") {
+        ////        Lobibox.alert('error', {
+        ////            msg: "Checklist for generation failed!"
+        ////        });
+
+        ////    }
+        ////    else {
+        ////        Lobibox.alert('error', {
+        ////            msg: data.value
+        ////        });
+
+        ////    }
+
+        ////});
+
+    });
+
+
+    ////**** Temporary ****/////
+
+    ///// *********START**************** ///////////////////////
+
+
+    $(document).on("click", ".CLSearchIndex", function () {
+        $.get("ERP/CLSearchIndex", function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+
+    $(document).on("click", "#clsearchIndex-search", function () {
+
+
+
+        if ($("#Month").val() == "Select" || $("#Year").val() == "Select") {
+            Lobibox.alert('error', {
+                msg: "Please select Month & Year!"
+            });
+            return false;
+        }
+        if ($("#Year").val() == "2019") {
+
+            if ($("#Month").val() == "01/01/" || $("#Month").val() == "01/02/" || $("#Month").val() == "01/03/" || $("#Month").val() == "01/04/" || $("#Month").val() == "01/05/" || $("#Month").val() == "01/06/") {
+                Lobibox.alert('error', {
+                    msg: "Month Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        if ($("#Year").val() == "2023") {
+
+            if ($("#Month").val() == "01/07/" || $("#Month").val() == "01/08/" || $("#Month").val() == "01/09/" || $("#Month").val() == "01/10/" || $("#Month").val() == "01/11/" || $("#Month").val() == "01/12/") {
+                Lobibox.alert('error', {
+                    msg: "Month Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        $.post("ERP/CLSearchIndex", $('#clSearchIndexForm').serialize(), function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+
+    $(document).on("click", ".CLSearchIndexNew", function () {
+        $.get("ERP/CLSearchIndexNew", function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+
+
+
+    $(document).on("click", "#clsearchIndex-search-new", function () {
+        debugger;
+        if ($("#Zone").val() == "Select") {
+            Lobibox.alert('error', {
+                msg: "Please select Zone!"
+            });
+            return false;
+        }
+        /*
+        if ($("#Month").val() == "Select" || $("#Year").val() == "Select") {
+            Lobibox.alert('error', {
+                msg: "Please select Month & Year!"
+            });
+            return false;
+        }
+        */
+
+        if ($("#startDate").val() != "Select") {
+
+            if ($("#endDate").val() == "Select") {
+                Lobibox.alert('error', {
+                    msg: "Please select End month year!"
+                });
+                return false;
+            }
+
+        }
+
+
+        if ($("#endDate").val() != "Select") {
+
+            if ($("#startDate").val() == "Select") {
+                Lobibox.alert('error', {
+                    msg: "Please select Start month year!"
+                });
+                return false;
+            }
+
+        }
+
+
+
+
+
+
+       // return
+
+        /*
+
+        if ($("#Year").val() == "2019") {
+
+            if ($("#Month").val() == "01/01/" || $("#Month").val() == "01/02/" || $("#Month").val() == "01/03/" || $("#Month").val() == "01/04/" || $("#Month").val() == "01/05/" || $("#Month").val() == "01/06/") {
+                Lobibox.alert('error', {
+                    msg: "Month Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        if ($("#Year").val() == "2023") {
+
+            if ($("#Month").val() == "01/07/" || $("#Month").val() == "01/08/" || $("#Month").val() == "01/09/" || $("#Month").val() == "01/10/" || $("#Month").val() == "01/11/" || $("#Month").val() == "01/12/") {
+                Lobibox.alert('error', {
+                    msg: "Month Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+        */
+
+
+
+        if ($("#startDate").val() != "Select" && $("#endDate").val() != "Select")
+        {
+
+        startdate = $("#startDate").val().split("/");
+
+
+        enddate = $("#endDate").val().split("/");
+
+
+        if (enddate[2]>startdate[2] ) {
+
+
+
+        }
+        else if(enddate[2] == startdate[2]) {
+
+            if (enddate[1] >= startdate[1]) {
+
+
+            } else {
+
+                Lobibox.alert('error', {
+                    msg: "End Month  Selection Not applicable!"
+                });
+                return false;
+            }
+
+        }else {
+
+            Lobibox.alert('error', {
+                msg: "End Year Selection Not applicable!"
+            });
+            return false;
+
+            }
+
+        }
+
+        /*
+        if (startdate[2] == "2019") {
+
+            if (startmonth == "01/01/" || startmonth == "01/02/" || startmonth == "01/03/" || startmonth == "01/04/" || startmonth == "01/05/" || startmonth == "01/06/") {
+                Lobibox.alert('error', {
+                    msg: "Start Month Year Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        if (enddate[2] == "2023") {
+
+            if (endmonth == "01/07/" || endmonth == "01/08/" || endmonth == "01/09/" || endmonth == "01/10/" || endmonth == "01/11/" || endmonth == "01/12/") {
+                Lobibox.alert('error', {
+                    msg: "End Month Year Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        */
+
+        $.post("ERP/CLSearchIndexNew", $('#clSearchIndexFormNew').serialize(), function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+
+
+
+    ///// *************END************ ///////////////////////
+
+
+    ///// *********START**************** ///////////////////////
+
+
+    $(document).on("click", ".ChecklistLiftMatrix", function () {
+        $.get("ERP/CLLiftMatrix", function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+    $(document).on("click", "#report-clliftmatrix-search", function () {
+
+        if ($("#Zone").val() == 'Select') {
+            Lobibox.alert('error', {
+                msg: "Please select Zone!"
+            });
+            return false;
+        }
+
+        if ($("#Month").val() == "Select" || $("#Year").val() == "Select") {
+            Lobibox.alert('error', {
+                msg: "Please select Month & Year!"
+            });
+            return false;
+        }
+        if ($("#Year").val() == "2019") {
+
+            if ($("#Month").val() == "01/01/" || $("#Month").val() == "01/02/" || $("#Month").val() == "01/03/" || $("#Month").val() == "01/04/" || $("#Month").val() == "01/05/" || $("#Month").val() == "01/06/") {
+                Lobibox.alert('error', {
+                    msg: "Month Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        if ($("#Year").val() == "2023") {
+
+            if ($("#Month").val() == "01/07/" || $("#Month").val() == "01/08/" || $("#Month").val() == "01/09/" || $("#Month").val() == "01/10/" || $("#Month").val() == "01/11/" || $("#Month").val() == "01/12/") {
+                Lobibox.alert('error', {
+                    msg: "Month Selection Not applicable!"
+                });
+                return false;
+            }
+        }
+
+        $.post("ERP/CLLiftMatrix", $('#liftchklstForm').serialize(), function (data) {
+            $('#page-wrapper').html(data);
+
+        });
+    });
+
+
+
+
+
+    ///// *************END************ ///////////////////////
+
+     function DeleteChecklistFileConfirmed(id, chkid) {
+        $.post("ERP/DeleteChecklistFile/", { id: id,@Html.AntiForgeryTokenForAjaxPost() }, function (data) {
+            if (data.value == "OK") {
+                Lobibox.alert('success', {
+                    msg: "Image Deletion Successful!"
+                });
+                $.get("ERP/EditChecklist/" + chkid, function (data) {
+                    $('#page-wrapper').html(data);
+                });
+
+            }
+            else {
+                Lobibox.alert('error', {
+                    msg: "Image Deletion failed!"
+                });
+            }
+        });
+
+        }
+
+
+
+        
+
+
+
+        //*********************** License *********
+
+        $(document).on("click", ".LicenseIndex", function () {
+            $.get("/Home/LicenseIndex", function (data) {
+                $('#page-wrapper').html(data);
+
+            });
+        });
+
+
+
+        function CreateLicense() {
+            $.get("Home/CreateLicense", function (data) {
+                $('#page-wrapper').html(data);
+            });
+        }
+
+
+
+        $(document).on("click", "#save_create_license", function () {
+
+            var cmpid = $("#CompanyID").val();
+            if (cmpid == 0) {
+                $("span[data-valmsg-for='CompanyID']").removeClass("field-validation-valid").addClass("field-validation-error");
+                $("span[data-valmsg-for='CompanyID']").text("Please select Company");
+                return false;
+            }
+            if (!$('#addlicense_Form').valid()) {
+                return;
+            }
+            if ($('#License_Start_Date').val() == '') {
+                Lobibox.alert('error', {
+                    //    //AVAILABLE TYPES: "error", "info", "success", "warning"
+                    msg: 'Please select date.'
+                });
+                return;
+            }
+            debugger;
+
+            $.post("Home/CreateLicense", $('#addlicense_Form').serialize(), function (data) {
+
+                if (data.value == "OK") {
+                    Lobibox.alert('success', {
+                        msg: "License creation successful!"
+                    });
+                    $.get("Home/LicenseIndex", function (data) {
+                        $('#page-wrapper').html(data);
+                    });
+                    $('#user_module_dialog').modal('hide');
+                }
+                else if (data.value == "Failed") {
+                    Lobibox.alert('error', {
+                        msg: "License creation failed!"
+                    });
+                }
+                else {
+                    Lobibox.alert('error', {
+                        msg: data.value
+                    });
+
+                    //Lobibox.notify('warning', {
+                    //    size: 'mini',
+                    //    position: 'top right',
+                    //    msg: data.value
+                    //});
+                }
+            });
+        });
+
+
+        function ShowLicense(id) {
+
+            var url = "Home/ShowLicense/" + id;
+            $.get(url, function (data) {
+                $('#page-wrapper').html(data);
+            });
+        }
+
+    //*******************License**************
+
+    </script>

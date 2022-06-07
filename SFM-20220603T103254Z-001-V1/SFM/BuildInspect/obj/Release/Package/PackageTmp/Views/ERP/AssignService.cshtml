@@ -1,0 +1,184 @@
+﻿@model BuildInspect.Models.ViewModel.ServiceFormViewModel
+@using BuildInspect.Models.ViewModel
+@{
+    Layout = null;
+}
+
+<style>
+    .required::after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+@*<link href="~/Scripts/main.css" rel="stylesheet" />*@
+
+    <!-- Content Header (Page header) -->
+  
+    <!-- Main content -->
+ 
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <h3 class="card-title">Assigning New Service Form</h3>
+                                    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "assignservice_Form", @class = "form-horizontal" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })                                       
+                                        @Html.HiddenFor(model => model.AssignedBy)
+
+                                        <div class="service-container">
+
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Priority</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <select class="priority-dropdown form-control" id="Priority" name="Priority">
+                                                        <option value="Select">-Select Priority-</option>
+                                                        <option value="Emergency">Emergency</option>
+                                                        <option value="Urgent">Urgent</option>
+                                                        <option value="Routine">Routine</option>
+                                                        <option value="Non_urgent">Non Urgent</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">School Name</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <select class="school-dropdown form-control" id="SchoolID" name="SchoolID">
+                                                        <optgroup label="Select">
+                                                            <option value=0>-Select School-</option>
+                                                        </optgroup>
+
+                                                        @foreach (var grp in ViewBag.SchoolGroup)
+                                                        {
+                                                            List<SchoolMasterViewModel> sch = ViewBag.School;
+                                                            var ctGrp = sch.Where(a => a.School_Type == grp).ToList();
+                                                            <optgroup label="@grp">
+                                                                @foreach (var sname in ctGrp)
+                                                                {
+                                                                    <option value="@sname.SchoolID">@sname.Zone-@sname.School_Name</option>
+                                                                }
+                                                            </optgroup>
+                                                        }
+
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            
+
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Case Ref No.</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <input type="text" class="form-control" id="CaseRefNum" 
+                                                           name="CaseRefNum" placeholder="" />
+                                                </div>
+                                            </div>
+
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Service Engineer</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <select class="se-dropdown form-control" id="UserID" name="UserID">
+                                                        <optgroup label="Select">
+                                                            <option value=0>-Select Service Engineer-</option>
+                                                        </optgroup>
+
+                                                        @foreach (var styp in ViewBag.ServiceType)
+                                                        {
+                                                            List<UserViewModel> usr = ViewBag.ServiceEngineers;
+                                                            var ctGrp = usr.Where(a => a.ServiceType == styp).ToList();
+                                                            <optgroup label="@styp">
+                                                                @foreach (var user in ctGrp)
+                                                                {
+                                                                    <option value="@user.UserID">@user.DisplayName</option>
+                                                                }
+                                                            </optgroup>
+                                                        }
+
+                                                    </select>
+                                                </div>
+                                            </div>  
+                                            
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-12">
+                                                    <div class="title required">Work Requests</div>
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 100px;" id="Work_Requests" name="Work_Requests">                                                        
+                                                        </textarea>
+                                                    </div>
+                                                </div>                                          
+                                        
+                                        </div>
+                                       
+                                    
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-primary" name="assignservice-submit" id="assign_serviceform"
+                                                    value="Submit">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+      
+
+
+<script src="~/Scripts/assets/plugins/select2.min.js"></script>
+<script src="~/Scripts/assets/plugins/moment.min.js"></script>
+
+
+<script>
+  
+    
+    $(document).ready(function () {
+
+        $('textarea').each(function () {
+            $(this).val($.trim($(this).val()));
+        });
+       
+        $('.priority-dropdown').select2({
+            theme: "bootstrap4",
+            placeholder: "Select a priority",
+        });
+
+        $('.school-dropdown').select2({
+            theme: "bootstrap4",
+            placeholder: "Select a priority",
+        });
+
+        $('.se-dropdown').select2({
+            theme: "bootstrap4",
+            placeholder: "Select a priority",
+        });
+       
+    });
+
+    $("form").removeData("validator");
+    $("form").removeData("unobtrusiveValidation");
+    $.validator.unobtrusive.parse("form");
+
+
+</script>

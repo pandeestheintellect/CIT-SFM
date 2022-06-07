@@ -1,0 +1,137 @@
+﻿@model IEnumerable<BuildInspect.Models.ViewModel.UserViewModel>
+
+@{
+    Layout = null;
+}
+
+  
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+            
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <section class="content-header">
+                        <h4>
+                            User List
+                        </h4>
+                        @*<ol class="breadcrumb">
+                            <li><a href="#"><i class="fa fa-dashboard"></i> BuildInspect</a></li>
+                            <li>User</li>
+                            <li class="active">Config</li>
+                        </ol>*@
+                    </section>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+                                    
+                                        <div class="box-header with-border">
+                                            <a href="" onclick="CreateUser()" data-toggle="modal" class="btn-icon btn btn-primary"><i class="fas fa-plus-square btn-icon-wrapper"></i> Add User</a>
+                                        </div>
+                                        <div class="box-body">
+                                            <table id="userTable" class="table table-hover table-striped table-bordered">
+                                                <thead style="background-color: #575555; color: white">
+                                                    <tr>
+                                                        <th>User ID</th>
+
+                                                        <th>User Name</th>
+                                                        <th>Display Name</th>
+                                                        <th>Company Name</th>
+                                                        <th>Role</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        <tr>
+                                                            <td>@item.UserID</td>
+                                                            <td>@item.UserName</td>
+                                                            <td>@item.DisplayName</td>
+
+                                                            @if (item.CompanyID != null)
+                                                            {
+                                                                <td>@item.company_master.CompanyName</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>MOE Agent</td>
+                                                            }
+
+                                                            <td>@item.usergroup.GroupName</td>
+                                                            <td>
+                                                                <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-success" onclick="EditUser(@item.UserID)"><i class="fas fa-edit"></i></button>
+                                                                <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-danger" onclick="DeleteUser('@item.UserID','@item.UserName')"><i class="fas fa-trash-alt"></i></button>
+                                                               
+                                                            </td>
+                                                        </tr>
+
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                   
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    
+   
+
+    function DeleteUser(id,un) {
+
+        Lobibox.confirm({
+            iconClass: false,
+            msg: 'Are you sure to delete the user ' + un + '?',
+            callback: function (lobibox, type) {
+                var btnType;
+                if (type === 'no') {
+                    btnType = 'warning';
+                } else if (type === 'yes') {
+                    btnType = 'success';
+                    DeleteUserConfirmed(id);
+
+                } 
+                //Lobibox.notify(btnType, {
+                //    size: 'mini',
+                //    msg: 'This is ' + btnType + ' message'
+                //});
+            }
+        });
+
+    }
+
+ 
+
+$(document).ready(function () {
+
+    $('#userTable').DataTable({
+        //"autoWidth": true,
+        //"scrollX": true,
+        //dom: 'Bfrtipl',
+        responsive: true,
+       // "scrollY": true,
+        buttons: [
+            //'excelHtml5',
+            //'csvHtml5',
+            //'pdfHtml5',
+
+        ]
+    });
+});
+$('.dt-button').addClass('btn btn-primary').removeClass('dt-button').css('margin-right', '5px')
+
+</script>

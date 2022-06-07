@@ -1,0 +1,316 @@
+﻿@model BuildInspect.Models.ViewModel.FilterViewModel
+@using BuildInspect.Models.ViewModel
+
+@{
+    Layout = null;
+    var groupID = BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup();
+    
+    var companyID = BuildInspect.Models.Utility.AppSession.GetCompanyId();
+
+    if (companyID == 1)
+    {
+        ViewBag.Company = "MKV-";
+    }
+    if (companyID == 2)
+    {
+        ViewBag.Company = "HEC-";
+    }
+    if (companyID == 3)
+    {
+        ViewBag.Company = "PPL-";
+    }
+}
+
+ <style>
+     span { border-radius:5px;padding:0 5px;text-align:center; }
+.red { background:red; }
+.yellow {background:yellow; }
+.green { background:green; }
+ </style> 
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+            
+            <div class="tab-content">
+                <div class="container-fluid">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { role = "form", id = "chklstDownloadForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.SchoolID)
+                    <section class="content-header">
+                        <h4>
+                            Download Checklists 
+                        </h4>
+                        <div class="summaryreport-container">
+
+                            <div class="row form-group">
+
+                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                    <div class="title">Zone</div>
+                                </div>
+                                @if (companyID == 1)
+                                {
+                                    <div class="col-sm-12 col-md-6 col-xl-3">
+                                        @Html.DropDownListFor(model => model.Zone, new SelectList(
+                                    new List<Object>{
+                                    new { value = "Select" , text = "Select"  },
+                                    new { value = "E1" , text = "E1" },
+                                    new { value = "S1" , text = "S1" },
+                                    new { value = "SW2" , text = "SW2" }
+                                   }, "value", "text", 0), htmlAttributes: new { @class = "form-control", @onchange = "zoneOnChange(this)" })
+                                    </div>
+                                }
+
+                                @if (companyID == 2)
+                                {
+                                    <div class="col-sm-12 col-md-6 col-xl-3">
+                                        @Html.DropDownListFor(model => model.Zone, new SelectList(
+                                    new List<Object>{
+                                    new { value = "Select" , text = "Select"  },
+                                    new { value = "N2" , text = "N2" },
+                                    new { value = "NE1" , text = "NE1" },
+                                    new { value = "W1" , text = "W1" }
+                                   }, "value", "text", 0), htmlAttributes: new { @class = "form-control", @onchange = "zoneOnChange(this)" })
+                                    </div>
+                                }
+
+                                @if (companyID == 3)
+                                {
+                                    <div class="col-sm-12 col-md-6 col-xl-3">
+                                        @Html.DropDownListFor(model => model.Zone, new SelectList(
+                                    new List<Object>{
+                                    new { value = "Select" , text = "Select"  },
+                                    new { value = "E2" , text = "E2" },
+                                    new { value = "NE2" , text = "NE2" },
+                                    new { value = "SW1" , text = "SW1" }
+                                   }, "value", "text", 0), htmlAttributes: new { @class = "form-control", @onchange = "zoneOnChange(this)" })
+                                    </div>
+                                }
+
+                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                    <div class="title">Month</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-3">
+                                    @Html.DropDownListFor(model => model.Month, new SelectList(
+                                    new List<Object>{
+                                    new { value = "Select" , text = "Select"  },
+                                    new { value = "01/01/" , text = "January" },
+                                    new { value = "01/02/" , text = "February" },
+                                    new { value = "01/03/" , text = "March" },
+                                    new { value = "01/04/" , text = "April" },
+                                    new { value = "01/05/" , text = "May" },
+                                    new { value = "01/06/" , text = "June" },
+                                    new { value = "01/07/" , text = "July" },
+                                    new { value = "01/08/" , text = "August" },
+                                    new { value = "01/09/" , text = "September" },
+                                    new { value = "01/10/" , text = "October" },
+                                    new { value = "01/11/" , text = "November" },
+                                    new { value = "01/12/" , text = "December" }
+                                   }, "value", "text", 0), htmlAttributes: new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                    <div class="title">Year</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                    @Html.DropDownListFor(model => model.Year, new SelectList(
+                                    new List<Object>{
+                                    new { value = "Select" , text = "Select"  },
+                                    new { value = "2019" , text = "2019" },
+                                    new { value = "2020" , text = "2020" },
+                                     new { value = "2021" , text = "2021" },
+                                      new { value = "2022" , text = "2022" },
+                                       new { value = "2023" , text = "2023" }
+                                   }, "value", "text", 0), htmlAttributes: new { @class = "form-control" })
+
+                                </div>
+                                
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                    <div class="title">Project Name</div>
+                                </div>
+                                <div class="divSchool col-sm-12 col-md-6 col-xl-9">
+                                    <select class="school-dropdown form-control" id="Schoollist" name="Schoollist">
+                                        <optgroup label="Select">
+                                            <option value=0>-Select Project-</option>
+                                        </optgroup>
+
+                                        @foreach (var grp in ViewBag.SchoolGroup)
+                                        {
+                                            List<SchoolMasterViewModel> sch = ViewBag.School;
+                                            var ctGrp = sch.Where(a => a.School_Type == grp).ToList();
+                                            <optgroup label="@grp">
+                                                @foreach (var sname in ctGrp)
+                                                {
+                                                    <option value="@sname.Zone-@sname.SchoolID">@sname.Zone-@sname.School_Name</option>
+                                                }
+                                            </optgroup>
+                                        }
+
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                    <button type="button" id="cldownlaodAdmin-search" class="mb-2 mr-2 btn-icon btn btn-success maintenance-generate">
+                                        <i class="fas fa-table"></i>
+                                        Search
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                            
+
+                        </div>
+                       
+                    </section>
+
+                    }
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    
+                                        <div class="box-header with-border">
+                                            
+                                           
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="summary-title">
+                                                Completed Checklist Reports <span class="zone">Zone: @ViewBag.Zone</span>  - <span class="month-year">@ViewBag.Mon (@ViewBag.Freq)</span>
+                                                @if (ViewBag.ShowDLZip == 1)
+                                                {
+                                                <div><a style="padding-right:10px; padding-left: 10px;" href="ERP/DownloadZipFile?schoolid=@ViewBag.SchoolID&month=@Model.Month&year=@Model.Year" target="_blank" class="btn pull-left btn-primary" >Download Zip</a> </div>
+                                                }
+                                            </div> 
+                                            
+                                            
+                                            <table id="CLDownloadTable" class="table table-hover table-striped table-bordered">
+                                                <thead style="background-color: #575555; color: white">
+                                                    <tr>
+                                                        <th>Sno</th>
+                                                        <th>CL Type</th>
+                                                        <th>Month</th>
+                                                        <th>Frequency</th>
+                                                        <th>Action</th>  
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{ var i = 0;  }
+                                                    @foreach (var item in Model.clfdownload)
+                                                    {
+                                                        i = i + 1;
+                                                        var path = item.FilePath.Split('\\');
+                                                        var newfn =  path[path.Count() - 3] + "/" + path[path.Count() - 2] + "/" + path[path.Count() - 1];
+                                                        <tr>
+                                                            <td>@i</td>
+                                                            <td>@item.CLType</td>
+                                                            <td>@Convert.ToDateTime(item.Month_Start_Date).ToString("MMM yyyy")</td>
+                                                            <td>@item.Frequency</td>
+                                                            <td>
+                                                                <a href="@newfn" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary" target="_blank">Pdf</a>
+                                                                
+                                                            </td>
+                                                        </tr>
+
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                   
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<script src="~/Scripts/assets/plugins/select2.min.js"></script>
+<script src="~/Scripts/assets/plugins/moment.min.js"></script>*@
+
+<script>
+
+    $(document).ready(function () {
+        //$("#Month").select2({
+        //    theme: "bootstrap4",
+        //});
+
+        //$("#Year").select2({
+        //    theme: "bootstrap4",
+        //});
+        debugger;
+        if ('@ViewBag.SchoolID' != 0) {
+           
+            zoneFilter('@ViewBag.Zone');
+            $('#Schoollist').val('@ViewBag.Schoollist');
+        }
+
+        $('#CLDownloadTable').DataTable({
+        //"autoWidth": true,
+        //"scrollX": true,
+        dom: 'Bfrtipl',
+        responsive: true,
+       // "scrollY": true,
+        buttons: [
+
+            //'copy', 'csv', 'excel', 'pdf', 'print',
+        ]
+    });
+    //$('.dt-button').addClass('btn btn-primary').removeClass('dt-button').css('margin-right', '5px')
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
+    });
+
+});
+
+    function zoneOnChange(obj) {
+
+        $.each($(".divSchool option:selected"), function () {
+
+            // this is it
+            $(this).prop('selected', false);
+
+        });
+        debugger;
+        $('.divSchool option').css('display', 'none')
+
+        $('.divSchool option[value^="' + obj.value + '"]').css('display', 'block')
+
+        $.each($('.divSchool option[value^="' + obj.value + '"]'), function () {
+
+            // this is it
+           // $(this).prop('selected', true);
+
+            return;
+        });
+
+    }
+
+    function zoneFilter(obj) {
+
+        $.each($(".divSchool option:selected"), function () {           
+            $(this).prop('selected', false);
+        });
+        
+        $('.divSchool option').css('display', 'none')
+
+        $('.divSchool option[value^="' + obj + '"]').css('display', 'block')
+        $.each($('.divSchool option[value^="' + obj + '"]'), function () {
+          
+            return;
+        });
+
+    }
+
+</script>

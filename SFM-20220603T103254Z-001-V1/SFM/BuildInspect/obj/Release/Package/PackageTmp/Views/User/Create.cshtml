@@ -1,0 +1,251 @@
+﻿@model BuildInspect.Models.ViewModel.UserViewModel
+@{
+    Layout = null;
+}
+
+@{
+    var groupID = BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup();
+    var companyID = BuildInspect.Models.Utility.AppSession.GetCompanyId();    
+}
+
+<style>
+    .required::after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <section class="content-header">
+                        <h4>
+                            New User Creation
+                        </h4>
+                        
+                    </section>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+                                    
+                                        <div class="box-header with-border">
+                                            <input type="button" value="Back" id="create_user-back" class="btn btn-primary pull-left UserIndex" />
+                                            <button type="submit" id="save_create_user" class="btn btn-success btn-flat pull-right" name="save"><i class="fa fa-check-square-o"></i> Save</button>
+                                        </div>
+
+                                        <div class="box-body">
+
+                                            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "adduser_Form", @class = "form-horizontal" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                @Html.HiddenFor(model => model.EmpID)
+                                                @Html.HiddenFor(model => model.Curr_Password)
+
+
+                                                <div class="row">
+                                                    <div class="col-xl-3">&nbsp;</div>
+                                                    <div class="col-xl-6">
+
+                                                        <div class="row form-group">
+                                                            <label for="username" class="col-sm-12 col-md-6 col-xl-3 control-label">Username</label>
+                                                            <div class="col-sm-12 col-md-6 col-xl-9">
+                                                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <label for="password" class="col-sm-12 col-md-6 col-xl-3 control-label">Password</label>
+                                                            <div class="col-sm-12 col-md-6 col-xl-9">
+                                                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <label for="firstname" class="col-sm-12 col-md-6 col-xl-3 control-label">Display/Contractor Name</label>
+                                                            <div class="col-sm-12 col-md-6 col-xl-9">
+                                                                @Html.EditorFor(model => model.DisplayName, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row form-group">
+                                                            <label for="groupname" class="col-sm-12 col-md-6 col-xl-3 control-label">Group Name</label>
+                                                            <div class="col-sm-12 col-md-6 col-xl-9">
+                                                                @Html.DropDownList("GroupID", null, htmlAttributes: new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.GroupID, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        @*<div class="row form-group" id="company">
+                                                            <label for="firstname" class="col-sm-12 col-md-6 col-xl-3 control-label">Company</label>
+                                                            <div class="col-sm-12 col-md-6 col-xl-9">
+                                                                @Html.DropDownList("CompanyID", null, htmlAttributes: new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>*@
+
+                                                        <div class="row form-group">
+                                                            <label for="firstname" class="col-sm-12 col-md-6 col-xl-3 control-label">User Type</label>
+                                                            <div class="col-sm-12 col-md-6 col-xl-9">
+                                                                @Html.DropDownList("ServiceType", null, htmlAttributes: new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.ServiceType, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                        @if (companyID == 1)
+                                                        {
+                                                            <div class="row form-group">
+                                                                <label for="firstname" class="col-sm-12 col-md-6 col-xl-3 control-label">Zone</label>
+                                                                <div class="col-sm-12 col-md-6 col-xl-9">
+                                                                    @Html.DropDownListFor(model => model.Zone, new SelectList(
+                                                                    new List<Object>{
+                                                                    new { value = "Select " , text = "-Select-"  },
+                                                                    new { value = "E1" , text = "E1" },                                                                   
+                                                                    new { value = "S1" , text = "S1" },
+                                                                    new { value = "SW2" , text = "SW2" },
+                                                                    new { value = "ALL" , text = "ALL" }
+                                                                }, "value", "text", 2), htmlAttributes: new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(model => model.Zone, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        }
+
+                                                        @if (companyID == 2)
+                                                        {
+                                                            <div class="row form-group">
+                                                                <label for="firstname" class="col-sm-12 col-md-6 col-xl-3 control-label">Zone</label>
+                                                                <div class="col-sm-12 col-md-6 col-xl-9">
+                                                                    @Html.DropDownListFor(model => model.Zone, new SelectList(
+                                                                    new List<Object>{
+                                                                    new { value = "Select " , text = "-Select-"  },
+                                                                    new { value = "N2" , text = "N2" },
+                                                                    new { value = "NE1" , text = "NE1" },
+                                                                    new { value = "W1" , text = "W1" },
+                                                                    new { value = "ALL" , text = "ALL" }
+                                                                }, "value", "text", 2), htmlAttributes: new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(model => model.Zone, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        }
+
+                                                        @if (companyID == 3)
+                                                        {
+                                                            <div class="row form-group">
+                                                                <label for="firstname" class="col-sm-12 col-md-6 col-xl-3 control-label">Zone</label>
+                                                                <div class="col-sm-12 col-md-6 col-xl-9">
+                                                                    @Html.DropDownListFor(model => model.Zone, new SelectList(
+                                                                    new List<Object>{
+                                                                    new { value = "Select " , text = "-Select-"  },
+                                                                    new { value = "E2" , text = "E2" },
+                                                                    new { value = "NE2" , text = "NE2" },
+                                                                    new { value = "SW1" , text = "SW1" },
+                                                                    new { value = "ALL" , text = "ALL" }
+                                                                }, "value", "text", 2), htmlAttributes: new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(model => model.Zone, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                       
+
+                                                        <div class="row form-group">
+                                                            <label for="firstname" class="col-sm-12 col-md-6 col-xl-3 control-label">Email</label>
+                                                            <div class="col-sm-12 col-md-6 col-xl-9">
+                                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row form-group">
+                                                            <label for="firstname" class="col-sm-12 col-md-6 col-xl-3 control-label">Mobile</label>
+                                                            <div class="col-sm-12 col-md-6 col-xl-9">
+                                                                @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row form-group">
+                                                            <label for="firstname" class="col-sm-12 col-md-6 col-xl-3 control-label">First Name</label>
+                                                            <div class="col-sm-12 col-md-6 col-xl-9">
+                                                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row form-group">
+                                                            <label for="firstname" class="col-sm-12 col-md-6 col-xl-3 control-label">Last Name</label>
+                                                            <div class="col-sm-12 col-md-6 col-xl-9">
+                                                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row form-group">
+                                                            <label for="firstname" class="col-sm-12 col-md-6 col-xl-3 control-label">Designation</label>
+                                                            <div class="col-sm-12 col-md-6 col-xl-9">
+                                                                @Html.DropDownListFor(model => model.Designation, new SelectList(
+                                                                    new List<Object>{
+                                                                    new { value = "Select " , text = "-Select-"  },
+                                                                    new { value = "PM" , text = "Project Manager" },
+                                                                    new { value = "Admin" , text = "Admin" },
+                                                                    new { value = "TL" , text = "Team Leader" },
+                                                                    new { value = "Asst TL" , text = "Asst Team Leader" },                                                                    
+                                                                    new { value = "ETechnician" , text = "Elec Technician" },
+                                                                    new { value = "MTechnician" , text = "Mech Technician" },
+                                                                    new { value = "MA/MOE" , text = "MA/MOE" },
+                                                                    new { value = "Director" , text = "Director" },
+                                                                    new { value = "Contractor" , text = "Contractor" }
+
+                                                                }, "value", "text", 2), htmlAttributes: new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.Zone, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div class="col-xl-3">&nbsp;</div>
+
+                                                </div>
+
+                                            }
+
+                                        </div>
+                                   
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  
+    $("form").removeData("validator");
+    $("form").removeData("unobtrusiveValidation");
+    $.validator.unobtrusive.parse("form");
+
+    //$('#GroupID').on('change', function () {
+    //    //alert(this.value);
+    //    if (this.value == 5) {
+    //        $("#company").css("display", "none");
+    //    }
+    //    else
+    //    {
+    //        $("#company").css("display", "block");
+    //    }       
+       
+    //});
+
+
+</script>

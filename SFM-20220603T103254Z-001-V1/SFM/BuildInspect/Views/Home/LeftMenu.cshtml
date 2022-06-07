@@ -1,0 +1,69 @@
+﻿@model IEnumerable<BuildInspect.Models.ViewModel.ModuleViewModel>
+
+@{
+    var groupID = BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup();
+
+
+    var menulist = Model.Select(a => a.MenuName).Distinct().ToList();
+    var companyID = BuildInspect.Models.Utility.AppSession.GetCompanyId();
+
+}
+
+
+<div class="scrollbar-sidebar scrollbar-container">
+    <div class="app-sidebar__inner">
+        <ul class="vertical-nav-menu">
+            <li class="app-sidebar__heading">Menu</li>
+
+            @foreach (var menu in menulist)
+            {
+                if (menu == "Dashboard")
+                {
+                    <li class="mm-active">
+                        <a href="#">
+                            <i class="metismenu-icon pe-7s-rocket"></i>
+                            @menu
+                            <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                        </a>
+                        <ul class="mm-show">
+                            @foreach (var mod in Model.Where(a => a.MenuName == menu).ToList())
+                            {
+
+                                <li><a class="mm-active @mod.SCREEN_CLASS_NAME" href="#"> &nbsp; &nbsp;@mod.SCREEN_NAME</a></li>
+
+                            }
+                        </ul>
+
+                    </li>
+
+                }
+                else
+                {
+                    <li>
+                        <a href="#">
+                            <i class="metismenu-icon pe-7s-anchor"></i>
+                            @menu
+                            <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                        </a>
+                        <ul>
+                            @foreach (var mod in Model.Where(a => a.MenuName == menu).ToList())
+                            {
+                                <li>
+                                    <a class="@mod.SCREEN_CLASS_NAME" href="#">
+                                        <i class="metismenu-icon"></i>
+                                        &nbsp; &nbsp;@mod.SCREEN_NAME
+                                    </a>
+                                </li>
+                            }
+
+                        </ul>
+                    </li>
+                }
+
+
+            }
+
+        </ul>
+
+    </div>
+</div>

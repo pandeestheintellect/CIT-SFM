@@ -1,0 +1,18 @@
+2019-07-05 01:03:46.7758|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|Raw Http Message: 
+2019-07-05 01:03:46.8117|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|isAuthenticated : True
+2019-07-05 01:05:11.2482|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|Raw Http Message: 
+2019-07-05 01:05:11.3151|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|isAuthenticated : False
+2019-07-05 01:05:11.3151|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|return 401
+2019-07-05 01:06:23.9497|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|Raw Http Message: 
+2019-07-05 01:06:23.9707|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|isAuthenticated : False
+2019-07-05 01:06:23.9707|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|return 401
+2019-07-05 01:09:47.6090|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|Raw Http Message: 
+2019-07-05 01:09:47.6399|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|isAuthenticated : True
+2019-07-05 01:10:14.4079|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|Raw Http Message: 
+2019-07-05 01:10:14.4079|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|isAuthenticated : True
+2019-07-05 01:12:07.0171|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|Raw Http Message: 
+2019-07-05 01:12:07.0171|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|isAuthenticated : True
+2019-07-05 01:15:04.9592|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|Raw Http Message: 
+2019-07-05 01:15:04.9592|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|isAuthenticated : True
+2019-07-05 01:30:42.2637|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|Raw Http Message: 
+2019-07-05 01:30:42.2637|DEBUG|BuildInspect.Models.Authentication.BasicAuthenticationMessageHandler|isAuthenticated : True

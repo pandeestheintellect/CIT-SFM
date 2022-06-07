@@ -1,0 +1,49 @@
+﻿@model IEnumerable<FirstProject.Models.ViewModels.EmployeeViewModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+
+<body>
+<table cellspacing="5px;">
+<tr>
+<th>
+    @Html.DisplayNameFor(model => model.empid)
+</th>
+<th>
+    @Html.DisplayNameFor(model => model.EmpName)
+</th>
+<th>
+    @Html.DisplayNameFor(model => model.phoneno)
+</th>
+    <th>
+        @Html.DisplayNameFor(model => model.email)
+</th>
+</tr>
+@foreach (var item in Model){
+<tr>
+<td>
+    @Html.DisplayFor(modelItem => item.empid)
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.EmpName)
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.phoneno)
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.email)
+</td>
+</tr>
+}
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,535 @@
+﻿@model BuildInspect.Models.ViewModel.ServiceFormViewModel
+
+@{
+    Layout = null;
+}
+
+<style>
+    .required::after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+@*<link href="~/Scripts/main.css" rel="stylesheet" />*@
+<p>
+    &nbsp;
+</p>
+
+    <!-- Content Header (Page header) -->
+  
+    <!-- Main content -->
+ 
+<div class="page-title-heading" style="padding-left: 30px;">
+    <h4>Service Ref No: @Model.ServiceRefNum  </h4> 
+</div>
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "service_Form", @class = "form-horizontal", enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })   
+                                        @Html.HiddenFor(model => model.ServiceID)
+                                        @Html.HiddenFor(model => model.UserID)
+                                        @Html.HiddenFor(model => model.SchoolID)
+                                        @Html.HiddenFor(model => model.Priority)
+                                        @Html.HiddenFor(model => model.AssignedBy)
+                                        @Html.HiddenFor(model => model.ServiceRefNum)
+                                        @Html.HiddenFor(model => model.AssignedDate)
+                                        @Html.HiddenFor(model => model.Status_Flag)
+
+                                        <div class="service-container">
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Case Ref No.</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <input type="text" class="form-control" id="CaseRefNum" 
+                                                           name="CaseRefNum" placeholder="" value="@Model.CaseRefNum" />
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Priority</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <input type="text" class="form-control" id="prioriy" name="priority" value="@Model.Priority" disabled="disabled" />
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Date</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <div class="input-group date">
+                                                        @{ 
+                                                            var sdt = "";
+                                                            if (Model.Service_Datetime != null && Model.Service_Datetime != "")
+                                                            {
+                                                                sdt = Convert.ToDateTime(Model.Service_Datetime).ToString("dd/MM/yyyy");
+                                                            }
+                                                            }
+                                                        <input type="text" class="form-control" id="Service_Datetime" name="Service_Datetime" value="@sdt" readonly="readonly"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="service-container">
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Customer's Name</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <input type="text" class="form-control" id="school" name="school" value="@Model.SchoolName" disabled="disabled" /> 
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Address</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 35px;" id="customeraddress" name="customeraddress" disabled="disabled">@Model.Address</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title required">Person to Contact</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <input type="text" class="form-control" id="Contact_Person"
+                                                           name="Contact_Person" placeholder="" value="@Model.Contact_Person" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="service-container">
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="title">Location</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-5">
+                                                    <input type="text" class="form-control" id="Location"
+                                                           name="Location" placeholder="" value="@Model.Location"/>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-1">
+                                                    <div class="title right">Room No.</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-5">
+                                                    <input type="text" class="form-control" id="RoomNo"
+                                                           name="RoomNo" placeholder="" value="@Model.RoomNo"/>
+                                                </div>
+                                            </div>
+                                            <h2>Instructions to Carry Out Works</h2>
+                                            <h5>Services: M & E</h5>
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-12">
+                                                    <div class="title required">Work Requests</div>
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 100px;" id="Work_Requests" name="Work_Requests">@Model.Work_Requests</textarea>
+                                                </div>
+                                            </div>
+                                            @*<div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-5">
+                                                    <input type="text" class="form-control" id="Customer_Rep"
+                                                           name="Customer_Rep" placeholder="" value="@Model.Customer_Rep"/>
+                                                    <div class="title border-top required">
+                                                        Name of Person<br>
+                                                        (Customer Representative)
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-5">
+                                                    <div id="service-signature" class="signature"></div>
+                                                    <textarea id="Customer_Rep_Signature" name="Customer_Rep_Signature" class="d-none"></textarea>
+                                                    <div class="title">Signature</div>
+                                                    <a href="javascript:void(0);" class="btn service-clear-button delete"><i class="fas fa-redo"></i></a>
+                                                </div>
+                                            </div>*@
+                                        </div>
+                                        <div class="service-container">
+                                            <h2>Completion of Works</h2>
+                                            <div class="title">The work have been completed satisfactory.</div>
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-12">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 100px;" id="Work_Completion_Details" name="Work_Completion_Details">@Model.Work_Completion_Details</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="service-container">
+                                            <p>Remarks (by TC if any)</p>
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-12">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 100px;" id="Remarks_TC" name="Remarks_TC">@Model.Remarks_TC</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="service-container">
+                                            <p>Comments by client (if any)</p>
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-12">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 100px;" id="Client_Comments" name="Client_Comments">@Model.Client_Comments</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="service-container">
+                                            <div class="position-relative form-group">
+                                                <label for="companylogo" class="">Attachements</label>
+                                                @*<input name="companylogo" id="companylogo" type="file" class="form-control-file">*@
+                                                @Html.TextBoxFor(model => model.files, "", new { @type = "file", @multiple = "multiple", @accept = "image/x-png,image/gif,image/jpeg" })
+                                                <small class="form-text text-muted">
+                                                    Upload with file extension - JPG, PNG with size of 70px X 70px resolution.
+                                                </small>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <table class="table table-striped table-bordered" id="tableFiles">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>File Name</th>
+                                                                <th>Image</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @if (Model.service_form_files != null)
+                                                            {
+                                                                foreach (var file in Model.service_form_files)
+                                                                {
+                                                                    <tr id="@file.ServiceFileID">
+
+                                                                        <td>
+                                                                            @file.FileName
+                                                                        </td>
+                                                                        <td>
+                                                                            <a href="@file.FilePath" target="_blank">
+                                                                                <img src="@file.FilePath" height="20" width="20" />
+                                                                            </a>
+                                                                        </td>
+                                                                        <td>
+                                                                            @* <a class="btn" title="Delete Project" style="padding: 0px 0px;"> <i class="fa fa-trash" aria-hidden="true" style="color:orangered;font-size:24px"></i> </a>*@
+                                                                            @*<a class="btn" title="Delete File" style="padding: 0px 0px;" onclick="DeleteReportFile(@file.ProjectSupportFileID)"> <i class="fa fa-trash" aria-hidden="true" style="color:orangered;font-size:24px"></i> </a>*@
+                                                                        </td>
+
+                                                                    </tr>
+                                                                }
+                                                            }
+                                                            
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="service-signature-container">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-5 col-xl-5 border-container">
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-md-6 col-xl-6 sign-btn">
+                                                            <a href="javascript:void(0);" class="btn technician-unlock-button unlock">
+                                                                <i class="fas fa-lock-open"></i>
+                                                            </a>
+                                                            <a href="javascript:void(0);" class="btn technician-lock-button lock">
+                                                                <i class="fas fa-lock"></i>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-6 col-xl-6 sign-btn">
+                                                            <a href="javascript:void(0);" class="btn technician-clear-button delete">
+                                                                <i class="fas fa-redo"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="technician-signature--wrapper">
+                                                        <div class="technician-signature--overlay">
+                                                            <div class="tap-text">
+                                                                Tap to Unlock
+                                                            </div>
+                                                        </div>
+                                                        <div id="technician-signature" class="signature"></div>
+                                                        <textarea id="Technician_Signature" name="Technician_Signature" class="d-none"></textarea>
+                                                    </div>
+                                                    <div class="title">Technician Name & Signature: @ViewBag.TechName</div>
+                                                    <div class="title date">Date</div>
+                                                    <div class="input-group date" id="technician-datetime">
+                                                        <input type="text" class="form-control" readonly="readonly" id="Technician_Signature_Date" name="Technician_Signature_Date" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-2 col-xl-2">
+                                                </div>
+                                                <div class="col-sm-12 col-md-5 col-xl-5 border-container">
+                                                    <p>I / We confirm that the service above has been rendered to my / our satisfaction.</p>
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-md-6 col-xl-6 sign-btn">
+                                                            <a href="javascript:void(0);" class="btn customer-unlock-button unlock">
+                                                                <i class="fas fa-lock-open"></i>
+                                                            </a>
+                                                            <a href="javascript:void(0);" class="btn customer-lock-button lock">
+                                                                <i class="fas fa-lock"></i>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-6 col-xl-6 sign-btn">
+                                                            <a href="javascript:void(0);" class="btn customer-clear-button delete">
+                                                                <i class="fas fa-redo"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="customer-signature--wrapper">
+                                                        <div class="customer-signature--overlay">
+                                                            <div class="tap-text">
+                                                                Tap to Unlock
+                                                            </div>
+                                                        </div>
+                                                        <div id="customer-signature" class="signature"></div>
+                                                        <textarea id="Customer_incharge_Signature" name="Customer_incharge_Signature" class="d-none"></textarea>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-12 col-xl-12">
+                                                            <div class="title">
+                                                                Customer's Signature: &nbsp; <input type="text" class="form-control" id="Customer_incharge_Name"
+                                                                                                    name="Customer_incharge_Name" placeholder="Name" value="@Model.Customer_incharge_Name" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-success btn-wide btn-lg" name="service-submit" id="save_serviceform_create"
+                                                    value="Submit">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/assets/plugins/jSignature.min.js"></script>
+<script src="~/Scripts/assets/plugins/select2.min.js"></script>
+<script src="~/Scripts/assets/plugins/moment.min.js"></script>
+<script src="~/Scripts/assets/plugins/datepicker.min.js"></script>
+<script src="~/Scripts/assets/plugins/bootstrap-datetimepicker.min.js"></script>
+
+
+<script>
+
+    function addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+
+    var d = new Date();
+    var dd = addZero(d.getDate());
+
+    var mon = addZero(d.getMonth() + 1);
+    var yr = d.getFullYear();
+    var hh = addZero(d.getHours());
+    var min = addZero(d.getMinutes());
+    var currentdatetime = dd + "/" + mon + "/" + yr + " " + hh + ":" + min;
+
+    var currentdate = dd + "/" + mon + "/" + yr ;
+
+
+
+    $(document).ready(function () {
+
+        $('textarea').each(function () {
+            $(this).val($.trim($(this).val()));
+        });
+
+          $.extend(true, $.fn.datetimepicker.defaults, {
+            icons: {
+                time: 'fas fa-clock',
+                date: 'fas fa-calendar',
+                up: 'fas fa-arrow-up',
+                down: 'fas fa-arrow-down',
+                previous: 'fas fa-chevron-left',
+                next: 'fas fa-chevron-right',
+                today: 'fas fa-calendar-check',
+                clear: 'fas fa-trash-alt',
+                close: 'fas fa-times-circle'
+            }
+        });
+
+        $('#tableFiles').DataTable({
+            //dom: 'Bfrtipl',
+            responsive: true,
+            buttons: [
+
+            ]
+        });
+
+        $('.priority-dropdown').select2({
+            theme: "bootstrap4",
+            placeholder: "Select a priority",
+        });
+
+        //$('#Service_Datetime').datepicker({
+        //    format: "DD/MM/YYYY",
+        //    autoHide: true,
+        //    endDate: new Date()
+        //});
+
+
+        $('.service-signature--wrapper').on('click', function () {
+            $('.service-signature--overlay').hide();
+            $('.service-lock-button').hide();
+            $('.service-unlock-button').show();
+            $('.service-clear-button').show();
+        });
+
+        $('.service-lock-button').on('click', function () {
+            $(this).hide();
+            $('.service-signature--overlay').hide();
+            $('.service-unlock-button').show();
+            $('.service-clear-button').show();
+        });
+
+        $('.service-unlock-button').on('click', function () {
+            $(this).hide();
+            $('.service-signature--overlay').show();
+            $('.service-lock-button').show();
+            $('.service-clear-button').hide();
+        });
+
+        $('.technician-signature--wrapper').on('click', function () {
+            $('.technician-signature--overlay').hide();
+            $('.technician-lock-button').hide();
+            $('.technician-unlock-button').show();
+            $('.technician-clear-button').show();
+        });
+
+        $('.technician-lock-button').on('click', function () {
+            $(this).hide();
+            $('.technician-signature--overlay').hide();
+            $('.technician-unlock-button').show();
+            $('.technician-clear-button').show();
+        });
+
+        $('.technician-unlock-button').on('click', function () {
+            $(this).hide();
+            $('.technician-signature--overlay').show();
+            $('.technician-lock-button').show();
+            $('.technician-clear-button').hide();
+        });
+
+        $('.customer-signature--wrapper').on('click', function () {
+            $('.customer-signature--overlay').hide();
+            $('.customer-lock-button').hide();
+            $('.customer-unlock-button').show();
+            $('.customer-clear-button').show();
+        });
+
+        $('.customer-lock-button').on('click', function () {
+            $(this).hide();
+            $('.customer-signature--overlay').hide();
+            $('.customer-unlock-button').show();
+            $('.customer-clear-button').show();
+        });
+
+        $('.customer-unlock-button').on('click', function () {
+            $(this).hide();
+            $('.customer-signature--overlay').show();
+            $('.customer-lock-button').show();
+            $('.customer-clear-button').hide();
+        });
+
+
+        if ('@Model.Service_Datetime' == null || '@Model.Service_Datetime' == '')
+        $('#Service_Datetime').val(currentdate)
+
+        $("#Technician_Signature_Date").val(currentdate);
+
+        //Customer Signature
+        var serviceSignature = $('#service-signature');
+        var serviceSignDataPair = serviceSignature.jSignature('getData', 'svgbase64');
+        serviceSignature.jSignature({ color: "#00f", lineWidth: 3, height: 120 });
+
+        if ('@Model.Customer_Rep_Signature' != null && '@Model.Customer_Rep_Signature' != '') {
+            serviceSignature.jSignature('setData', '@Model.Customer_Rep_Signature');
+            $('#Customer_Rep_Signature').val('@Model.Customer_Rep_Signature');
+        }
+
+        serviceSignature.bind('change', function (e) {
+            var serviceData = serviceSignature.jSignature('getData');
+            $('#Customer_Rep_Signature').val(serviceData);
+        });
+
+        $('.service-clear-button').on('click', function (e) {
+            e.preventDefault();
+            serviceSignature.jSignature('reset');
+        });
+
+        //Technician Signature
+        var technicianSignature = $('#technician-signature');
+        var technicianSignDataPair = technicianSignature.jSignature('getData', 'svgbase64');
+        technicianSignature.jSignature({ color: "#00f", lineWidth: 3, height: 120 });
+        technicianSignature.find('.jSignature').css("width", "100%");
+
+        if ('@Model.Technician_Signature' != null && '@Model.Technician_Signature' != '') {
+            technicianSignature.jSignature('setData', '@Model.Technician_Signature');
+            $('#Technician_Signature').val('@Model.Technician_Signature');
+        }
+
+        technicianSignature.bind('change', function (e) {
+            var technicianData = technicianSignature.jSignature('getData');
+            $('#Technician_Signature').val(technicianData);
+        });
+
+        $('.technician-clear-button').on('click', function (e) {
+            e.preventDefault();
+            technicianSignature.jSignature('reset');
+        });
+
+        //Customer Signature
+        var customerSignature = $('#customer-signature');
+        var customerSignDataPair = customerSignature.jSignature('getData', 'svgbase64');
+        customerSignature.jSignature({ color: "#00f", lineWidth: 3, height: 120 });
+        customerSignature.find('.jSignature').css("width", "100%");
+
+        if ('@Model.Customer_incharge_Signature' != null && '@Model.Customer_incharge_Signature' != '') {
+            customerSignature.jSignature('setData', '@Model.Customer_incharge_Signature');
+            $('#Customer_incharge_Signature').val('@Model.Customer_incharge_Signature');
+        }
+
+        customerSignature.bind('change', function (e) {
+            var customerData = customerSignature.jSignature('getData');
+            $('#Customer_incharge_Signature').val(customerData);
+        });
+
+        $('.customer-clear-button').on('click', function (e) {
+            e.preventDefault();
+            customerSignature.jSignature('reset');
+        });
+    });
+
+    $("form").removeData("validator");
+    $("form").removeData("unobtrusiveValidation");
+    $.validator.unobtrusive.parse("form");
+
+
+</script>

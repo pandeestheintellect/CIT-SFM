@@ -1,0 +1,343 @@
+﻿@model BuildInspect.Models.ViewModel.ServiceFormViewModel
+    @using BuildInspect.Models.ViewModel
+
+@{
+    Layout = null;
+}
+
+<style>
+    
+</style>
+
+<center>
+    <table width="900" border="0" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th>
+                    <table width="890" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td>
+                                @if (ViewBag.CompanyID == 1)
+                                {
+                                    <img height="90" width="160" src="~/Scripts/assets/images/logo.png" />
+                                }
+                                @if (ViewBag.CompanyID == 2)
+                                {
+                                    <img height="90" width="160" src="~/Scripts/assets/images/hec.png" />
+                                }
+                                @if (ViewBag.CompanyID == 3)
+                                {
+                                    <img height="90" width="160" src="~/Scripts/assets/images/ppl.png" />
+                                }
+                            </td>
+                            <td align="center">
+                                @if (ViewBag.CompanyID == 1)
+                                {
+                                    <span style="font-size:26px; font-weight:bold; color: orangered; text-align:center;">
+                                        MKV ENGINEERING AND TRADING SERVICES PTE LTD
+                                    </span><br />
+                                    <span style="font-weight:bold; font-size:14px; text-align:center">
+                                        NO : 10 KAKI BUKIT ROAD 1 #03-12 KB INDUSTRIAL BUILDING SINGAPORE - 416175 <br />
+                                        TEL:  6283 9289   FAX:  6283 9286  Email: info@mkv.com.sg
+                                    </span>
+                                }
+                                @if (ViewBag.CompanyID == 2)
+                                {
+                                    <span style="font-size:26px; font-weight:bold; color: orangered; text-align:center;">
+                                        HEC Electrical & Construction Pte Ltd
+                                    </span><br />
+                                    <span style="font-weight:bold; font-size:14px; text-align:center">
+                                        47, Sungei Kadut Street 6, HEC STAR Building, Singapore 728873   Tel : 62860336   Fax : 62860635 <br />
+                                        Reg No : 199501306G     GST Reg No : M2-8921899-8     E-Mail : moeadmin@hec.com.sg
+                                    </span>
+                                }
+                                @if (ViewBag.CompanyID == 3)
+                                {
+                                    <span style="font-size:26px; font-weight:bold; color: orangered; text-align:center;">
+                                        Propell Integrated Pte Ltd
+                                    </span><br />
+                                    <span style="font-weight:bold; font-size:14px; text-align:center">
+                                        15, Bukit Batok St 22, #06-00, Propell Building, Singapore 659586   Tel : 62822822   Fax : 62820300 <br />
+                                        Reg No : 199903182D   E-Mail : info@propell.com.sg
+                                    </span>
+                                }
+
+                            </td>
+                        </tr>
+                    </table>
+
+                </th>
+            </tr>
+        </thead>
+        
+       <tbody>
+           <tr><td><br /></td></tr>
+           <tr>
+                <td>
+               <table width="890" border="0" cellspacing="0" cellpadding="0">
+                   @*<tr><td><br /></td><td><br /></td><td><br /></td></tr>*@
+                   <tr>
+                       <td style="width:25%">&nbsp;</td>
+                       <td style="font-weight:bold; font-size: 18px;width:45%" align="center">WORK SERVICE ORDER</td>
+                       <td align="right" style="color: red; font-size: 20px;width:30%">
+                       <span style="color: black; font-weight: bold;font-size:16px;">S/No:</span> @Model.ServiceRefNum
+                       </td>
+                   </tr>
+               </table>
+               
+               </td>
+           </tr>
+           <tr><td><br /></td></tr>
+           <tr>
+               <td>
+                   <table width="890" cellspacing="0" cellpadding="0" style="border: double">
+                       <tr><td><br /></td></tr>
+                       <tr>
+                          <td>
+                              <table width="880">
+                                  <tr>
+                                  <td style="width:30%">Case Ref Num</td>
+                                  <td style="width:5%">:</td>
+                                  <td style="width:65%">@Model.CaseRefNum</td>
+                                  </tr>
+
+                                  <tr>
+                                      <td style="width:30%">Severity</td>
+                                      <td style="width:5%">:</td>
+                                      <td style="width:65%">@Model.Priority</td>
+                                  </tr>
+
+                                  <tr>
+                                      <td style="width:30%">Date / Time</td>
+                                      <td style="width:5%">:</td>
+                                      <td style="width:65%">@Convert.ToDateTime(Model.Service_Datetime).ToString("dd/MM/yyyy HH:mm") &nbsp; Hrs</td>
+                                  </tr>
+                              </table>
+                          </td>
+                       </tr>
+                   </table>
+
+               </td>
+           </tr>
+
+           <tr>
+               <td>
+                   <table width="890" cellspacing="0" cellpadding="0" style="border: double">
+                       
+                       <tr>
+                           <td>
+                               <table width="880">
+                                   <tr>
+                                       <td style="width:30%">Customer's Name</td>
+                                       <td style="width:5%">:</td>
+                                       <td style="width:65%">@ViewBag.SchoolName</td>
+                                   </tr>
+
+                                   <tr>
+                                       <td style="width:30%">Address</td>
+                                       <td style="width:5%">:</td>
+                                       <td style="width:65%">@ViewBag.Address</td>
+                                   </tr>
+
+                                   <tr>
+                                       <td style="width:30%">Person to Contact</td>
+                                       <td style="width:5%">:</td>
+                                       <td style="width:65%">@Model.Contact_Person</td>
+                                   </tr>
+                               </table>
+                           </td>
+                       </tr>
+                   </table>
+
+               </td>
+           </tr>
+
+           <tr>
+               <td>
+                   <table width="890" cellspacing="0" cellpadding="0" style="border: double">
+                       
+                       <tr>
+                           <td>
+                               <table width="880">
+                                   <tr>
+                                       <td colspan="2">Location: &nbsp; @Model.Location</td>                                       
+                                       <td>Room No: &nbsp; @Model.RoomNo</td>
+                                   </tr>
+
+                                   <tr>
+                                       <td colspan="3" style="font-weight: bold">Instructions to Carry out works</td>
+                                       
+                                   </tr>
+
+                                   <tr>
+                                       <td colspan="3" style="font-weight: bold">Services M & E</td>
+                                   </tr>
+                                   <tr style="height: 40px;">
+                                       <td colspan="3">Work Requests: &nbsp; @Model.Work_Requests</td>
+                                   </tr>
+                                   <tr>
+                                       <td style="width: 30%" valign="bottom">@Model.Customer_incharge_Name</td>
+                                       <td style="width: 40%" valign="bottom"><img height="85" width="200" src="@Model.Customer_incharge_Signature" /></td>
+                                       <td style="width: 30%"></td>
+                                   </tr>
+                                   <tr>
+                                       <td style="width: 30%">____________________</td>
+                                       <td style="width: 40%">____________________</td>
+                                       <td style="width: 30%">____________________</td>
+                                   </tr>
+
+                                   <tr>
+                                       <td style="width: 30%">Name of Person</td>
+                                       <td style="width: 40%">Signature</td>
+                                       <td style="width: 30%">Stamp</td>
+                                   </tr>
+                               </table>
+                           </td>
+                       </tr>
+                   </table>
+
+               </td>
+           </tr>
+
+           <tr>
+               <td>
+                   <table width="890" cellspacing="0" cellpadding="0" style="border: double">
+                       
+                       <tr>
+                           <td>
+                               <table width="880">
+                                   <tr>
+                                       <td style="font-weight:bold; text-decoration: underline">Completion of Works</td>                                       
+                                   </tr>
+
+                                   <tr>
+                                       <td style="font-weight: bold">The work have been completed satisfactory.</td>
+                                   </tr>
+
+                                   <tr style="height: 100px;">
+                                       <td>@Model.Work_Completion_Details</td>
+                                   </tr>
+                                 
+                               </table>
+                           </td>
+                       </tr>
+                   </table>
+
+               </td>
+           </tr>
+
+           <tr>
+               <td>
+                   <table width="890" cellspacing="0" cellpadding="0" style="border: double">
+                       
+                       <tr>
+                           <td>
+                               <table width="880">
+                                   <tr>
+                                       <td style="font-weight:bold;">Remarks (by TC If any)</td>
+                                   </tr>
+                                   <tr style="height: 100px;">
+                                       <td>@Model.Remarks_TC</td>
+                                   </tr>
+
+                               </table>
+                           </td>
+                       </tr>
+                   </table>
+
+               </td>
+           </tr>
+
+           <tr>
+               <td>
+                   <table width="890" cellspacing="0" cellpadding="0" style="border: double">
+                       
+                       <tr>
+                           <td>
+                               <table width="880">
+                                   <tr>
+                                       <td style="font-weight:bold;">Comments by client (If any)</td>
+                                   </tr>
+                                   <tr style="height: 100px;">
+                                       <td>@Model.Client_Comments</td>
+                                   </tr>
+
+                               </table>
+                           </td>
+                       </tr>
+                   </table>
+
+               </td>
+           </tr>
+
+           <tr>
+               <td>
+                   <table width="890" cellspacing="0" cellpadding="0">
+                       
+                       <tr>
+                           <td style="width:35%">
+                               <table style="border: solid; width: 100%; height: 260px;">
+                                   <tr>
+                                       <td ><img src="@Model.Technician_Signature" height="90" width="250" /></td>
+                                   </tr>
+                                   <tr style="height: 20px;">
+                                       <td>________________________________</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Technician Name & Signature: @ViewBag.TechName</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Date: &nbsp; @Convert.ToDateTime(Model.Technician_Signature_Date).ToString("dd/MM/yyyy") &nbsp; Hrs</td>
+                                   </tr>
+
+                               </table>
+                           </td>
+
+                           <td style="width:30%">
+                               <table style="width: 100%">
+
+                                   <tr>
+                                       <td align="center"><img height="85" width="200" src="~/Scripts/assets/images/eqaims.png" /></td>
+                                   </tr>
+                                   <tr >
+                                       <td align="center"><img height="85" width="200" src="~/Scripts/assets/images/eqaims-jas.png" /></td>
+                                   </tr>
+                                   <tr>
+                                       <td align="center"><img height="85" width="200" src="~/Scripts/assets/images/bizsafestar.png" /></td>
+                                   </tr>
+
+                               </table>
+                           </td>
+
+                           <td style="width:35%">
+                               <table style="border: solid; width: 100%; height: 260px;">
+                                   <tr>
+                                       <td>I/We confirm that the service above has been rendered to my / our satisfaction.</td>
+                                   </tr>
+                                   <tr>
+                                       <td ><img src="@Model.Customer_incharge_Signature" height="90" width="250" /></td>
+                                   </tr>
+                                   <tr style="height: 20px;">
+                                       <td></td>
+                                   </tr>
+                                   <tr >
+                                       <td>Customer's Name & Signature: @Model.Customer_incharge_Name </td>
+                                   </tr>
+
+                               </table>
+                           </td>
+                       </tr>
+                   </table>
+
+               </td>
+           </tr>
+
+
+       </tbody>
+
+    </table>
+</center>
+ 
+
+        
+

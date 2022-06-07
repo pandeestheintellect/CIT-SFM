@@ -1,0 +1,17 @@
+﻿@model FirstProject.Models.ViewModels.EmployeeViewModel
+@{
+    ViewBag.Title = "About";
+    Layout = null;
+}
+
+<body>
+    @if(Model != null){
+        <ul>
+            <li>Employee ID : @Model.empid</li>
+            <li>Employee Name : @Model.EmpName</li>
+            <li>Employee PhoneNo : @Model.phoneno</li>
+            <li>Employee Email : @Model.email</li>
+        </ul>
+
+    }
+</body>

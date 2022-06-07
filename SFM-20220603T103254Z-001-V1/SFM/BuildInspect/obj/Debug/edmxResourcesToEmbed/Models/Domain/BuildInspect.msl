@@ -1,0 +1,436 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BuildInspectModelStoreContainer" CdmEntityContainer="BuildInspectEntities">
+    <EntitySetMapping Name="chklst_item_master">
+      <EntityTypeMapping TypeName="BuildInspectModel.chklst_item_master">
+        <MappingFragment StoreEntitySet="chklst_item_master">
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+          <ScalarProperty Name="ServiceType" ColumnName="ServiceType" />
+          <ScalarProperty Name="CF_Flag" ColumnName="CF_Flag" />
+          <ScalarProperty Name="PageNum" ColumnName="PageNum" />
+          <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+          <ScalarProperty Name="IsSubTitle" ColumnName="IsSubTitle" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="FormName" ColumnName="FormName" />
+          <ScalarProperty Name="ChkListID" ColumnName="ChkListID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="chklst_trn_detail">
+      <EntityTypeMapping TypeName="BuildInspectModel.chklst_trn_detail">
+        <MappingFragment StoreEntitySet="chklst_trn_detail">
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="DateDone" ColumnName="DateDone" />
+          <ScalarProperty Name="IsDone" ColumnName="IsDone" />
+          <ScalarProperty Name="ChkListID" ColumnName="ChkListID" />
+          <ScalarProperty Name="CLTMID" ColumnName="CLTMID" />
+          <ScalarProperty Name="CLTDID" ColumnName="CLTDID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="chklst_trn_files">
+      <EntityTypeMapping TypeName="BuildInspectModel.chklst_trn_files">
+        <MappingFragment StoreEntitySet="chklst_trn_files">
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileCaption" ColumnName="FileCaption" />
+          <ScalarProperty Name="CLTMID" ColumnName="CLTMID" />
+          <ScalarProperty Name="CLFileID" ColumnName="CLFileID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="company_master">
+      <EntityTypeMapping TypeName="BuildInspectModel.company_master">
+        <MappingFragment StoreEntitySet="company_master">
+          <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="GST" ColumnName="GST" />
+          <ScalarProperty Name="LogoPath" ColumnName="LogoPath" />
+          <ScalarProperty Name="GstRegNo" ColumnName="GstRegNo" />
+          <ScalarProperty Name="RegNo" ColumnName="RegNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Mob" ColumnName="Mob" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="company_module_mapping">
+      <EntityTypeMapping TypeName="BuildInspectModel.company_module_mapping">
+        <MappingFragment StoreEntitySet="company_module_mapping">
+          <ScalarProperty Name="Access" ColumnName="Access" />
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employees">
+      <EntityTypeMapping TypeName="BuildInspectModel.employee">
+        <MappingFragment StoreEntitySet="employee">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="DoR" ColumnName="DoR" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="DoJ" ColumnName="DoJ" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
+          <ScalarProperty Name="DoB" ColumnName="DoB" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+          <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="menus">
+      <EntityTypeMapping TypeName="BuildInspectModel.menu">
+        <MappingFragment StoreEntitySet="menu">
+          <ScalarProperty Name="Order_By" ColumnName="Order_By" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="AccessType" ColumnName="AccessType" />
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="modules">
+      <EntityTypeMapping TypeName="BuildInspectModel.module">
+        <MappingFragment StoreEntitySet="module">
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="permissions">
+      <EntityTypeMapping TypeName="BuildInspectModel.permission">
+        <MappingFragment StoreEntitySet="permission">
+          <ScalarProperty Name="Access" ColumnName="Access" />
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="screens">
+      <EntityTypeMapping TypeName="BuildInspectModel.screen">
+        <MappingFragment StoreEntitySet="screens">
+          <ScalarProperty Name="ScreenID" ColumnName="ScreenID" />
+          <ScalarProperty Name="MODULEID" ColumnName="MODULEID" />
+          <ScalarProperty Name="ORDER_BY" ColumnName="ORDER_BY" />
+          <ScalarProperty Name="SCREEN_URL" ColumnName="SCREEN_URL" />
+          <ScalarProperty Name="SCREEN_CLASS_NAME" ColumnName="SCREEN_CLASS_NAME" />
+          <ScalarProperty Name="SCREEN_NAME" ColumnName="SCREEN_NAME" />
+          <ScalarProperty Name="MENUID" ColumnName="MENUID" />
+          <ScalarProperty Name="SCREEN_ID" ColumnName="SCREEN_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="service_form_files">
+      <EntityTypeMapping TypeName="BuildInspectModel.service_form_files">
+        <MappingFragment StoreEntitySet="service_form_files">
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileCaption" ColumnName="FileCaption" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+          <ScalarProperty Name="ServiceFileID" ColumnName="ServiceFileID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="servicetype_master">
+      <EntityTypeMapping TypeName="BuildInspectModel.servicetype_master">
+        <MappingFragment StoreEntitySet="servicetype_master">
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ServiceDescription" ColumnName="ServiceDescription" />
+          <ScalarProperty Name="ServiceType" ColumnName="ServiceType" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usergroups">
+      <EntityTypeMapping TypeName="BuildInspectModel.usergroup">
+        <MappingFragment StoreEntitySet="usergroup">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usergroup_screen_mapping">
+      <EntityTypeMapping TypeName="BuildInspectModel.usergroup_screen_mapping">
+        <MappingFragment StoreEntitySet="usergroup_screen_mapping">
+          <ScalarProperty Name="Access" ColumnName="Access" />
+          <ScalarProperty Name="ScreenID" ColumnName="ScreenID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="BuildInspectModel.user">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+          <ScalarProperty Name="ProjMngr_ID" ColumnName="ProjMngr_ID" />
+          <ScalarProperty Name="Admin_ID" ColumnName="Admin_ID" />
+          <ScalarProperty Name="TeamLead_ID" ColumnName="TeamLead_ID" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Zone" ColumnName="Zone" />
+          <ScalarProperty Name="ServiceType" ColumnName="ServiceType" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UID" ColumnName="UID" />
+          <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+          <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usergroup_menu_mapping">
+      <EntityTypeMapping TypeName="BuildInspectModel.usergroup_menu_mapping">
+        <MappingFragment StoreEntitySet="usergroup_menu_mapping">
+          <ScalarProperty Name="Access" ColumnName="Access" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="building_master">
+      <EntityTypeMapping TypeName="BuildInspectModel.building_master">
+        <MappingFragment StoreEntitySet="building_master">
+          <ScalarProperty Name="CHILLER_count" ColumnName="CHILLER_count" />
+          <ScalarProperty Name="LIFT_count" ColumnName="LIFT_count" />
+          <ScalarProperty Name="HVLSFan_count" ColumnName="HVLSFan_count" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Is_Project_Created" ColumnName="Is_Project_Created" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="School_Ref_Num" ColumnName="School_Ref_Num" />
+          <ScalarProperty Name="ME_Coordinator_ID" ColumnName="ME_Coordinator_ID" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Op_Manager_Name" ColumnName="Op_Manager_Name" />
+          <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Building_Name" ColumnName="Building_Name" />
+          <ScalarProperty Name="School_Type" ColumnName="School_Type" />
+          <ScalarProperty Name="Zone" ColumnName="Zone" />
+          <ScalarProperty Name="BuildingID" ColumnName="BuildingID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="project_master">
+      <EntityTypeMapping TypeName="BuildInspectModel.project_master">
+        <MappingFragment StoreEntitySet="project_master">
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Fan_Count" ColumnName="Fan_Count" />
+          <ScalarProperty Name="Lift_Opr_Name" ColumnName="Lift_Opr_Name" />
+          <ScalarProperty Name="CLType" ColumnName="CLType" />
+          <ScalarProperty Name="Rescheduled_Remarks" ColumnName="Rescheduled_Remarks" />
+          <ScalarProperty Name="Rescheduled_Date" ColumnName="Rescheduled_Date" />
+          <ScalarProperty Name="Is_Rescheduled" ColumnName="Is_Rescheduled" />
+          <ScalarProperty Name="Is_Completed" ColumnName="Is_Completed" />
+          <ScalarProperty Name="Lift_Count" ColumnName="Lift_Count" />
+          <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+          <ScalarProperty Name="Month_End_Date" ColumnName="Month_End_Date" />
+          <ScalarProperty Name="Month_Start_Date" ColumnName="Month_Start_Date" />
+          <ScalarProperty Name="MonthName" ColumnName="MonthName" />
+          <ScalarProperty Name="BuildingID" ColumnName="BuildingID" />
+          <ScalarProperty Name="PrjMasID" ColumnName="PrjMasID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="checklist_files">
+      <EntityTypeMapping TypeName="BuildInspectModel.checklist_files">
+        <MappingFragment StoreEntitySet="checklist_files">
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="CLType" ColumnName="CLType" />
+          <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+          <ScalarProperty Name="Month_Start_Date" ColumnName="Month_Start_Date" />
+          <ScalarProperty Name="BuildingID" ColumnName="BuildingID" />
+          <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="chklst_trn_master">
+      <EntityTypeMapping TypeName="BuildInspectModel.chklst_trn_master">
+        <MappingFragment StoreEntitySet="chklst_trn_master">
+          <ScalarProperty Name="CLMonth" ColumnName="CLMonth" />
+          <ScalarProperty Name="EndoresBy_Name" ColumnName="EndoresBy_Name" />
+          <ScalarProperty Name="VerifiedBy_Name" ColumnName="VerifiedBy_Name" />
+          <ScalarProperty Name="CheckedBy_Name" ColumnName="CheckedBy_Name" />
+          <ScalarProperty Name="CB_Longitude" ColumnName="CB_Longitude" />
+          <ScalarProperty Name="CB_Latitude" ColumnName="CB_Latitude" />
+          <ScalarProperty Name="EndoresBy_DateTime" ColumnName="EndoresBy_DateTime" />
+          <ScalarProperty Name="VerifiedBy_DateTime" ColumnName="VerifiedBy_DateTime" />
+          <ScalarProperty Name="CheckedBy_DateTime" ColumnName="CheckedBy_DateTime" />
+          <ScalarProperty Name="CLType" ColumnName="CLType" />
+          <ScalarProperty Name="Status_Flag" ColumnName="Status_Flag" />
+          <ScalarProperty Name="EndoresBy_Remarks" ColumnName="EndoresBy_Remarks" />
+          <ScalarProperty Name="VerifiedBy_Remarks" ColumnName="VerifiedBy_Remarks" />
+          <ScalarProperty Name="CheckedBy_Remarks" ColumnName="CheckedBy_Remarks" />
+          <ScalarProperty Name="MA_Sign_Date" ColumnName="MA_Sign_Date" />
+          <ScalarProperty Name="OpMngr_Sign_Date" ColumnName="OpMngr_Sign_Date" />
+          <ScalarProperty Name="User_Sign_Date" ColumnName="User_Sign_Date" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Draft_Flag" ColumnName="Draft_Flag" />
+          <ScalarProperty Name="PrjMasID" ColumnName="PrjMasID" />
+          <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+          <ScalarProperty Name="EndoresBy_Signature" ColumnName="EndoresBy_Signature" />
+          <ScalarProperty Name="VerifiedBy_Signature" ColumnName="VerifiedBy_Signature" />
+          <ScalarProperty Name="CheckedBy_Signature" ColumnName="CheckedBy_Signature" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="BuildingID" ColumnName="BuildingID" />
+          <ScalarProperty Name="CLTMID" ColumnName="CLTMID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="deployments">
+      <EntityTypeMapping TypeName="BuildInspectModel.deployment">
+        <MappingFragment StoreEntitySet="deployment">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Completed_Date" ColumnName="Completed_Date" />
+          <ScalarProperty Name="Is_Completed" ColumnName="Is_Completed" />
+          <ScalarProperty Name="Schedule_Date" ColumnName="Schedule_Date" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="BuildingID" ColumnName="BuildingID" />
+          <ScalarProperty Name="DeployID" ColumnName="DeployID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="License_Master">
+      <EntityTypeMapping TypeName="BuildInspectModel.License_Master">
+        <MappingFragment StoreEntitySet="License_Master">
+          <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
+          <ScalarProperty Name="No_of_Days" ColumnName="No_of_Days" />
+          <ScalarProperty Name="LicenseKey" ColumnName="LicenseKey" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="License_End_Date" ColumnName="License_End_Date" />
+          <ScalarProperty Name="License_Start_Date" ColumnName="License_Start_Date" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="LicenseID" ColumnName="LicenseID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="school_user_mapping">
+      <EntityTypeMapping TypeName="BuildInspectModel.school_user_mapping">
+        <MappingFragment StoreEntitySet="school_user_mapping">
+          <ScalarProperty Name="CLType" ColumnName="CLType" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="BuildingID" ColumnName="BuildingID" />
+          <ScalarProperty Name="SUID" ColumnName="SUID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="service_form">
+      <EntityTypeMapping TypeName="BuildInspectModel.service_form">
+        <MappingFragment StoreEntitySet="service_form">
+          <ScalarProperty Name="Technician_Signature_Date" ColumnName="Technician_Signature_Date" />
+          <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
+          <ScalarProperty Name="AssignedBy" ColumnName="AssignedBy" />
+          <ScalarProperty Name="Status_Flag" ColumnName="Status_Flag" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Customer_incharge_Signature" ColumnName="Customer_incharge_Signature" />
+          <ScalarProperty Name="Customer_incharge_Name" ColumnName="Customer_incharge_Name" />
+          <ScalarProperty Name="Technician_Signature" ColumnName="Technician_Signature" />
+          <ScalarProperty Name="Technician_Name" ColumnName="Technician_Name" />
+          <ScalarProperty Name="Client_Comments" ColumnName="Client_Comments" />
+          <ScalarProperty Name="Remarks_TC" ColumnName="Remarks_TC" />
+          <ScalarProperty Name="Work_Completion_Details" ColumnName="Work_Completion_Details" />
+          <ScalarProperty Name="Customer_Rep_Signature" ColumnName="Customer_Rep_Signature" />
+          <ScalarProperty Name="Customer_Rep" ColumnName="Customer_Rep" />
+          <ScalarProperty Name="Work_Requests" ColumnName="Work_Requests" />
+          <ScalarProperty Name="ServiceType" ColumnName="ServiceType" />
+          <ScalarProperty Name="RoomNo" ColumnName="RoomNo" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Contact_Person" ColumnName="Contact_Person" />
+          <ScalarProperty Name="BuildingID" ColumnName="BuildingID" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="Service_Datetime" ColumnName="Service_Datetime" />
+          <ScalarProperty Name="CaseRefNum" ColumnName="CaseRefNum" />
+          <ScalarProperty Name="ServiceRefNum" ColumnName="ServiceRefNum" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sys_freqTable">
+      <EntityTypeMapping TypeName="BuildInspectModel.sys_freqTable">
+        <MappingFragment StoreEntitySet="sys_freqTable">
+          <ScalarProperty Name="CalendarMonthNum" ColumnName="CalendarMonthNum" />
+          <ScalarProperty Name="MonthName" ColumnName="MonthName" />
+          <ScalarProperty Name="MonthNum" ColumnName="MonthNum" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="chklst_item_title_master">
+      <EntityTypeMapping TypeName="BuildInspectModel.chklst_item_title_master">
+        <MappingFragment StoreEntitySet="chklst_item_title_master">
+          <ScalarProperty Name="TitleDescription" ColumnName="TitleDescription" />
+          <ScalarProperty Name="FormName" ColumnName="FormName" />
+          <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+          <ScalarProperty Name="CheckListType" ColumnName="CheckListType" />
+          <ScalarProperty Name="ChkLstTypeId" ColumnName="ChkLstTypeId" />
+          <ScalarProperty Name="chklstitemId" ColumnName="chklstitemId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="chklstitem_child_master">
+      <EntityTypeMapping TypeName="BuildInspectModel.chklstitem_child_master">
+        <MappingFragment StoreEntitySet="chklstitem_child_master">
+          <ScalarProperty Name="ParentTitleID" ColumnName="ParentTitleID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

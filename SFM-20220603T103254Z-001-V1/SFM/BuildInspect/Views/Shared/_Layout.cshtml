@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="shortcut icon" type="image/jpg" href="~/Scripts/assets/images/favicon-2d.jpg" />
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Theme style -->
+    <link href="~/Scripts/main.css" rel="stylesheet" />
+
+    @*<link rel="stylesheet" href="~/Scripts/lobibox/dist/css/LobiBox.min.css">*@
+
+    <style type="text/css">
+    </style>
+
+
+</head>
+<body class="hold-transition">
+
+   @RenderBody()           
+   @RenderSection("scripts", required: false) 
+   
+    @*<script>
+     $.widget.bridge('uibutton', $.ui.button);
+    </script>*@
+    
+    <script src="~/Scripts/assets/scripts/app.js"></script>
+    @*<script src="~/Scripts/lobibox/dist/js/lobibox.min.js"></script>*@
+    <script src="~/Scripts/assets/plugins/lobibox.min.js"></script>
+    
+    <script src="~/Scripts/assets/plugins/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/assets/plugins/bootstrap-multiselect.js"></script>
+    <script src="~/Scripts/assets/plugins/bootstrap-multiselect-collapsible-groups.js"></script>
+    <script src="~/Scripts/assets/plugins/bootstrap-table.min.js"></script>
+    <script src="~/Scripts/assets/plugins/bootstrap-tour.min.js"></script>
+    <script src="~/Scripts/assets/plugins/bootstrap4-toggle.js"></script>
+    <script src="~/Scripts/assets/plugins/metisMenu.min.js"></script>
+    <script src="~/Scripts/assets/plugins/slick.min.js"></script>
+    <script src="~/Scripts/assets/plugins/perfect-scrollbar.min.js"></script>
+    <script src="~/Scripts/assets/plugins/jquery.blockUI.js"></script>
+    @*<script src="~/Scripts/assets/plugins/modernizr.js"></script>*@    
+    
+    <script src="~/Scripts/assets/plugins/jquery.dataTables.min.js"></script>    
+    <script src="~/Scripts/assets/plugins/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/assets/plugins/dataTables.responsive.min.js"></script>
+    <script src="~/Scripts/assets/plugins/responsive.bootstrap4.min.js"></script>
+    
+    <script src="~/Scripts/assets/plugins/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/assets/plugins/buttons.flash.min.js"></script>
+    <script src="~/Scripts/assets/plugins/jszip.min.js"></script>
+    <script src="~/Scripts/assets/plugins/pdfmake.min.js"></script>
+    <script src="~/Scripts/assets/plugins/vfs_fonts.js"></script>
+    <script src="~/Scripts/assets/plugins/buttons.html5.min.js"></script>
+    <script src="~/Scripts/assets/plugins/buttons.print.min.js"></script>
+
+</body>
+</html>

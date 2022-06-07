@@ -1,0 +1,7 @@
+2019-07-19 21:14:36.9037|ERROR|BuildInspect.MvcApplication|Error:
+2019-07-19 21:14:36.9356|ERROR|BuildInspect.MvcApplication|Value cannot be null or an empty string.
+Parameter name: origins
+2019-07-19 21:14:36.9576|ERROR|BuildInspect.MvcApplication|   at System.Web.Http.Cors.EnableCorsAttribute..ctor(String origins, String headers, String methods, String exposedHeaders)
+   at BuildInspect.WebApiConfig.Register(HttpConfiguration config) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\App_Start\WebApiConfig.cs:line 14
+   at System.Web.Http.GlobalConfiguration.Configure(Action`1 configurationCallback)
+   at BuildInspect.MvcApplication.Application_Start() in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Global.asax.cs:line 32

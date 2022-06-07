@@ -1,0 +1,255 @@
+2019-07-27 08:53:25.0578|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|Chk List Submission:
+2019-07-27 08:53:25.0608|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|Object reference not set to an instance of an object.
+2019-07-27 08:53:25.0608|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|   at BuildInspect.Models.Repository.Interface.ERPRepository.SubmitChecklist(CheckListTransMasterViewModel cltm, List`1 Detail) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Models\Repository\Imp\ERPRepository.cs:line 291
+2019-07-27 08:53:26.6146|ERROR|BuildInspect.MvcApplication|Error:
+2019-07-27 08:53:26.6146|ERROR|BuildInspect.MvcApplication|Object reference not set to an instance of an object.
+2019-07-27 08:53:26.6146|ERROR|BuildInspect.MvcApplication|   at BuildInspect.Models.Repository.Interface.ERPRepository.SubmitChecklist(CheckListTransMasterViewModel cltm, List`1 Detail) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Models\Repository\Imp\ERPRepository.cs:line 308
+   at BuildInspect.Models.Service.Interface.ERPServices.SubmitChecklist(CheckListTransMasterViewModel cltm, List`1 Detail) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Models\Service\Imp\ERPServices.cs:line 138
+   at BuildInspect.Controllers.ERPController.SubmitCheckList(CheckListTransMasterViewModel inputCLTM, List`1 clTrnDetail) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Controllers\ERPController.cs:line 767
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2019-07-27 08:58:32.2710|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|Chk List Submission:
+2019-07-27 08:58:32.2710|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|Object reference not set to an instance of an object.
+2019-07-27 08:58:32.2710|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|   at BuildInspect.Models.Repository.Interface.ERPRepository.SubmitChecklist(CheckListTransMasterViewModel cltm, List`1 Detail) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Models\Repository\Imp\ERPRepository.cs:line 291
+2019-07-27 08:58:34.1302|ERROR|BuildInspect.MvcApplication|Error:
+2019-07-27 08:58:34.1302|ERROR|BuildInspect.MvcApplication|Object reference not set to an instance of an object.
+2019-07-27 08:58:34.1302|ERROR|BuildInspect.MvcApplication|   at BuildInspect.Models.Repository.Interface.ERPRepository.SubmitChecklist(CheckListTransMasterViewModel cltm, List`1 Detail) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Models\Repository\Imp\ERPRepository.cs:line 308
+   at BuildInspect.Models.Service.Interface.ERPServices.SubmitChecklist(CheckListTransMasterViewModel cltm, List`1 Detail) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Models\Service\Imp\ERPServices.cs:line 138
+   at BuildInspect.Controllers.ERPController.SubmitCheckList(CheckListTransMasterViewModel inputCLTM, List`1 clTrnDetail) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Controllers\ERPController.cs:line 767
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2019-07-27 09:26:23.0321|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|Chk List Submission:
+2019-07-27 09:26:23.0321|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|Object reference not set to an instance of an object.
+2019-07-27 09:26:23.0321|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|   at BuildInspect.Models.Repository.Interface.ERPRepository.SubmitChecklist(CheckListTransMasterViewModel cltm, List`1 Detail) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Models\Repository\Imp\ERPRepository.cs:line 293
+2019-07-27 09:26:30.9646|ERROR|BuildInspect.MvcApplication|Error:
+2019-07-27 09:26:30.9656|ERROR|BuildInspect.MvcApplication|Object reference not set to an instance of an object.
+2019-07-27 09:26:30.9656|ERROR|BuildInspect.MvcApplication|   at BuildInspect.Models.Repository.Interface.ERPRepository.SubmitChecklist(CheckListTransMasterViewModel cltm, List`1 Detail) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Models\Repository\Imp\ERPRepository.cs:line 308
+   at BuildInspect.Models.Service.Interface.ERPServices.SubmitChecklist(CheckListTransMasterViewModel cltm, List`1 Detail) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Models\Service\Imp\ERPServices.cs:line 138
+   at BuildInspect.Controllers.ERPController.SubmitCheckList(CheckListTransMasterViewModel inputCLTM, List`1 clTrnDetail) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Controllers\ERPController.cs:line 767
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2019-07-27 09:38:26.3289|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|Chk List Submission:
+2019-07-27 09:38:26.3289|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|Object reference not set to an instance of an object.
+2019-07-27 09:38:26.3289|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|   at BuildInspect.Models.Repository.Interface.ERPRepository.SubmitChecklist(CheckListTransMasterViewModel cltm, List`1 Detail) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Models\Repository\Imp\ERPRepository.cs:line 293
+2019-07-27 09:38:31.5481|ERROR|BuildInspect.MvcApplication|Error:
+2019-07-27 09:38:31.5481|ERROR|BuildInspect.MvcApplication|Object reference not set to an instance of an object.
+2019-07-27 09:38:31.5481|ERROR|BuildInspect.MvcApplication|   at BuildInspect.Models.Repository.Interface.ERPRepository.SubmitChecklist(CheckListTransMasterViewModel cltm, List`1 Detail) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Models\Repository\Imp\ERPRepository.cs:line 308
+   at BuildInspect.Models.Service.Interface.ERPServices.SubmitChecklist(CheckListTransMasterViewModel cltm, List`1 Detail) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Models\Service\Imp\ERPServices.cs:line 138
+   at BuildInspect.Controllers.ERPController.SubmitCheckList(CheckListTransMasterViewModel inputCLTM, List`1 clTrnDetail) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Controllers\ERPController.cs:line 767
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2019-07-27 12:30:48.0702|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|Chk List Submission:
+2019-07-27 12:30:48.0932|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|An error occurred while updating the entries. See the inner exception for details.
+2019-07-27 12:30:48.0932|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at BuildInspect.Models.Repository.Interface.ERPRepository.SubmitChecklist(CheckListTransMasterViewModel cltm, List`1 Detail, String path, String halfPath) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Models\Repository\Imp\ERPRepository.cs:line 326
+2019-07-27 12:30:48.0932|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|An error occurred while updating the entries. See the inner exception for details.
+2019-07-27 12:30:48.0932|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()
+   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.<Update>b__2(UpdateTranslator ut)
+   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update[T](T noChangesResult, Func`2 updateFunction)
+   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update()
+   at System.Data.Entity.Core.Objects.ObjectContext.<SaveChangesToStore>b__35()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass2a.<SaveChangesInternal>b__27()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesInternal(SaveOptions options, Boolean executeInExistingTransaction)
+   at System.Data.Entity.Core.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+2019-07-27 13:43:54.0672|DEBUG|BuildInspect.MvcApplication|Raw Http Message: {"CLTMID": 1, "VerifiedBy_Signature": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAV0AAABXCAYAAACnZJZlAAAL1ElEQVR4Xu3dfWxb1RkG8Oc91/lCQFO6tWWigNqN0U7TPhCaBkyrBrQ2VWOnbZyWr7FqG6BN2viLSXQimoY09gcSmsRY2QRiorXrNXZaGqeobBUbsGkbVJ4t03qehDomj+vzNd1eMqehvDtr6TwN4p0EgCDN1Gmg2OhQIUmPECDN0ZP8V8gBSgQCMJMHQbaTY4FgpQYMYLMHRn/BTzAVKAAo0kwNBtpNngWChAgRkv8D/r+mCFbRcSQgAAAABJRU5ErkJggg==",  
+"VerifiedBy_Remarks": "Done",  "VerifiedBy_Name": "Velan"
+}
+2019-07-27 13:43:54.1031|DEBUG|BuildInspect.MvcApplication|isAuthenticated : True
+2019-07-27 17:27:47.7294|ERROR|BuildInspect.MvcApplication|Error:
+2019-07-27 17:27:47.7504|ERROR|BuildInspect.MvcApplication|Object reference not set to an instance of an object.
+2019-07-27 17:27:47.7504|ERROR|BuildInspect.MvcApplication|   at ASP._Page_Views_ERP_AssignService_cshtml.Execute() in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Views\ERP\AssignService.cshtml:line 122
+   at System.Web.WebPages.WebPageBase.ExecutePageHierarchy()
+   at System.Web.Mvc.WebViewPage.ExecutePageHierarchy()
+   at System.Web.WebPages.StartPage.RunPage()
+   at System.Web.WebPages.StartPage.ExecutePageHierarchy()
+   at System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
+   at System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)
+   at System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
+   at System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2019-07-27 17:59:28.3102|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|Service Form Save:
+2019-07-27 17:59:28.3391|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|
+
+Mapping types:
+String -> Nullable`1
+System.String -> System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]
+
+Destination path:
+service_form.Service_Datetime.Service_Datetime
+
+Source value:
+27/07/2019
+2019-07-27 17:59:28.3451|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|   at BuildInspect.Models.Repository.Interface.ERPRepository.ServiceFormSave(ServiceFormViewModel sfm, String path, String halfPath) in F:\Proj-Pandees\EBI\BuildInspect_UITest\BuildInspect\Models\Repository\Imp\ERPRepository.cs:line 681
+2019-07-27 17:59:28.3451|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|27/07/2019 is not a valid value for DateTime.
+2019-07-27 17:59:28.3451|DEBUG|BuildInspect.Models.Repository.Interface.ERPRepository|   at System.ComponentModel.DateTimeConverter.ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, Object value)
+   at System.ComponentModel.NullableConverter.ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, Object value)
+   at AutoMapper.Mappers.TypeConverterMapper.<>c__DisplayClass2.<GetConverter>b__1()
+   at AutoMapper.Mappers.TypeConverterMapper.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   at AutoMapper.MappingEngine.AutoMapper.IMappingEngineRunner.Map(ResolutionContext context)

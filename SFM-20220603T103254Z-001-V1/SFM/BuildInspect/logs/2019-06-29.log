@@ -1,0 +1,6 @@
+2019-06-29 15:06:02.7570|DEBUG|BuildInspect.Models.Repository.Interface.UserRepository|CreateUser:
+2019-06-29 15:06:02.8070|ERROR|BuildInspect.Models.Repository.Interface.UserRepository|An error occurred while updating the entries. See the inner exception for details.
+2019-06-29 15:06:02.8438|ERROR|BuildInspect.Models.Repository.Interface.UserRepository|   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at BuildInspect.Models.Repository.Interface.UserRepository.CreateUser(UserViewModel user) in F:\Proj-Pandees\EBI\BuildInspect_New\BuildInspect\Models\Repository\Imp\UserRepository.cs:line 63

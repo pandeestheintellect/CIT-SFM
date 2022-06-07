@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ea6eed9a5b4e4007a7ee49788fc5c4b2" Name="Diagram1" ZoomLevel="62">
+        <EntityTypeShape EntityType="BuildInspectModel.checklist_files" Width="1.5" PointX="5.75" PointY="12.125" />
+        <EntityTypeShape EntityType="BuildInspectModel.chklst_item_master" Width="1.5" PointX="0.75" PointY="15.125" />
+        <EntityTypeShape EntityType="BuildInspectModel.chklst_trn_detail" Width="1.5" PointX="11" PointY="4.25" />
+        <EntityTypeShape EntityType="BuildInspectModel.chklst_trn_files" Width="1.5" PointX="11" PointY="7.375" />
+        <EntityTypeShape EntityType="BuildInspectModel.chklst_trn_master" Width="1.5" PointX="8.75" PointY="3.5" />
+        <EntityTypeShape EntityType="BuildInspectModel.company_master" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BuildInspectModel.deployment" Width="1.5" PointX="2.75" PointY="15.125" />
+        <EntityTypeShape EntityType="BuildInspectModel.employee" Width="1.5" PointX="4.75" PointY="15.125" />
+        <EntityTypeShape EntityType="BuildInspectModel.License_Master" Width="1.5" PointX="13.75" PointY="3.125" />
+        <EntityTypeShape EntityType="BuildInspectModel.module" Width="1.5" PointX="0.75" PointY="4.125" />
+        <EntityTypeShape EntityType="BuildInspectModel.permission" Width="1.5" PointX="3" PointY="7.125" />
+        <EntityTypeShape EntityType="BuildInspectModel.project_master" Width="1.5" PointX="13.75" PointY="7.125" />
+        <EntityTypeShape EntityType="BuildInspectModel.school_master" Width="1.5" PointX="13.75" PointY="12.125" />
+        <EntityTypeShape EntityType="BuildInspectModel.school_user_mapping" Width="1.5" PointX="10.75" PointY="17.125" />
+        <EntityTypeShape EntityType="BuildInspectModel.screen" Width="1.5" PointX="3" PointY="11" />
+        <EntityTypeShape EntityType="BuildInspectModel.service_form" Width="1.5" PointX="8.75" PointY="11.5" />
+        <EntityTypeShape EntityType="BuildInspectModel.service_form_files" Width="1.5" PointX="11" PointY="13.375" />
+        <EntityTypeShape EntityType="BuildInspectModel.servicetype_master" Width="1.5" PointX="15.75" PointY="3.125" />
+        <EntityTypeShape EntityType="BuildInspectModel.sys_freqTable" Width="1.5" PointX="15.75" PointY="6.125" />
+        <EntityTypeShape EntityType="BuildInspectModel.usergroup" Width="1.5" PointX="0.75" PointY="7.25" />
+        <EntityTypeShape EntityType="BuildInspectModel.user" Width="1.5" PointX="6" PointY="5.125" />
+        <EntityTypeShape EntityType="BuildInspectModel.Scool_lift" Width="1.5" PointX="15.75" PointY="9.125" />
+        <AssociationConnector Association="BuildInspectModel.FK_chklst_trn_detail_chklst_trn_master" />
+        <AssociationConnector Association="BuildInspectModel.FK_chklst_trn_files_chklrn_trn_master" />
+        <AssociationConnector Association="BuildInspectModel.FK_users_company_master" />
+        <AssociationConnector Association="BuildInspectModel.FK_rapid_permission_rapid_module" />
+        <AssociationConnector Association="BuildInspectModel.FK_rapid_screens_rapid_module" />
+        <AssociationConnector Association="BuildInspectModel.FK_rapid_permission_rapid_usergroup" />
+        <AssociationConnector Association="BuildInspectModel.FK_service_form_files_service_form" />
+        <AssociationConnector Association="BuildInspectModel.FK_rapid_users_rapid_usergroup" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

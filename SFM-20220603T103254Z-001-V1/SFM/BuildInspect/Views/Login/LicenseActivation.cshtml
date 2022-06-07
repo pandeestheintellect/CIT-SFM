@@ -1,0 +1,175 @@
+﻿@using BuildInspect.Models.ViewModel
+@model LicenseViewModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Login page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="Login">
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="shortcut icon" type="image/jpg" href="~/Scripts/assets/images/favicon-2d.jpg" />
+    <link href="~/Scripts/main.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow">
+        <div class="app-container">
+            <div class="h-100">
+                <div class="h-100 no-gutters row">
+                    <div class="d-none d-lg-block col-lg-4">
+                        <div class="slider-light">
+                            <div class="slick-slider">
+                                <div>
+                                    <div class="h-100 d-flex" tabindex="-1" style="background-image: url('/Scripts/assets/images/originals/mkv-slider-1.jpg')">
+                                        <div class="slider-content">
+                                            <h3>Specialist</h3>
+                                            <p>SFM provides the flexibility to select the digitalized checklist for the respective sub service and submit</p>
+                                            <ul>
+                                                <li><i class="fa fa-check"></i> Servicing</li>
+                                                <li><i class="fa fa-check"></i> Inspection</li>
+                                                <li><i class="fa fa-check"></i>
+                                                    <span>Testing of Fan System, Light System, Lightning Protection System</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="h-100 d-flex" tabindex="-1" style="background-image: url('/Scripts/assets/images/originals/mkv-slider-2.jpg')">
+                                        <div class="slider-content">
+                                            <h3>Electrical & Domestic</h3>
+                                            <p>SFM provides the flexibility to select the digitalized checklist for the respective sub service and submit</p>
+                                            <ul>
+                                                <li><i class="fa fa-check"></i> Servicing</li>
+                                                <li><i class="fa fa-check"></i> Inspection</li>
+                                                <li><i class="fa fa-check"></i>
+                                                    <span>Testing of Chiller Systems, Security Systems, Lifts System</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="h-100 d-flex" tabindex="-1" style="background-image: url('/Scripts/assets/images/originals/mkv-slider-3.jpg')">
+                                        <div class="slider-content">
+                                            <h3>Mechanical</h3>
+                                            <p>SFM provides the flexibility to select the digitalized checklist for the respective sub service and submit</p>
+                                            <ul>
+                                                <li><i class="fa fa-check"></i> Servicing</li>
+                                                <li><i class="fa fa-check"></i> Inspection</li>
+                                                <li><i class="fa fa-check"></i> 
+                                                    <span>Testing of Airconditioning, Automatic Irrigation System, Pumping Systems</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-100 d-flex bg-login login justify-content-center align-items-center col-md-12 col-lg-8">
+                        <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
+                            <div class="app-logo">
+                                <img src="~/Scripts/assets/images/sbi-logo.png" />
+                            </div>
+                            <h4 class="mb-0">
+                                <span class="d-block">Welcome</span>
+                                <span>License Key for Activating your Service Account.</span>
+                            </h4>
+                            @*<h6 class="mt-3">No account? <a href="register.html" class="text-primary">Sign up now</a></h6>*@
+                            <h6>&nbsp;</h6>
+                            <div class="divider row"></div>
+                            <div>
+                                @using (Html.BeginForm("LicenseActivation", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form", @class = "login100-form validate-form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="exampleEmail" class="">License Key</label>
+                                                @*<input name="email" id="exampleEmail" placeholder="User Name" type="email" class="form-control">*@
+                                                @Html.TextBoxFor(m => m.LicenseKey, new { @class = "form-control", @placeholder = "LicenseKey" })
+                                                @Html.ValidationMessageFor(m => m.LicenseKey, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <div class="divider row"></div>
+
+                                    <div class="d-flex align-items-center">
+                                        <div class="container-login100-form-btn">
+                                            <div>
+                                                @if (Model != null)
+                                                {
+                                                    if (Model.StatusFlag == 1)
+                                                    {
+                                                        <div style="color: red; font-weight: bold;">
+                                                            Invalid License key.
+                                                        </div>
+                                                    }
+                                                    else if (Model.StatusFlag == 2)
+                                                    {
+                                                        <div style="color: red; font-weight: bold;">
+                                                            License Expired.
+                                                        </div>
+
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="ml-auto">
+                                            
+                                            <button class="btn btn-primary btn-lg">Activate</button>
+                                        </div>
+                                    </div>
+
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/assets/plugins/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/assets/scripts/app.js"></script>
+    <script type="text/javascript" src="~/Scripts/assets/plugins/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/assets/plugins/metisMenu.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/assets/plugins/slick.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/assets/plugins/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/assets/custom/login.js"></script>
+
+</body>
+
+<script>
+
+    if ('@ViewBag.ActivationFlag' == 0) {
+        window.alert("License Expired");
+        window.location.href = "/Login/Index";
+    }
+
+    if ('@ViewBag.ActivationFlag' == 1) {
+        window.alert("License key activated successfully");
+        window.location.href = "/Login/Index";
+    }
+
+    if ('@ViewBag.ActivationFlag' == 2) {
+        window.alert("License key already activated");
+        window.location.href = "/Login/Index";
+    }
+</script>

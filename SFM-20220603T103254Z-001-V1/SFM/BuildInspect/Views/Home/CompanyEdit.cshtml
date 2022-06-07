@@ -1,0 +1,185 @@
+﻿@model BuildInspect.Models.ViewModel.CompanyMasterViewModel
+
+@{
+    Layout = null;
+}
+
+<style>
+    .required::after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <section class="content-header">
+                        <h4>
+                            Company Configuration
+                        </h4>
+                        <ol class="breadcrumb">
+                            <li><a href="#"><i class="fa fa-dashboard"></i> BuildInspect</a></li>
+                            <li>Settings</li>
+                            <li class="active">Company</li>
+                        </ol>
+                    </section>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+                                    <div class="box-body">
+                                        @using (Html.BeginForm("Index", "Company", FormMethod.Post, new { id = "companyEditForm", enctype = "multipart/form-data" }))
+                                        {
+
+                                            @Html.AntiForgeryToken()
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            @Html.HiddenFor(model => model.CompanyID)
+                                            @Html.HiddenFor(model => model.CreatedBy)
+                                            @Html.HiddenFor(model => model.CreatedDate)
+                                            @Html.HiddenFor(model => model.IsActive)
+                                            @Html.HiddenFor(model => model.LogoPath)
+
+                                            <div>&nbsp;</div>
+
+                                            <div>
+                                                <div class="row">
+
+                                                    <div class="col-md-4">
+                                                        @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "control-label required" })
+                                                        @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                                                        <div class="">
+                                                            @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control" } })
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        @Html.LabelFor(model => model.Tel, htmlAttributes: new { @class = "control-label" })
+                                                        <div class="">
+                                                            @Html.EditorFor(model => model.Tel, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.Tel, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        @Html.LabelFor(model => model.Fax, htmlAttributes: new { @class = "control-label" })
+                                                        <div class="">
+                                                            @Html.EditorFor(model => model.Fax, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.Fax, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                                                        <div class="">
+                                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        @Html.LabelFor(model => model.RegNo, htmlAttributes: new { @class = "control-label" })
+                                                        <div class="">
+                                                            @Html.EditorFor(model => model.RegNo, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.RegNo, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        @Html.LabelFor(model => model.GstRegNo, htmlAttributes: new { @class = "control-label" })
+                                                        <div class="">
+                                                            @Html.EditorFor(model => model.GstRegNo, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.GstRegNo, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        @Html.LabelFor(model => model.GST, "GST%", htmlAttributes: new { @class = "control-label" })
+                                                        <div class="">
+                                                            @Html.EditorFor(model => model.GST, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.GST, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
+                                                        <div class="">
+                                                            @Html.TextAreaFor(model => model.Address, 3, 40, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label" })
+                                                        <div class="">
+                                                            @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        @Html.LabelFor(model => model.Pincode, htmlAttributes: new { @class = "control-label" })
+                                                        <div class="">
+                                                            @Html.EditorFor(model => model.Pincode, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.Pincode, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        @Html.LabelFor(model => model.ShortName, htmlAttributes: new { @class = "control-label required" })
+                                                        @Html.ValidationMessageFor(model => model.ShortName, "", new { @class = "text-danger" })
+                                                        <div class="">
+                                                            @Html.EditorFor(model => model.ShortName, new { htmlAttributes = new { @class = "form-control" } })
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        @Html.LabelFor(model => model.profile_Path, htmlAttributes: new { @class = "control-label" })
+                                                        <div class="">
+                                                            @Html.TextBoxFor(model => model.profile_Path, "", new { @type = "file", @multiple = "multiple", @accept = "image/x-png,image/gif,image/jpeg" })
+                                                            @Html.ValidationMessageFor(model => model.profile_Path, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <br />
+
+                                            <div class="modal-footer">
+                                                <input type="button" value="Save" id="edit-company-dialog-save" style="float:right" class="btn btn-primary" /><span style="float:right">&nbsp;</span>
+                                            </div>
+                                        }
+ 
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  
+   
+<script>
+  
+    $("form").removeData("validator");
+    $("form").removeData("unobtrusiveValidation");
+    $.validator.unobtrusive.parse("form");
+
+
+</script>

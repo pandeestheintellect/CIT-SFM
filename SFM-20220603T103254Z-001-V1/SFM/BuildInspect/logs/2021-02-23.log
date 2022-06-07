@@ -1,0 +1,4 @@
+2021-02-23 18:06:25.6243|ERROR|BuildInspect.Models.Utility.AppSettings|Error occured in SendMail():
+2021-02-23 18:06:25.6522|ERROR|BuildInspect.Models.Utility.AppSettings|Failure sending mail.
+2021-02-23 18:06:25.7091|ERROR|BuildInspect.Models.Utility.AppSettings|   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at BuildInspect.Models.Utility.AppSettings.sendEmail(String subject, String body, String toEmailAddress, String ccEmailAddress, String attachments, Int32 companyid) in F:\Proj-Pandees\EBI\BuildInspect_Prod\BuildInspect\Models\Utility\AppSettings.cs:line 139

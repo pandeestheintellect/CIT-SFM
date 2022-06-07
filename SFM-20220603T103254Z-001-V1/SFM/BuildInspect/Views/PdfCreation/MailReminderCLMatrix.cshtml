@@ -1,0 +1,655 @@
+﻿@model IEnumerable<BuildInspect.Models.ViewModel.ChecklistSummaryMatrixViewModel>
+
+@{
+    Layout = null;
+}
+
+<html>
+
+<body style="font-family: Book Antiqua;">
+
+    <table id="CLSummaryTable" border="1">
+        <thead style="background-color: #575555; color: white">
+
+            <tr>
+                <th>Sno</th>
+                <th>School Name</th>
+                <th>E&D</th>
+                <th>Mec</th>
+                <th>SP Lift</th>
+                <th>SP Sec</th>
+                <th>SP Fire</th>
+                <th>SP PLC</th>
+                <th>SP HPUMP</th>
+                <th>SP PAS</th>
+                <th>SP Bas</th>
+                <th>SP Chil</th>
+                <th>SP FumC</th>
+                <th>SP FSpkl</th>
+                <th>SP Wetch</th>
+                <th>SP HVLS</th>
+                <th>SP SMKC</th>
+                <th>SP OthLift</th>
+                <th>SP GEN</th>
+                <th>SP CDS</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ var i = 0;}
+            @foreach (var item in Model)
+            {
+                i = i + 1;
+                var mark = "";
+                var color = "";
+                var status = "";
+                var image = "";
+                var mark1 = "";
+                <tr>
+                    <td>@i</td>
+                    <td>@item.School_Name</td>
+                    <td>
+                        @{
+                            if (item.Electrical == null)
+                            {                               
+                                status = "NA";                               
+                            }
+                            else if (item.Electrical <= 0)
+                            {                               
+                                status = "X";                                
+                            }
+                            else if (item.Electrical == 1)
+                            {                               
+                                status = "PU/M";                               
+                            }
+                            else if (item.Electrical == 2)
+                            {                               
+                                status = "PM";                               
+                            }
+                            else if (item.Electrical == 3)
+                            {
+                                status = "PU";                              
+                            }
+                            else
+                            {
+                                status = "C";                             
+                            }
+                        }
+                            @status                     
+
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.Mechanical == null)
+                            {                                
+                                status = "NA";                                
+                            }
+                            else if (item.Mechanical <= 0)
+                            {                                
+                                status = "X"; 
+                            }
+                            else if (item.Mechanical == 1)
+                            {                                
+                                status = "PU/M"; 
+                            }
+                            else if (item.Mechanical == 2)
+                            {                                
+                                status = "PM"; 
+                            }
+                            else if (item.Mechanical == 3)
+                            {                                
+                                status = "PU"; 
+                            }
+                            else
+                            {                                
+                                status = "C"; 
+                            }
+                        }
+                       @status                        
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.SP_LIFTSYS == null)
+                            {                               
+                                status = "NA";                                
+                            }
+                            else if (item.SP_LIFTSYS <= 0)
+                            {                               
+                                status = "X"; 
+                            }
+                            else if (item.SP_LIFTSYS == 1)
+                            {                               
+                                status = "PU/M"; 
+                            }
+                            else if (item.SP_LIFTSYS == 2)
+                            {                               
+                                status = "PM"; 
+                            }
+                            else if (item.SP_LIFTSYS == 3)
+                            {                               
+                                status = "PU"; 
+                            }
+                            else
+                            {                               
+                                status = "C";
+                            }
+                        }
+
+                        @status
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.SP_SECUTYSYS == null)
+                            {                               
+                                status = "NA";                               
+                            }
+                            else if (item.SP_SECUTYSYS <= 0)
+                            {                                
+                                status = "X";
+                            }
+                            else if (item.SP_SECUTYSYS == 1)
+                            {                               
+                                status = "PU/M";
+                            }
+                            else if (item.SP_SECUTYSYS == 2)
+                            {                               
+                                status = "PM"; 
+                            }
+                            else if (item.SP_SECUTYSYS == 3)
+                            {                               
+                                status = "PU"; 
+                            }
+                            else
+                            {                              
+                                status = "C";
+                            }
+                        }
+
+                       @status
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.SP_FIREALMSYS == null)
+                            {                                
+                                status = "NA";                               
+                            }
+                            else if (item.SP_FIREALMSYS <= 0)
+                            {
+                               
+                                if (item.Electrical <= 0)
+                                {
+                                    
+                                    status = "X"; 
+                                }
+                                else if (item.Electrical == 1)
+                                {                                   
+                                    status = "PU/M"; 
+                                }
+                                else if (item.Electrical == 2)
+                                {                                  
+                                    status = "PM"; 
+                                }
+                                else if (item.Electrical == 3)
+                                {                                    
+                                    status = "PU"; 
+                                }
+                                else
+                                {                                   
+                                    status = "C"; 
+                                }
+                            }
+                           
+                        }
+
+                        @status
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.SP_PLCWDWL == null)
+                            {                                
+                                status = "NA";                               
+                            }
+                            else if (item.SP_PLCWDWL <= 0)
+                            {
+                                if (item.Mechanical <= 0)
+                                {                                  
+                                    status = "X"; 
+                                }
+                                else if (item.Mechanical == 1)
+                                {                                   
+                                    status = "PU/M"; 
+                                }
+                                else if (item.Mechanical == 2)
+                                {                                   
+                                    status = "PM"; 
+                                }
+                                else if (item.Mechanical == 3)
+                                {                                   
+                                    status = "PU"; 
+                                }
+                                else
+                                {                                    
+                                    status = "C"; 
+                                }
+                            }
+
+                        }
+
+                       @status
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.SP_HYDPUMP == null)
+                            {
+                                status = "NA";                               
+                            }
+                            else if (item.SP_HYDPUMP <= 0)
+                            {
+                                if (item.Mechanical <= 0)
+                                {                                    
+                                    status = "X"; 
+                                }
+                                else if (item.Mechanical == 1)
+                                {                                   
+                                    status = "PU/M"; 
+                                }
+                                else if (item.Mechanical == 2)
+                                {                                    
+                                    status = "PM"; 
+                                }
+                                else if (item.Mechanical == 3)
+                                {                                   
+                                    status = "PU"; 
+                                }
+                                else
+                                {                                    
+                                    status = "C"; 
+                                }
+                            }
+
+                        }
+
+                       @status
+                        
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.SP_PASISCM == null)
+                            {                                
+                                status = "NA";                               
+                            }
+                            else if (item.SP_PASISCM <= 0)
+                            {                               
+                                status = "X"; 
+                            }
+                            else if (item.SP_PASISCM == 1)
+                            {                               
+                                status = "PU/M"; 
+                            }
+                            else if (item.SP_PASISCM == 2)
+                            {                               
+                                status = "PM"; 
+                            }
+                            else if (item.SP_PASISCM == 3)
+                            {                               
+                                status = "PU"; 
+                            }
+                            else
+                            {                               
+                                status = "C"; 
+                            }
+                        }
+
+                       @status
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.SP_BASBMSSYS == null)
+                            {                                
+                                status = "NA";                               
+                            }
+                            else if (item.SP_BASBMSSYS <= 0)
+                            {                               
+                                status = "X"; 
+                            }
+                            else if (item.SP_BASBMSSYS == 1)
+                            {
+                                status = "PU/M";
+                            }
+                            else if (item.SP_BASBMSSYS == 2)
+                            {                               
+                                status = "PM"; 
+                            }
+                            else if (item.SP_BASBMSSYS == 3)
+                            {
+                                status = "PU"; 
+                            }
+                            else
+                            {                               
+                                status = "C"; 
+                            }
+                        }
+                        @status
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.SP_CHILLERSYS == null)
+                            {                               
+                                status = "NA";                                
+                            }
+                            else if (item.SP_CHILLERSYS <= 0)
+                            {                              
+                                status = "X"; 
+                            }
+                            else if (item.SP_CHILLERSYS == 1)
+                            {                               
+                                status = "PU/M"; 
+                            }
+                            else if (item.SP_CHILLERSYS == 2)
+                            {                               
+                                status = "PM";
+                            }
+                            else if (item.SP_CHILLERSYS == 3)
+                            {
+                                status = "PU"; 
+                            }
+                            else
+                            {                               
+                                status = "C"; 
+                            }
+                        }
+
+                       @status
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.SP_FUMECESYS == null)
+                            {                               
+                                status = "NA";                                
+                            }
+                            else if (item.SP_FUMECESYS <= 0)
+                            {
+                                if (item.Mechanical <= 0)
+                                {                                    
+                                    status = "X"; 
+                                }
+                                else if (item.Mechanical == 1)
+                                {                                   
+                                    status = "PU/M"; 
+                                }
+                                else if (item.Mechanical == 2)
+                                {                                   
+                                    status = "PM"; 
+                                }
+                                else if (item.Mechanical == 3)
+                                {                                   
+                                    status = "PU";
+                                }
+                                else
+                                {                                   
+                                    status = "C"; 
+                                }
+                            }
+
+                        }
+
+                      @status
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.SP_FIRESPNKLR == null)
+                            {                               
+                                status = "NA";                               
+                            }
+                            else if (item.SP_FIRESPNKLR <= 0)
+                            {
+                                if (item.Mechanical <= 0)
+                                {                                   
+                                    status = "X"; 
+                                }
+                                else if (item.Mechanical == 1)
+                                {                                   
+                                    status = "PU/M"; 
+                                }
+                                else if (item.Mechanical == 2)
+                                {                                   
+                                    status = "PM";
+                                }
+                                else if (item.Mechanical == 3)
+                                {
+                                    status = "PU"; 
+                                }
+                                else
+                                {                                   
+                                    status = "C";
+                                }
+                            }
+
+                        }
+
+                      @status
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.SP_WETCHSUSYS == null)
+                            {                               
+                                status = "NA";                                
+                            }
+                            else if (item.SP_WETCHSUSYS <= 0)
+                            {                                
+                                status = "X"; 
+                            }
+                            else if (item.SP_WETCHSUSYS == 1)
+                            {                               
+                                status = "PU/M"; 
+                            }
+                            else if (item.SP_WETCHSUSYS == 2)
+                            {                                
+                                status = "PM";
+                            }
+                            else if (item.SP_WETCHSUSYS == 3)
+                            {                               
+                                status = "PU"; 
+                            }
+                            else
+                            {
+                                status = "C"; 
+                            }
+                        }
+
+                       @status
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.SP_HVLSFMPIS == null)
+                            {                               
+                                status = "NA";                               
+                            }
+                            else if (item.SP_HVLSFMPIS <= 0)
+                            {
+                                if (item.Electrical <= 0)
+                                {                                    
+                                    status = "X"; 
+                                }
+                                else if (item.Electrical == 1)
+                                {                                  
+                                    status = "PU/M"; 
+                                }
+                                else if (item.Electrical == 2)
+                                {                                   
+                                    status = "PM"; 
+                                }
+                                else if (item.Electrical == 3)
+                                {
+                                    status = "PU"; 
+                                }
+                                else
+                                {                                    
+                                    status = "C"; 
+                                }
+                            }
+
+                        }
+
+                       @status
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.SP_SMKCTLSYS == null)
+                            {                               
+                                status = "NA";                               
+                            }
+                            else if (item.SP_SMKCTLSYS <= 0)
+                            {
+                                if (item.Electrical <= 0)
+                                {                                   
+                                    status = "X"; 
+                                }
+                                else if (item.Electrical == 1)
+                                {                                   
+                                    status = "PU/M"; 
+                                }
+                                else if (item.Electrical == 2)
+                                {                                   
+                                    status = "PM"; 
+                                }
+                                else if (item.Electrical == 3)
+                                {                                   
+                                    status = "PU"; 
+                                }
+                                else
+                                {                                   
+                                    status = "C"; 
+                                }
+                            }
+
+                        }
+                        @status
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.SP_OTHLIFTS == null)
+                            {                               
+                                status = "NA";                               
+                            }
+                            else if (item.SP_OTHLIFTS <= 0)
+                            {                                
+                                status = "X";
+                            }
+                            else if (item.SP_OTHLIFTS == 1)
+                            {                               
+                                status = "PU/M"; 
+                            }
+                            else if (item.SP_OTHLIFTS == 2)
+                            {                               
+                                status = "PM"; 
+                            }
+                            else if (item.SP_OTHLIFTS == 3)
+                            {
+                                status = "PU"; 
+                            }
+                            else
+                            {                                
+                                status = "C"; 
+                            }
+                        }
+
+                        @status
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.SP_GENSET == null)
+                            {                               
+                                status = "NA";                                
+                            }
+                            else if (item.SP_GENSET <= 0)
+                            {
+                                if (item.Electrical <= 0)
+                                {                                  
+                                    status = "X"; 
+                                }
+                                else if (item.Electrical == 1)
+                                {                                   
+                                    status = "PU/M"; 
+                                }
+                                else if (item.Electrical == 2)
+                                {
+                                    status = "PM"; 
+                                }
+                                else if (item.Electrical == 3)
+                                {                                   
+                                    status = "PU"; 
+                                }
+                                else
+                                {                                   
+                                    status = "C"; 
+                                }
+                            }
+
+                        }
+
+                       @status
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.SP_SIOCDSYS == null)
+                            {                               
+                                status = "NA";                               
+                            }
+                            else if (item.SP_SIOCDSYS <= 0)
+                            {
+                                if (item.Electrical <= 0)
+                                {                                  
+                                    status = "X"; 
+                                }
+                                else if (item.Electrical == 1)
+                                {
+                                    status = "PU/M"; 
+                                }
+                                else if (item.Electrical == 2)
+                                {                                    
+                                    status = "PM"; 
+                                }
+                                else if (item.Electrical == 3)
+                                {                                    
+                                    status = "PU"; 
+                                }
+                                else
+                                {                                    
+                                    status = "C";
+                                }
+                            }
+
+                        }
+                        @status
+                    </td>
+
+                </tr>
+
+           }
+
+        </tbody>
+    </table>
+
+</body>
+</html>
+
+
+
+

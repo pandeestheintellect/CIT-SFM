@@ -1,0 +1,840 @@
+﻿@model BuildInspect.Models.ViewModel.CheckListTransMasterViewModel
+@using BuildInspect.Models.ViewModel
+
+@{
+    Layout = null;
+    var companyID = BuildInspect.Models.Utility.AppSession.GetCompanyId();
+}
+
+<style>
+    .table-condensed tbody > tr > td > a {
+        color: #4eb1ba !important;
+    }
+
+    .required::after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+
+@{
+    var groupID = BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup();
+}
+
+<div class="app-inner-layout app-inner-layout-page">
+    <div class="app-inner-layout__wrapper">
+        <div class="app-inner-layout__content pt-1">
+            <div class="tab-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <h4 class="card-title">@ViewBag.Title</h4>
+
+                                    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "checklistEdit_Form", @class = "form-horizontal" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        @Html.HiddenFor(model => model.Frequency)
+                                        @Html.HiddenFor(model => model.CLType)
+                                        @Html.HiddenFor(model => model.CLTMID)
+                                        @Html.HiddenFor(model => model.PrjMasID)
+                                        @Html.HiddenFor(model => model.UserID)
+
+                                        <div class="checklist-container">
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Project Name</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <input type="text" class="form-control" id="school-id" name="school-id" value="@ViewBag.SchoolName" disabled="disabled" />
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                                    <div class="title">Address</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                                    <textarea rows="1" class="form-control autosize-input"
+                                                              style="height: 35px;" id="school-address" disabled="disabled">
+                                                        @ViewBag.Address
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col-sm-12 col-md-6 col-xl-2">
+                                                        <div class="title">Date/Time</div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-xl-4">
+                                                        <input type="text" class="form-control" id="checklist-datetime" disabled="disabled" value="@Convert.ToDateTime(Model.CreatedDate).ToString("dd/MM/yyyy")" />
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-xl-2">
+                                                        <div class="title right">Tel</div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-xl-4">
+                                                        <input type="text" class="form-control" id="checklist-tel" name="checklist-tel" disabled="disabled" value="@ViewBag.Tel" />
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col-sm-12 col-md-6 col-xl-2">
+                                                        <div class="title">Contact Person</div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-xl-4">
+                                                        <input type="text" class="form-control" id="contact-person" name="contact-person" disabled="disabled" value="@ViewBag.OPMngr" />
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-xl-2">
+                                                        <div class="title right">Email</div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-xl-4">
+                                                        <input type="text" class="form-control" id="checklist-email" name="checklist-email" disabled="disabled" value="@ViewBag.Email" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checklist-table-container">
+                                                <div class="row table-head">
+                                                    <div class="col-sm-12 col-md-6 col-xl-1 d-none d-sm-block">
+                                                        <div class="table-title">S/N</div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-xl-4 d-none d-sm-block">
+                                                        <div class="table-title">Items</div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-xl-3 d-none d-sm-block">
+                                                        <div class="table-title">Done?</div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-xl-2 d-none d-sm-block">
+                                                        <div class="table-title">Date Done</div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-xl-2 d-none d-sm-block">
+                                                        <div class="table-title">Remarks</div>
+                                                    </div>
+                                                </div>
+                                                <!--Start: 1st portion -->
+                                                @{
+                                                    List<CheckListItemMasterViewModel> header = ViewBag.CheckListItems;
+                                                    header = header.Where(a => a.ParentID == null).OrderBy(a => a.OrderBy).ToList();
+                                                    int headCnt = 1;
+
+                                                    foreach (var h in header)
+                                                    {
+                                                        <div class="row table-title-head">
+                                                            <div class="col-sm-12 col-md-6 col-xl-1">
+                                                                <div class="table-title">@*@headCnt*@</div>
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-6 col-xl-11">
+                                                                <div class="table-title">@h.Title</div>
+                                                            </div>
+                                                        </div>
+
+                                                        List<CheckListItemMasterViewModel> detail = ViewBag.CheckListItems;
+                                                        detail = detail.Where(a => a.ParentID == h.ChkListID).ToList();
+                                                        int detailCnt = 1;
+                                                        foreach (var d in detail)
+                                                        {
+                                                            if (d.IsSubTitle == "Yes")
+                                                            {
+                                                                <div class="row table-title-head">
+                                                                    <div class="col-sm-12 col-md-6 col-xl-1" style="background:aliceblue !important">
+                                                                        <div class="table-title"></div>
+                                                                    </div>
+                                                                    <div class="col-sm-12 col-md-6 col-xl-11" style="background:aliceblue !important">
+                                                                        <div class="table-title">@d.Title</div>
+                                                                    </div>
+                                                                </div>
+                                                                detailCnt--;
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="row table-body-content">
+                                                                    <div class="col-sm-12 col-md-6 col-xl-1">
+                                                                        <div class="txt">@detailCnt</div>
+                                                                    </div>
+                                                                    <div class="col-sm-12 col-md-6 col-xl-4">
+                                                                        <div class="txt">@d.Title</div>
+                                                                    </div>
+                                                                    <div class="col-sm-12 col-md-6 col-xl-3">
+                                                                        @{
+                                                                            var loop = 0;
+                                                                        }
+                                                                        @if (d.ServiceType == "SP-HVLSFMPIS" || d.ServiceType == "SP-LIFTSYS" || d.ServiceType == "SP-CHILLERSYS")
+                                                                        {
+                                                                            if (d.ServiceType == "SP-HVLSFMPIS")
+                                                                            {
+                                                                                loop = ViewBag.HVLSFan_count;
+                                                                            }
+                                                                            else if (d.ServiceType == "SP-CHILLERSYS")
+                                                                            {
+                                                                                loop = ViewBag.CHILLER_count;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                loop = ViewBag.LIFT_count;
+                                                                            }
+                                                                            string[] ArrSplit = d.IsDone.Split(',');
+
+                                                                            for (var j = 1; j <= loop; j++)
+                                                                            {
+                                                                                string strid = j.ToString() + "_" + d.CLTDID;
+
+                                                                                <fieldset class="form-group">
+
+                                                                                    @if (d.ServiceType == "SP-HVLSFMPIS")
+                                                                                    {
+                                                                                        <div class="category-title">Fan @j</div>
+                                                                                    }
+                                                                                    else if (d.ServiceType == "SP-CHILLERSYS")
+                                                                                    {
+                                                                                        <div class="category-title">CHIL @j</div>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <div class="category-title">PL @j</div>
+                                                                                    }
+                                                                                    <div class="form-check">
+                                                                                        <label class="checkbox-container">
+                                                                                            @if (ArrSplit[j - 1] == "1")
+                                                                                            {
+                                                                                                <input name="yes_@d.CLTDID" id="Fyes_@strid" type="checkbox" class="form-check-input spdone-check" checked>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <input name="yes_@d.ChkListID" id="Fyes_@strid" type="checkbox" class="form-check-input spdone-check">
+                                                                                            }
+                                                                                            Yes
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+
+                                                                                        <label class="checkbox-container">
+                                                                                            @if (ArrSplit[j - 1] == "2")
+                                                                                            {
+                                                                                                <input name="no_@d.ChkListID" id="Fno_@strid" type="checkbox" class="form-check-input spdone-check" checked>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <input name="no_@d.ChkListID" id="Fno_@strid" type="checkbox" class="form-check-input spdone-check">
+                                                                                            }
+                                                                                            No
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+
+                                                                                        <label class="checkbox-container">
+                                                                                            @if (ArrSplit[j - 1] == "3")
+                                                                                            {
+                                                                                                <input name="na_@d.ChkListID" id="Fna_@strid" type="checkbox" class="form-check-input spdone-check" checked>
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <input name="na_@d.ChkListID" id="Fna_@strid" type="checkbox" class="form-check-input spdone-check">
+                                                                                            }
+                                                                                            N/A
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+
+
+
+                                                                                    </div>
+                                                                                </fieldset>
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <fieldset class="form-group">
+                                                                                <div class="form-check">
+
+                                                                                    <label class="checkbox-container">
+                                                                                        @if (@d.IsDone == "1")
+                                                                                        {
+                                                                                            <input name="yes_@d.CLTDID" id="yes_@d.CLTDID" type="checkbox" class="form-check-input done-check" checked>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <input name="yes_@d.CLTDID" id="yes_@d.CLTDID" type="checkbox" class="form-check-input done-check">
+                                                                                        }
+                                                                                        Yes
+                                                                                        <span class="checkmark"></span>
+                                                                                    </label>
+                                                                                    <label class="checkbox-container">
+                                                                                        @if (@d.IsDone == "2")
+                                                                                        {
+                                                                                            <input name="no_@d.CLTDID" id="no_@d.CLTDID" type="checkbox" class="form-check-input done-check" checked>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <input name="no_@d.CLTDID" id="no_@d.CLTDID" type="checkbox" class="form-check-input done-check">
+                                                                                        }
+                                                                                        No
+                                                                                        <span class="checkmark"></span>
+                                                                                    </label>
+                                                                                    <label class="checkbox-container">
+                                                                                        @if (@d.IsDone == "3")
+                                                                                        {
+                                                                                            <input name="na_@d.CLTDID" id="na_@d.CLTDID" type="checkbox" class="form-check-input done-check" checked>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <input name="na_@d.CLTDID" id="na_@d.CLTDID" type="checkbox" class="form-check-input done-check">
+                                                                                        }
+                                                                                        N/A
+                                                                                        <span class="checkmark"></span>
+                                                                                    </label>
+
+                                                                                </div>
+                                                                            </fieldset>
+
+                                                                        }
+
+
+                                                                    </div>
+                                                                    <div class="col-sm-12 col-md-6 col-xl-2">
+                                                                        @{
+                                                                            var datedone = "";
+                                                                            if (d.DateDone != null)
+                                                                            {
+                                                                                datedone = Convert.ToDateTime(d.DateDone).ToString("dd/MM/yyyy");
+                                                                            }
+                                                                        }
+                                                                        <input type="text" class="datedone form-control" id="checklist-duedate_@d.CLTDID" value="@datedone" />
+                                                                    </div>
+                                                                    <div class="col-sm-12 col-md-6 col-xl-2">
+                                                                        <textarea rows="1" class="form-control autosize-input"
+                                                                                  style="height: 35px;" id="checkist-remarks_@d.CLTDID">
+                                                                            @d.Remarks
+                                                                        </textarea>
+                                                                    </div>
+                                                                </div>
+                                                                                    }
+                                                                                    detailCnt++;
+                                                                                }
+
+                                                                                headCnt++;
+                                                                            }
+
+                                                }
+                                                <!--End: 1st portion -->
+
+                                            </div>
+
+                                            if (groupID == 5)
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                <div class="service-container">
+                                                    <div class="position-relative form-group">
+                                                        <label for="companylogo" class="">Attachements</label><br />
+
+                                                        @if (Model.chklst_trn_files != null && Model.chklst_trn_files.Count > 0)
+                                                        {
+                                                            <table class="table table-striped table-bordered" id="tableFiles">
+                                                                <tr>
+
+                                                                    <th>File Name</th>
+                                                                    <th>Image</th>
+                                                                    <th>Action</th>
+
+                                                                </tr>
+                                                                @foreach (var file in Model.chklst_trn_files)
+                                                                {
+                                                                    <tr>
+
+                                                                        <td>@file.FileName</td>
+
+                                                                        <td>
+                                                                            <a href="@file.FilePath" target="_blank">
+                                                                                <img src="@file.FilePath" height="20" width="20" />
+                                                                            </a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a class="btn" title="Delete File" style="padding: 0px 0px;" onclick="DeleteChecklistFile(@file.CLFileID, @Model.CLTMID)"> <i class="fa fa-trash" aria-hidden="true" style="color:orangered;font-size:24px"></i> </a>
+
+                                                                        </td>
+                                                                    </tr>
+
+                                                                }
+                                                            </table>
+                                                        }
+
+
+                                                    </div>
+
+                                                </div>
+
+                                            }
+
+
+
+                                            <div class="checklist-signature-container">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-xl-4 sign-container">
+                                                        <div class="title bold">Checked by</div>
+                                                        <div id="checkby-signature" class="signature"></div>
+                                                        <textarea id="CheckedBy_Signature" name="CheckedBy_Signature" class="d-none"></textarea>
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-6 col-xl-2">
+                                                                @*<a href="javascript:void(0);" class="btn checkby-clear-button delete"><i class="fas fa-redo"></i></a>*@
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-6 col-xl-10">
+                                                                <div class="txt bold">The Contractor: @Model.CheckedBy_Name</div>
+                                                                <textarea rows="1" class="form-control autosize-input" name="CheckedBy_Remarks"
+                                                                          style="height: 50px;" id="CheckedBy_Remarks" placeholder="Remarks" disabled="disabled">
+                                                                    @Model.CheckedBy_Remarks
+                                                                    </textarea>
+                                                                    @*<div class="input-group date" id="contractor-datetime">
+                                                                            <input type="text" class="form-control" />
+                                                                            <span class="input-group-addon">
+                                                                                <i class="fas fa-calendar"></i>
+                                                                            </span>
+                                                                        </div>*@
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        @if (Model.Status_Flag != 0)
+                                                        {
+
+
+
+                                                            <div class="col-sm-12 col-md-6 col-xl-4 sign-container">
+                                                                <div class="title bold">Endorsed by</div>
+                                                                <div class="row">
+                                                                    @if (groupID == 5)
+                                                                    {
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="col-sm-6 col-md-6 col-xl-6 sign-btn">
+                                                                            <a href="javascript:void(0);" class="btn endorsed-unlock-button unlock">
+                                                                                <i class="fas fa-lock-open"></i>
+                                                                            </a>
+                                                                            <a href="javascript:void(0);" class="btn endorsed-lock-button lock">
+                                                                                <i class="fas fa-lock"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6 col-xl-6 sign-btn">
+                                                                            <a href="javascript:void(0);" class="btn endorsed-clear-button delete">
+                                                                                <i class="fas fa-redo"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    }
+
+                                                                </div>
+                                                                <div class="endorsed-signature--wrapper">
+                                                                    @if (groupID == 5)
+                                                                    {
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="endorsed-signature--overlay">
+                                                                            <div class="tap-text">
+                                                                                Tap to Unlock
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                    <div id="endorsed-signature" class="signature"></div>
+                                                                    <textarea id="EndoresBy_Signature" name="EndoresBy_Signature" class="d-none"></textarea>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm-12 col-md-6 col-xl-12">
+                                                                        @if (groupID == 5)
+                                                                        {
+                                                                            <div class="txt bold">User: &nbsp; <input type="text" class="form-control" id="EndoresBy_Name" name="EndoresBy_Name" disabled="disabled" value="@Model.EndoresBy_Name" /></div>
+                                                                            <textarea rows="1" class="form-control autosize-input" name="EndoresBy_Remarks" disabled="disabled"
+                                                                                      style="height: 50px;" id="EndoresBy_Remarks" placeholder="Remarks">
+                                                                                @Model.EndoresBy_Remarks
+                                                                            </textarea>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <div class="txt bold">User: &nbsp; <input type="text" class="form-control" id="EndoresBy_Name" name="EndoresBy_Name" value="@Model.EndoresBy_Name" placeholder="Name" /></div>
+                                                                            <textarea rows="1" class="form-control autosize-input" name="EndoresBy_Remarks"
+                                                                                      style="height: 50px;" id="EndoresBy_Remarks" placeholder="Remarks">
+                                                                                @Model.EndoresBy_Remarks
+                                                                            </textarea>
+                                                                        }
+
+                                                                    </div>
+                                                                </div>                                                           
+
+                                                            </div>
+
+                                                         
+
+
+                                                            if (groupID == 5)
+                                                            {
+                                                                <div class="col-sm-12 col-md-6 col-xl-4 sign-container">
+                                                                    <div class="title bold">Verified by</div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6 col-md-6 col-xl-6 sign-btn">
+                                                                            <a href="javascript:void(0);" class="btn verified-unlock-button unlock">
+                                                                                <i class="fas fa-lock-open"></i>
+                                                                            </a>
+                                                                            <a href="javascript:void(0);" class="btn verified-lock-button lock">
+                                                                                <i class="fas fa-lock"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6 col-xl-6 sign-btn">
+                                                                            <a href="javascript:void(0);" class="btn verified-clear-button delete">
+                                                                                <i class="fas fa-redo"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="verified-signature--wrapper">
+                                                                        <div class="verified-signature--overlay">
+                                                                            <div class="tap-text">
+                                                                                Tap to Unlock
+                                                                            </div>
+                                                                        </div>
+                                                                        <div id="verified-signature" class="signature"></div>
+                                                                        <textarea id="VerifiedBy_Signature" name="VerifiedBy_Signature" class="d-none"></textarea>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12 col-md-6 col-xl-12">
+                                                                            <div class="txt bold">Managing Agent: &nbsp; <input type="text" class="form-control" id="VerifiedBy_Name" name="VerifiedBy_Name" value="@Model.VerifiedBy_Name" /></div>
+                                                                            <textarea rows="1" class="form-control autosize-input" name="VerifiedBy_Remarks"
+                                                                                      style="height: 50px;" id="VerifiedBy_Remarks" placeholder="Remarks">
+                                                                                @Model.VerifiedBy_Remarks
+                                                                            </textarea>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="col-sm-12 col-md-6 col-xl-4 sign-container">
+                                                                    <div class="title bold">Verified by</div>
+                                                                    <div id="verified-signature" class="signature"></div>
+                                                                    <textarea id="VerifiedBy_" name="VerifiedBy_" class="d-none"></textarea>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12 col-md-6 col-xl-2">
+                                                                            <a href="javascript:void(0);" class="btn ver-clear-button delete"><i class="fas fa-redo"></i></a>
+                                                                        </div>
+                                                                        <div class="col-sm-12 col-md-6 col-xl-10">
+                                                                            <div class="txt bold">Managing Agent: &nbsp; <input type="text" class="form-control" id="VerifiedBy_Name" name="VerifiedBy_Name" value="@Model.VerifiedBy_Name" disabled="disabled" /></div>
+                                                                            <textarea rows="1" class="form-control autosize-input" name="VerifiedBy_Remarks"
+                                                                                      style="height: 50px;" id="VerifiedBy_Remarks" placeholder="Remarks" disabled="disabled">
+                                                                                @Model.VerifiedBy_Remarks
+                                                                            </textarea>
+                                                                            @*<div class="input-group date" id="agent-datetime">
+                                                                                    <input type="text" class="form-control" />
+                                                                                    <span class="input-group-addon">
+                                                                                        <i class="fas fa-calendar"></i>
+                                                                                    </span>
+                                                                                </div>*@
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+
+                                                        }
+
+                                                    </div>
+                                                </div>
+
+
+                                                                            }
+                                    <div class="box-footer with-border">
+                                        <input type="button" value="Back" id="edit_chklst_submission-back" class="btn btn-primary pull-left ChecklistIndex" />
+                                        @if (groupID == 5)
+                                        {
+                                            <button type="button" id="signatures_chklst_submit" class="btn btn-success btn-wide btn-lg pull-right" name="save"><i class="fa fa-check-square-o"></i> Save</button>
+
+                                        }
+                                        else
+                                        {
+                                            <button type="button" id="edit_chklst_submission" class="btn btn-success btn-wide btn-lg pull-right" name="save"><i class="fa fa-check-square-o"></i> Save</button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<script src="~/Scripts/assets/plugins/flashcanvas.min.js"></script>
+    <script src="~/Scripts/assets/plugins/flashcanvas.swf"></script>*@
+<script src="~/Scripts/assets/plugins/jSignature.min.js"></script>
+<script src="~/Scripts/assets/plugins/jSignature.min.noconflict.js"></script>
+<script src="~/Scripts/assets/plugins/select2.min.js"></script>
+<script src="~/Scripts/assets/plugins/moment.min.js"></script>
+<script src="~/Scripts/assets/plugins/datepicker.min.js"></script>
+<script src="~/Scripts/assets/plugins/bootstrap-datetimepicker.min.js"></script>
+
+
+<script>
+
+
+    $(document).ready(function () {
+
+        $('textarea').each(function () {
+            $(this).val($.trim($(this).val()));
+        });
+
+        var grpID = '@BuildInspect.Models.Utility.AppSession.GetCurrentUserGroup()';
+
+        if (grpID == 5) {
+            $("#checklistEdit_Form input[type=checkbox]").prop("disabled", true);
+            $.each($("input[id^='checklist-duedate_']"), function (i, v) {
+                $(v).prop("disabled", true);
+            });
+            $.each($("textarea[id^='checkist-remarks_']"), function (i, v) {
+                $(v).prop("disabled", true);
+            });
+        }
+
+
+        $('.datedone').datepicker({
+            format: 'dd/mm/yyyy',
+            autoHide: true,
+            endDate: new Date()
+        });
+        //$('#Receiveing_time').datetimepicker({ format: 'DD/MM/YYYY HH:mm' });
+
+        $('#SchoolID').select2({
+            selectOnClose: true,
+            maximumSelectionSize: 3
+        });
+
+        $('.verified-signature--wrapper').on('click', function () {
+            $('.verified-signature--overlay').hide();
+            $('.verified-lock-button').hide();
+            $('.verified-unlock-button').show();
+            $('.verified-clear-button').show();
+        });
+
+        $('.verified-lock-button').on('click', function () {
+            $(this).hide();
+            $('.verified-signature--overlay').hide();
+            $('.verified-unlock-button').show();
+            $('.verified-clear-button').show();
+        });
+
+        $('.verified-unlock-button').on('click', function () {
+            $(this).hide();
+            $('.verified-signature--overlay').show();
+            $('.verified-lock-button').show();
+            $('.verified-clear-button').hide();
+        });
+
+        $('.endorsed-signature--wrapper').on('click', function () {
+            $('.endorsed-signature--overlay').hide();
+            $('.endorsed-lock-button').hide();
+            $('.endorsed-unlock-button').show();
+            $('.endorsed-clear-button').show();
+        });
+
+        $('.endorsed-lock-button').on('click', function () {
+            $(this).hide();
+            $('.endorsed-signature--overlay').hide();
+            $('.endorsed-unlock-button').show();
+            $('.endorsed-clear-button').show();
+        });
+
+        $('.endorsed-unlock-button').on('click', function () {
+            $(this).hide();
+            $('.endorsed-signature--overlay').show();
+            $('.endorsed-lock-button').show();
+            $('.endorsed-clear-button').hide();
+        });
+
+        /* Checkby Signature */
+
+        var $checkbySig = $('#checkby-signature');
+        var $checkbySigCapture = $('#CheckedBy_Signature');
+        var $checkbyData = $checkbySig.jSignature('getData', 'svgbase64');
+
+        $checkbySig.jSignature({
+            'background-color': 'transparent',
+            'decor-color': 'transparent',
+            color: "#00f",
+            lineWidth: 3
+
+        });
+        if ('@Model.CheckedBy_Signature' != null && '@Model.CheckedBy_Signature' != '') {
+            $checkbySig.jSignature('setData', '@Model.CheckedBy_Signature');
+        }
+        $checkbySig.bind('change', function (e) {
+            var $checkdata = $checkbySig.jSignature('getData');
+            $checkbySigCapture.val($checkdata);
+        });
+
+        $('.checkby-clear-button').on('click', function (e) {
+            e.preventDefault();
+            $checkbySig.jSignature('reset');
+            $checkbySigCapture.val('');
+        });
+
+
+
+        /* Verified Signature */
+
+        var $verifiedSig = $('#verified-signature');
+        var $verifiedSigCapture = $('#VerifiedBy_Signature');
+        var $verifiedData = $verifiedSig.jSignature('getData', 'svgbase64');
+        $verifiedSig.jSignature({
+            'background-color': 'transparent',
+            'decor-color': 'transparent',
+            color: "#00f", lineWidth: 3
+        });
+
+        if ('@Model.VerifiedBy_Signature' != null && '@Model.VerifiedBy_Signature' != '') {
+            $verifiedSig.jSignature('setData', '@Model.VerifiedBy_Signature');
+            $verifiedSigCapture.val('@Model.VerifiedBy_Signature');
+        }
+        $verifiedSig.bind('change', function (e) {
+            var $verdata = $verifiedSig.jSignature('getData');
+            $verifiedSigCapture.val($verdata);
+        });
+
+        $('.verified-clear-button').on('click', function (e) {
+            e.preventDefault();
+            $verifiedSig.jSignature('reset');
+            $verifiedSigCapture.val('');
+        });
+
+
+
+        /* Endorsed Signature */
+
+        var $endorsedSig = $('#endorsed-signature');
+        var $endorsedSigCapture = $('#EndoresBy_Signature');
+        var $endorsedData = $endorsedSig.jSignature('getData', 'svgbase64');
+        $endorsedSig.jSignature({
+            'background-color': 'transparent',
+            'decor-color': 'transparent',
+            color: "#00f", lineWidth: 3
+        });
+        if ('@Model.EndoresBy_Signature' != null && '@Model.EndoresBy_Signature' != '') {
+            $endorsedSig.jSignature('setData', '@Model.EndoresBy_Signature');
+            $endorsedSigCapture.val('@Model.EndoresBy_Signature');
+        }
+        $endorsedSig.bind('change', function (e) {
+            var $enddata = $endorsedSig.jSignature('getData');
+            $endorsedSigCapture.val($enddata);
+        });
+
+        $('.endorsed-clear-button').on('click', function (e) {
+            e.preventDefault();
+            $endorsedSig.jSignature('reset');
+            $endorsedSigCapture.val('');
+        });
+
+        if ('@Model.CheckedBy_Signature' != null)
+        {
+            $checkbySig.jSignature('disable');
+        }
+
+        if (grpID == 5 ) {
+            $endorsedSig.jSignature('disable');
+        }
+        else
+        {
+            $verifiedSig.jSignature('disable');
+        }
+
+        $('.done-check').click(function () {
+            debugger;
+            var getchkid = $(this).attr('id');
+            var tid = getchkid.split('_')[1];
+            var yesid = "yes_" + tid;
+            var noid = "no_" + tid;
+            var naid = "na_" + tid;
+
+            if (getchkid == yesid) {
+                var isChecked = $('#' + getchkid).is(':checked');
+                if ($('#' + getchkid).is(':checked') == true) {
+                    $('#' + noid).prop('checked', false);
+                    $('#' + naid).prop('checked', false);
+                }
+            }
+            if (getchkid == noid) {
+                var isChecked = $('#' + getchkid).is(':checked');
+                if ($('#' + getchkid).is(':checked') == true) {
+                    $('#' + yesid).prop('checked', false);
+                    $('#' + naid).prop('checked', false);
+                }
+            }
+            if (getchkid == naid) {
+                var isChecked = $('#' + getchkid).is(':checked');
+                if ($('#' + getchkid).is(':checked') == true) {
+                    $('#' + yesid).prop('checked', false);
+                    $('#' + noid).prop('checked', false);
+                }
+            }
+
+        });
+
+        $('.spdone-check').click(function () {
+            // debugger;
+            var getchkid = $(this).attr('id');
+            var tid = getchkid.split('_')[1];
+            var nid = getchkid.split('_')[2];
+            var yesid = "Fyes_" + tid + "_" + nid;
+            var noid = "Fno_" + tid + "_" + nid;
+            var naid = "Fna_" + tid + "_" + nid;
+
+            if (getchkid == yesid) {
+                var isChecked = $('#' + getchkid).is(':checked');
+                if ($('#' + getchkid).is(':checked') == true) {
+                    $('#' + noid).prop('checked', false);
+                    $('#' + naid).prop('checked', false);
+                }
+            }
+            if (getchkid == noid) {
+                var isChecked = $('#' + getchkid).is(':checked');
+                if ($('#' + getchkid).is(':checked') == true) {
+                    $('#' + yesid).prop('checked', false);
+                    $('#' + naid).prop('checked', false);
+                }
+            }
+            if (getchkid == naid) {
+                var isChecked = $('#' + getchkid).is(':checked');
+                if ($('#' + getchkid).is(':checked') == true) {
+                    $('#' + yesid).prop('checked', false);
+                    $('#' + noid).prop('checked', false);
+                }
+            }
+
+        });
+
+    });
+
+    //$("form").removeData("validator");
+    //$("form").removeData("unobtrusiveValidation");
+    //$.validator.unobtrusive.parse("form");
+
+    function DeleteChecklistFile(id, chkid) {
+
+        Lobibox.confirm({
+            iconClass: false,
+            msg: 'Are you sure to delete this image?',
+            callback: function (lobibox, type) {
+                var btnType;
+                if (type === 'no') {
+                    btnType = 'warning';
+                } else if (type === 'yes') {
+                    btnType = 'success';
+                    DeleteChecklistFileConfirmed(id, chkid);
+
+                }
+                //Lobibox.notify(btnType, {
+                //    size: 'mini',
+                //    msg: 'This is ' + btnType + ' message'
+                //});
+            }
+        });
+
+    }
+</script>

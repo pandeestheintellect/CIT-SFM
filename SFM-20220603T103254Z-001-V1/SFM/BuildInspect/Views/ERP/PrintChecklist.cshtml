@@ -1,0 +1,408 @@
+﻿@model BuildInspect.Models.ViewModel.CheckListTransMasterViewModel
+@using BuildInspect.Models.ViewModel
+
+@{
+    Layout = null;
+}
+
+<style>
+
+</style>
+
+<center>
+    <table width="900" border="0" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th>
+                    <table width="890" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td>
+                                @if (ViewBag.CompanyID == 1)
+                                {
+                                    <img height="90" width="160" src="~/Scripts/assets/images/Smart_Building_Suite_360.png" />
+                                }
+                                @if (ViewBag.CompanyID == 2)
+                                {
+                                    <img height="120" width="120" src="~/Scripts/assets/images/Smart_Building_Suite_360.png" />
+                                }
+                                @if (ViewBag.CompanyID == 3)
+                                {
+                                    <img height="90" width="160" src="~/Scripts/assets/images/Smart_Building_Suite_360.png" />
+                                }
+
+                            </td>
+                            <td align="center">
+                                @if (ViewBag.CompanyID == 1)
+                                {
+                                <span style="font-size:26px; font-weight:bold; color: orangered; text-align:center;">
+                                    Smart Facility management (SFM)
+                                </span><br />
+                                       <span style="font-weight:bold; font-size:14px; text-align:center">
+                                           10 Anson Road, #22-02 International Plaza, Singapore 079903 <br />
+                                           URL:http://www.smartdigitalbuild360.com/
+                                       </span>
+                                }
+                                @if (ViewBag.CompanyID == 2)
+                                {
+                                       <span style="font-size:26px; font-weight:bold; color: #ff8040; text-align:center;">
+                                           Smart Facility management (SFM)
+                                       </span><br />
+                                              <span style="font-weight:bold; font-size:14px; text-align:center">
+                                                  10 Anson Road, #22-02 International Plaza, Singapore 079903 <br />
+                                                  URL:http://www.smartdigitalbuild360.com/
+                                              </span>
+                                }
+                                @if (ViewBag.CompanyID == 3)
+                                {
+                                    <span style="font-size:26px; font-weight:bold; color: orangered; text-align:center;">
+                                        Smart Facility management (SFM)
+                                    </span><br />
+                                           <span style="font-weight:bold; font-size:14px; text-align:center">
+                                               10 Anson Road, #22-02 International Plaza, Singapore 079903 <br />
+                                               URL:http://www.smartdigitalbuild360.com/
+                                           </span>
+                                }
+                            </td>
+                        </tr>
+                    </table>
+
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    <table width="890" border="0" cellspacing="0" cellpadding="0">
+                        <tr><td><br /></td><td><br /></td></tr>
+                        <tr>
+                            <td width="65%" style="font-weight:bold;">M & E INSPECTION FORM - @Model.CLType (@Model.Frequency)</td>
+                            <td width="35%" align="right" style="font-weight:bold;">@ViewBag.Annexure</td>
+                        </tr>
+                        <tr><td><br /></td><td><br /></td></tr>
+                        <tr>
+                            <td width="65%" style="font-weight:bold;">SITE: @ViewBag.SchoolName &nbsp; @ViewBag.Address</td>
+                            <td width="35%" align="right" style="font-weight:bold;">Month: @ViewBag.MonthName</td>
+                        </tr>
+                        <tr><td><br /></td><td><br /></td></tr>
+                    </table>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <table width="890" border="1" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr>
+                                <th align="center" style="width:50px;">S/N</th>
+                                <th align="center" style="width:470px;">ITEM</th>
+                                <th align="center" style="width:200px;">DONE? (Y or N or NA)</th>
+                                <th align="center" style="width:80px;">Date Done</th>
+                                <th align="center" style="width:190px;">Remarks</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @{
+                                List<CheckListItemMasterViewModel> header = ViewBag.CheckListItems;
+                                header = header.Where(a => a.ParentID == null).OrderBy(a => a.OrderBy).ToList();
+                                int headCnt = 1;
+
+                                foreach (var h in header)
+                                {
+                                    <tr style="background-color: #808080">
+                                        <td align="center">@headCnt</td>
+                                        <td colspan="4">@h.Title</td>
+                                    </tr>
+
+
+                                    List<CheckListItemMasterViewModel> detail = ViewBag.CheckListItems;
+                                    detail = detail.Where(a => a.ParentID == h.ChkListID).ToList();
+                                    int detailCnt = 1;
+                                    foreach (var d in detail)
+                                    {
+                                        if (d.IsSubTitle == "Yes")
+                                        {
+                                            <tr style="background-color: #ddd9d9">
+                                                <td></td>
+                                                <td colspan="4">@d.Title</td>
+                                            </tr>
+
+                                            detailCnt--;
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td align="center">@detailCnt</td>
+                                                <td>@d.Title</td>
+                                                <td style="width:230px;">
+
+                                                    @{
+                                                        var loop = 0;
+                                                    }
+                                                    @if (d.ServiceType == "SP-HVLSFMPIS" || d.ServiceType == "SP-LIFTSYS" || d.ServiceType == "SP-CHILLERSYS")
+                                                    {
+                                                        if (d.ServiceType == "SP-HVLSFMPIS")
+                                                        {
+                                                            loop = ViewBag.HVLSFan_count;
+                                                        }
+                                                        else if (d.ServiceType == "SP-CHILLERSYS")
+                                                        {
+                                                            loop = ViewBag.CHILLER_count;
+                                                        }
+                                                        else
+                                                        {
+                                                            loop = ViewBag.LIFT_count;
+                                                        }
+                                                        string[] ArrSplit = d.IsDone.Split(',');
+
+                                                        for (var j = 1; j <= loop; j++)
+                                                        {
+                                                            string strid = j.ToString() + "_" + d.CLTDID;
+
+                                                            if (d.ServiceType == "SP-HVLSFMPIS")
+                                                            {
+                                                                <span>Fan @j</span>
+                                                            }
+                                                            else if (d.ServiceType == "SP-CHILLERSYS")
+                                                            {
+                                                                <span>CHIL @j</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>LIFT @j</span>
+                                                            }
+
+                                                            <label class="form-check-label">
+                                                                @if (ArrSplit[j - 1] == "1")
+                                                                {
+                                                                    <input disabled="disabled" type="checkbox" checked>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input disabled="disabled" type="checkbox">
+                                                                }
+                                                                Yes
+                                                            </label>
+
+                                                                <label class="form-check-label">
+                                                                    @if (ArrSplit[j - 1] == "2")
+                                                                    {
+                                                                        <input disabled="disabled" type="checkbox" checked>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input disabled="disabled" type="checkbox">
+                                                                    }
+                                                                    No
+                                                                </label>
+
+                                                                <label class="form-check-label">
+                                                                    @if (ArrSplit[j - 1] == "3")
+                                                                    {
+                                                                        <input disabled="disabled" type="checkbox" checked>
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input disabled="disabled" type="checkbox">
+                                                                    }
+                                                                    N/A
+                                                                </label>
+                                                                <br />
+
+                                                        }
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <label class="form-check-label">
+                                                            @if (@d.IsDone == "1")
+                                                            {
+                                                                <input disabled="disabled" type="checkbox" checked>
+                                                            }
+                                                            else
+                                                            {
+                                                                <input disabled="disabled" type="checkbox">
+                                                            }
+                                                            Yes
+                                                        </label>
+                                                            <label class="form-check-label">
+                                                                @if (@d.IsDone == "2")
+                                                                {
+                                                                    <input disabled="disabled" type="checkbox" checked>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input disabled="disabled" type="checkbox">
+                                                                }
+                                                                No
+                                                            </label>
+                                                            <label class="form-check-label">
+                                                                @if (@d.IsDone == "3")
+                                                                {
+                                                                    <input disabled="disabled" type="checkbox" checked>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input disabled="disabled" type="checkbox">
+                                                                }
+                                                                N/A
+                                                            </label>
+
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @{
+                                                        var datedone = "";
+                                                        if (d.DateDone != null)
+                                                        {
+                                                            datedone = Convert.ToDateTime(d.DateDone).ToString("dd/MM/yyyy");
+                                                        }
+                                                    }
+                                                    @datedone
+                                                </td>
+                                                <td style="word-wrap:break-word; word-break:break-all; padding-left: 1px; padding-right: 1px; text-overflow: ellipsis;width:190px!important ">
+                                                    @d.Remarks
+                                                </td>
+                                            </tr>
+                                                                }
+                                                                detailCnt++;
+                                                            }
+
+                                                            headCnt++;
+                                                        }
+
+
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <table width="890" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="300">
+                                <table>
+                                    <tr>
+                                        <td style="font-weight: bold;">Checked By</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="@Model.CheckedBy_Signature" height="90" width="250" /></td>
+                                    </tr>                                    
+                                    <tr>
+                                        <td style="font-weight: bold;">_______________________</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">(@Model.CheckedBy_Name)</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">THE CONTRACTOR</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">Date: @Convert.ToDateTime(Model.CheckedBy_DateTime).ToString("dd/MM/yyyy")</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">Remarks: @Model.CheckedBy_Remarks</td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                            <td width="300" align="center">
+                                <table>
+                                    <tr>
+                                        <td style="font-weight: bold;">Endorsed By</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="@Model.EndoresBy_Signature" height="90" width="250" /></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td style="font-weight: bold;">_______________________</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">(@Model.EndoresBy_Name)</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">USER</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">
+                                            @{
+                                                var edt = "";
+                                                if (Model.EndoresBy_DateTime != null && Model.EndoresBy_DateTime != "")
+                                                {
+                                                    edt = Convert.ToDateTime(Model.EndoresBy_DateTime).ToString("dd/MM/yyyy");
+                                                }
+                                            }
+                                            Date: @edt
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">Remarks: @Model.EndoresBy_Remarks</td>
+                                    </tr>
+                                </table>
+
+                               
+
+                            </td>
+                            <td width="290" align="right">
+                                <table>
+                                    <tr>
+                                        <td style="font-weight: bold;">Verified By</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="@Model.VerifiedBy_Signature" height="90" width="250" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">_______________________</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">
+                                            @{
+                                                var nm = "";
+                                                if (Model.VerifiedBy_Name != null && Model.VerifiedBy_Name != "")
+                                                {
+                                                    nm = "(" + Model.VerifiedBy_Name + ")";
+                                                }
+                                            }
+                                            @nm
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">MANAGEMENT AGENT</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">
+                                            @{
+                                                var dt = "";
+                                                if (Model.VerifiedBy_DateTime != null && Model.VerifiedBy_DateTime != "")
+                                                {
+                                                    dt = Convert.ToDateTime(Model.VerifiedBy_DateTime).ToString("dd/MM/yyyy");
+                                                }
+                                            }
+                                            Date: @dt
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">Remarks: @Model.VerifiedBy_Remarks</td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+</center>

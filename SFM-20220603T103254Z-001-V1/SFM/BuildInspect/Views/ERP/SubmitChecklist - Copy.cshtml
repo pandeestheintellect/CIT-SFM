@@ -1,0 +1,511 @@
+﻿@model BuildInspect.Models.ViewModel.CheckListTransMasterViewModel
+    @using BuildInspect.Models.ViewModel
+
+@{
+    Layout = null;
+}
+
+<style>
+     .table-condensed tbody > tr > td > a {
+        color: #4eb1ba !important;
+    }
+    .required::after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+ 
+ <div class="app-inner-layout app-inner-layout-page">
+                            <div class="app-inner-layout__wrapper">
+                                <div class="app-inner-layout__content pt-1">
+                                    <div class="tab-content">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="main-card mb-3 card">
+                                                        <div class="card-body">
+                                                            <h4 class="card-title">@ViewBag.Title</h4>
+
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "checklist_Form", @class = "form-horizontal" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Frequency)
+                        @Html.HiddenFor(model => model.CLType)
+                        @Html.HiddenFor(model => model.CLTMID)
+                        @Html.HiddenFor(model => model.PrjMasID)
+                        @Html.HiddenFor(model => model.UserID)
+
+                        <div class="checklist-container">
+                            <div class="row form-group">
+                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                    <div class="title">School Name</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                    <select class="school-dropdown form-control" id="SchoolID" name="SchoolID">
+                                        <optgroup label="Select">                                           
+                                                <option value=0 >-Select School-</option>                                            
+                                        </optgroup>
+
+                                        @foreach (var grp in ViewBag.SchoolGroup)
+                                        {
+                                            List<SchoolMasterViewModel> sch = ViewBag.School;
+                                            var ctGrp = sch.Where(a => a.School_Type == grp).ToList();
+                                        <optgroup label="@grp">
+                                            @foreach (var sname in ctGrp)
+                                            {
+                                            <option value="@sname.SchoolID">@sname.Zone-@sname.School_Name</option>
+                                            }                                                                                    
+                                        </optgroup>
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                    <div class="title">Address</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-10">
+                                    <textarea rows="1" class="form-control autosize-input"
+                                                style="height: 35px;" id="school-address" disabled="disabled"></textarea>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                    <div class="title">Date/Time</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                    <input type="text" class="form-control" id="checklist-datetime"  />
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                    <div class="title right">Tel</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                    <input type="text" class="form-control" id="checklist-tel" name="checklist-tel" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                    <div class="title">Contact Person</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                    <input type="text" class="form-control" id="contact-person" name="contact-person" disabled="disabled" />
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-2">
+                                    <div class="title right">Email</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                    <input type="text" class="form-control" id="checklist-email" name="checklist-email" disabled="disabled"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checklist-table-container">
+                            <div class="row table-head">
+                                <div class="col-sm-12 col-md-6 col-xl-1 d-none d-sm-block">
+                                    <div class="table-title">S/N</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-4 d-none d-sm-block">
+                                    <div class="table-title">Items</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-2 d-none d-sm-block">
+                                    <div class="table-title">Done?</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-2 d-none d-sm-block">
+                                    <div class="table-title">Date Done</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-3 d-none d-sm-block">
+                                    <div class="table-title">Remarks</div>
+                                </div>
+                            </div>
+                            <!--Start: 1st portion -->
+                            @{
+                                    List<CheckListItemMasterViewModel> header = ViewBag.CheckListItems;
+                                    header = header.Where(a => a.ParentID == null).ToList();
+                                    int headCnt = 1;
+                                    
+                                    foreach (var h in header)
+                                    {
+                                    <div class="row table-title-head">
+                                        <div class="col-sm-12 col-md-6 col-xl-1">
+                                            <div class="table-title">@headCnt</div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 col-xl-11">
+                                            <div class="table-title">@h.Title</div>
+                                        </div>
+                                    </div>
+
+                                    List<CheckListItemMasterViewModel> detail = ViewBag.CheckListItems;
+                                    detail = detail.Where(a => a.ParentID == h.ChkListID).ToList();
+                                    int detailCnt = 1;
+                                    foreach (var d in detail)
+                                    {
+                                        if (d.IsSubTitle == "Yes")
+                                        {
+                                            <div class="row table-title-head" >
+                                                <div class="col-sm-12 col-md-6 col-xl-1" style="background:aliceblue !important">
+                                                    <div class="table-title" ></div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-11" style="background:aliceblue !important">
+                                                    <div class="table-title" >@d.Title</div>
+                                                </div>
+                                            </div>
+                                            detailCnt--;
+                                        }
+                                        else
+                                        {
+                                        <div class="row table-body-content">
+                                            <div class="col-sm-12 col-md-6 col-xl-1">
+                                                <div class="txt">@detailCnt</div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 col-xl-4">
+                                                <div class="txt">@d.Title</div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 col-xl-2">
+                                                <fieldset class="form-group">
+                                                    <div class="form-check">
+                                                       
+                                                        @*<label class="form-check-label">
+                                                            <input name="checklist-done_@d.ChkListID" type="radio" class="form-check-input"> Yes
+                                                        </label>
+                                                        <label class="form-check-label">
+                                                            <input name="checklist-done_@d.ChkListID" type="radio" class="form-check-input"> No
+                                                        </label>*@
+
+                                                        <label class="form-check-label">
+                                                            <input name="yes_@d.ChkListID" id="yes_@d.ChkListID" type="checkbox" class="form-check-input done-check"> Yes
+                                                        </label>
+                                                        <label class="form-check-label">
+                                                            <input name="no_@d.ChkListID" id="no_@d.ChkListID" type="checkbox" class="form-check-input done-check"> No
+                                                        </label>
+                                                        <label class="form-check-label">
+                                                            <input name="na_@d.ChkListID" id="na_@d.ChkListID" type="checkbox" class="form-check-input done-check"> N/A
+                                                        </label>
+
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 col-xl-2">
+                                                <input type="text" class="datedone form-control" id="checklist-duedate_@d.ChkListID" />
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 col-xl-3">
+                                                <textarea rows="1" class="form-control autosize-input"
+                                                          style="height: 35px;" id="checkist-remarks_@d.ChkListID"></textarea>
+                                            </div>
+                                        </div>
+                                            }
+                                            detailCnt++;
+                                        }
+
+
+                                        headCnt++;
+
+                                    }
+
+
+                                }
+
+
+                            <!--End: 1st portion -->
+                           
+                        </div>
+
+
+                       
+
+                        <div class="checklist-signature-container">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 col-xl-4 sign-container">
+                                    <div class="title bold">Checked by</div>
+                                    <div id="checkby-signature" class="signature"></div>
+                                    <textarea id="CheckedBy_Signature" name="CheckedBy_Signature" class="d-none"></textarea>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6 col-xl-2">
+                                            <a href="javascript:void(0);" class="btn checkby-clear-button delete"><i class="fas fa-redo"></i></a>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 col-xl-10">
+                                            <div class="txt bold">The Contractor</div>
+                                            <textarea rows="1" class="form-control autosize-input" name="CheckedBy_Remarks"
+                                                      style="height: 50px;" id="CheckedBy_Remarks" placeholder="Remarks"></textarea>
+                                            <div class="input-group date" id="contractor-datetime">
+                                                <input type="text" class="form-control" id="CheckedBy_DateTime" name="CheckedBy_DateTime"/>
+                                                <span class="input-group-addon">
+                                                    <i class="fas fa-calendar"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-4 sign-container">
+                                    <div class="title bold">Verified by</div>
+                                    <div id="verified-signature" class="signature"></div>
+                                    <textarea id="VerifiedBy_Signature" name="VerifiedBy_Signature" class="d-none"></textarea>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6 col-xl-2">
+                                            <a href="javascript:void(0);" class="btn verified-clear-button delete"><i class="fas fa-redo"></i></a>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 col-xl-10">
+                                            <div class="txt bold">Managing Agent</div>
+                                            <textarea rows="1" class="form-control autosize-input" name="VerifiedBy_Remarks"
+                                                      style="height: 50px;" id="VerifiedBy_Remarks" placeholder="Remarks"></textarea>
+                                            <div class="input-group date" id="agent-datetime">
+                                                <input type="text" class="form-control" id="VerifiedBy_DateTime" name="VerifiedBy_DateTime"/>
+                                                <span class="input-group-addon">
+                                                    <i class="fas fa-calendar"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-xl-4 sign-container">
+                                    <div class="title bold">Endorsed by</div>
+                                    <div id="endorsed-signature" class="signature"></div>
+                                    <textarea id="EndoresBy_Signature" name="EndoresBy_Signature" class="d-none"></textarea>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6 col-xl-2">
+                                            <a href="javascript:void(0);" class="btn endorsed-clear-button delete"><i class="fas fa-redo"></i></a>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 col-xl-10">
+                                            <div class="txt bold">User</div>
+                                            <textarea rows="1" class="form-control autosize-input" name="EndoresBy_Remarks"
+                                                      style="height: 50px;" id="EndoresBy_Remarks" placeholder="Remarks"></textarea>
+                                            <div class="input-group date"  id="user-datetime">
+                                                <input type="text" class="form-control" id="EndoresBy_DateTime" name="EndoresBy_DateTime"/>
+                                                <span class="input-group-addon">
+                                                    <i class="fas fa-calendar"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                                }
+                                                            <div class="box-footer with-border">
+                                                                <button type="button" id="save_chklst_submission" class="btn btn-success btn-flat pull-right" name="save"><i class="fa fa-check-square-o"></i> Save</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+<script src="~/Scripts/assets/plugins/jSignature.min.js"></script>        
+<script src="~/Scripts/assets/plugins/select2.min.js"></script>
+<script src="~/Scripts/assets/plugins/moment.min.js"></script>
+<script src="~/Scripts/assets/plugins/datepicker.min.js"></script>
+<script src="~/Scripts/assets/plugins/bootstrap-datetimepicker.min.js"></script>
+
+<script>
+
+    debugger;
+
+    $(document).ready(function () {
+
+        $.extend(true, $.fn.datetimepicker.defaults, {
+            icons: {
+                time: 'fas fa-clock',
+                date: 'fas fa-calendar',
+                up: 'fas fa-arrow-up',
+                down: 'fas fa-arrow-down',
+                previous: 'fas fa-chevron-left',
+                next: 'fas fa-chevron-right',
+                today: 'fas fa-calendar-check',
+                clear: 'fas fa-trash-alt',
+                close: 'fas fa-times-circle'
+            }
+        });
+
+        //$(".school-dropdown").select2({
+        //    theme: "bootstrap4",
+        //    placeholder: "Select a school",
+        //});
+
+        //$('#checklist-date').datepicker({
+        //    format: "DD-MM-YYYY"
+        //});
+
+        $('#contractor-datetime').datetimepicker({
+            format: "DD/MM/YYYY HH:mm"
+            
+        });
+
+        $('#agent-datetime').datetimepicker({
+            format: "DD/MM/YYYY HH:mm"
+        });
+
+        $('#user-datetime').datetimepicker({
+            format: "DD/MM/YYYY HH:mm"
+        });
+
+        $('.datedone').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true,
+        });
+
+        $('#checklist-datetime').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true,
+        });
+        //$('#Receiveing_time').datetimepicker({ format: 'DD/MM/YYYY HH:mm' });
+
+        $('#SchoolID').select2({
+            theme: "bootstrap4",
+            selectOnClose: true,            
+            maximumSelectionSize: 3
+        });
+
+        $.each($("input:checkbox[id^=yes_]"), function (i, v) {
+            $(v).prop('checked', true);
+
+        });
+
+        $('#checklist-datetime').on('change', function (e) {
+
+            $.each($("input[id^='checklist-duedate_']"), function (i, v) {
+                var dt = $('#checklist-datetime').val()
+                $(v).val(dt) 
+
+            });
+
+        });
+
+        $('#SchoolID').on('change', function (e) {
+            debugger;
+            if (this.value != 0) {
+                var fullDate = new Date()
+
+                //Thu May 19 2011 17:25:38 GMT+1000 {}
+                //convert month to 2 digits
+                var twoDigitMonth = ((fullDate.getMonth().length + 1) === 1) ? (fullDate.getMonth() + 1) : '0' + (fullDate.getMonth() + 1);
+                var currentDate = fullDate.getDate() + "/" + twoDigitMonth + "/" + fullDate.getFullYear();
+
+                //alert(currentDate);
+                $.get("ERP/GetSchoolDetail/" + this.value, function (datanew) {
+                    $('#school-address').val(datanew.result.Address);                    //$('#checklist-datetime').val(currentDate);                    $('#contact-person').val(datanew.result.Op_Manager_Name);                    $('#checklist-email').val(datanew.result.Email);                    $('#checklist-tel').val(datanew.result.Mobile);
+                });
+            }
+            else
+            {
+                $('#school-address').val('');                //$('#checklist-datetime').val('');                $('#contact-person').val('');                $('#checklist-email').val('');                $('#checklist-tel').val('');
+            }
+
+        });
+
+        /* Checkby Signature */
+        
+        var $checkbySig = $('#checkby-signature');
+        var $checkbySigCapture = $('#CheckedBy_Signature');
+        var $checkbyData = $checkbySig.jSignature('getData', 'svgbase64');
+        $checkbySig.jSignature({
+            'background-color': 'transparent',
+            'decor-color': 'transparent',
+            color: "#00f",
+            lineWidth: 3
+        });
+        $checkbySig.bind('change', function (e) {
+            var $checkdata = $checkbySig.jSignature('getData');
+            $checkbySigCapture.val($checkdata);
+        });
+        
+        $('.checkby-clear-button').on('click', function (e) {
+            e.preventDefault();
+            $checkbySig.jSignature('reset');
+            $checkbySigCapture.val('');
+        });
+
+        /* Verified Signature */
+        
+        var $verifiedSig = $('#verified-signature');
+        var $verifiedSigCapture = $('#VerifiedBy_Signature');
+        var $verifiedData = $verifiedSig.jSignature('getData', 'svgbase64');
+        $verifiedSig.jSignature({
+            'background-color': 'transparent',
+            'decor-color': 'transparent',
+            color: "#00f", lineWidth: 3
+        });
+        $verifiedSig.bind('change', function (e) {
+            var $verdata = $verifiedSig.jSignature('getData');
+            $verifiedSigCapture.val($verdata);
+        });
+        
+        $('.verified-clear-button').on('click', function (e) {
+            e.preventDefault();
+            $verifiedSig.jSignature('reset');
+            $verifiedSigCapture.val('');
+        });
+
+        /* Endorsed Signature */
+        
+        var $endorsedSig = $('#endorsed-signature');
+        var $endorsedSigCapture = $('#EndoresBy_Signature');
+        var $endorsedData = $endorsedSig.jSignature('getData', 'svgbase64');
+        $endorsedSig.jSignature({
+            'background-color': 'transparent',
+            'decor-color': 'transparent',
+            color: "#00f", lineWidth: 3
+        });
+        $endorsedSig.bind('change', function (e) {
+            var $enddata = $endorsedSig.jSignature('getData');
+            $endorsedSigCapture.val($enddata);
+        });
+        
+        $('.endorsed-clear-button').on('click', function (e) {
+            e.preventDefault();
+            $endorsedSig.jSignature('reset');
+            $endorsedSigCapture.val('');
+        });
+
+       
+        $('.done-check').click(function () {
+            debugger;
+            var getchkid = $(this).attr('id');
+            var tid = getchkid.split('_')[1];
+            var yesid = "yes_" + tid;
+            var noid = "no_" + tid;
+            var naid = "na_" + tid;
+
+            if (getchkid == yesid) {
+                var isChecked = $('#' + getchkid).is(':checked');
+                if ($('#' + getchkid).is(':checked') == true) {
+                    $('#' + noid).prop('checked', false);
+                    $('#' + naid).prop('checked', false);
+                }
+            }
+            if (getchkid == noid) {
+                var isChecked = $('#' + getchkid).is(':checked');
+                if ($('#' + getchkid).is(':checked') == true) {
+                    $('#' + yesid).prop('checked', false);
+                    $('#' + naid).prop('checked', false);
+                }
+            }
+            if (getchkid == naid) {
+                var isChecked = $('#' + getchkid).is(':checked');
+                if ($('#' + getchkid).is(':checked') == true) {
+                    $('#' + yesid).prop('checked', false);
+                    $('#' + noid).prop('checked', false);
+                }
+            }
+
+        });
+
+    });
+
+    //$("form").removeData("validator");
+    //$("form").removeData("unobtrusiveValidation");
+    //$.validator.unobtrusive.parse("form");
+
+   
+
+   
+
+</script>
